@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { animate } from 'animejs';
 import { Outlet, useLocation } from 'react-router-dom';
 import Footer from '../components/common/Footer.jsx';
 import Navbar from '../components/home/NavBar.jsx';
@@ -15,9 +16,26 @@ function FullLayout() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) return undefined;
 
+    const animations = new Map();
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        entry.target.classList.toggle('is-in-view', entry.isIntersecting);
+        const target = entry.target;
+        const wasInView = target.classList.contains('is-in-view');
+        if (entry.isIntersecting === wasInView) return;
+
+        target.classList.toggle('is-in-view', entry.isIntersecting);
+        const fromX = target.dataset.revealFrom === 'left' ? -32 : target.dataset.revealFrom === 'right' ? 32 : 0;
+        animations.get(target)?.pause();
+        animations.delete(target);
+        const animation = animate(target, {
+          opacity: entry.isIntersecting ? [0, 1] : [1, 0],
+          translateX: entry.isIntersecting ? [fromX, 0] : [0, fromX],
+          translateY: entry.isIntersecting ? [24, 0] : [0, 24],
+          delay: Number.parseFloat(getComputedStyle(target).getPropertyValue('--reveal-delay')) || 0,
+          duration: 650,
+          ease: 'outCubic',
+        });
+        animations.set(target, animation);
       });
     }, {
       threshold: 0.08,
@@ -51,6 +69,7 @@ function FullLayout() {
     return () => {
       mutationObserver.disconnect();
       observer.disconnect();
+      animations.forEach((animation) => animation.pause());
       delete root.dataset.scrollRevealEnabled;
     };
   }, [location.key]);

@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import { animate, svg } from 'animejs';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 
@@ -39,6 +41,24 @@ function MagneticLink({ to, variant, children }) {
 }
 
 function Dashboard() {
+  const heroDrawingRef = useRef(null);
+
+  useEffect(() => {
+    const target = heroDrawingRef.current;
+    if (!target || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+
+    const paths = target.querySelectorAll('[data-draw-path]');
+    const drawables = svg.createDrawable(paths);
+    const drawing = animate(drawables, {
+      draw: ['0 0', '0 1'],
+      duration: 1800,
+      delay: (_, index) => 350 + index * 180,
+      ease: 'inOutSine',
+    });
+
+    return () => drawing.pause();
+  }, []);
+
   return (
     <section className="relative isolate left-1/2 -ml-[50vw] -mt-24 -mb-8 flex min-h-svh w-screen flex-col justify-center overflow-hidden bg-[radial-gradient(ellipse_at_82%_18%,rgb(91_183_97_/_18%),transparent_36%),linear-gradient(122deg,#062c23_0%,#083c2d_52%,#0c5037_100%)] px-[max(1.25rem,calc((100vw-1200px)/2))] pt-32 pb-8 text-white max-[900px]:pt-32 max-[640px]:-mt-[5.5rem] max-[640px]:-mb-6 max-[640px]:px-[1.1rem] max-[640px]:pt-28 max-[640px]:pb-6">
       <div
@@ -54,7 +74,53 @@ function Dashboard() {
         aria-hidden="true"
       />
 
-      <div className="mx-auto my-auto grid w-full max-w-[1200px] grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] items-center gap-[clamp(2rem,5vw,5rem)] max-[900px]:grid-cols-1 max-[900px]:gap-4">
+      <div ref={heroDrawingRef} className="relative mx-auto my-auto grid w-full max-w-[1200px] grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] items-center gap-[clamp(2rem,5vw,5rem)] max-[900px]:grid-cols-1 max-[900px]:gap-4">
+        <svg
+          className="pointer-events-none absolute -left-[2%] top-[2%] z-0 hidden h-[58%] w-[42%] overflow-visible opacity-35 xl:block"
+          viewBox="0 0 600 400"
+          fill="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <filter id="hero-left-line-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="soft-glow" />
+              <feMerge>
+                <feMergeNode in="soft-glow" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <path
+            d="M-24 350C44 315 98 286 154 235S270 158 334 132 427 78 486 25"
+            pathLength="1"
+            stroke="#C7FF5E"
+            strokeOpacity=".7"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            filter="url(#hero-left-line-glow)"
+            data-draw-path
+          />
+          <path
+            d="M38 392C106 357 160 328 216 277S332 200 396 174 489 120 548 67"
+            pathLength="1"
+            stroke="#69F5B0"
+            strokeOpacity=".64"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+            filter="url(#hero-left-line-glow)"
+            data-draw-path
+          />
+          <path
+            d="M102 434C170 399 224 370 280 319S396 242 460 216 553 162 612 109"
+            pathLength="1"
+            stroke="#C7FF5E"
+            strokeOpacity=".48"
+            strokeWidth="1.1"
+            strokeLinecap="round"
+            filter="url(#hero-left-line-glow)"
+            data-draw-path
+          />
+        </svg>
         <div className="relative z-10 max-w-[660px] max-[900px]:max-w-[740px]" data-scroll-reveal data-reveal-from="left">
           <h1 className="m-0 text-[clamp(2.5rem,4.4vw,4rem)] font-bold leading-[1.05] tracking-[-0.05em] max-[640px]:text-[clamp(2.2rem,10vw,3.5rem)] max-[640px]:leading-[1.08]">
             <span className="inline-block animate-reveal-up motion-reduce:animate-none">Digital growth</span>
@@ -101,15 +167,76 @@ function Dashboard() {
           data-reveal-from="right"
         >
           <div className="absolute inset-[12%] rounded-full bg-[#8bc34a]/15 blur-[85px]" aria-hidden="true" />
-          <img
-            className="relative z-10 block h-auto w-full max-w-[550px] object-contain"
-            src="/hero.svg"
-            alt="XentroX Solutions homepage hero illustration"
-            width="400"
-            height="350"
-            fetchPriority="high"
-            decoding="async"
-          />
+          <svg
+            className="relative z-10 block h-auto w-full max-w-[550px] overflow-visible drop-shadow-[0_24px_45px_rgb(0_0_0_/_24%)]"
+            viewBox="0 0 400 350"
+            role="img"
+            aria-labelledby="hero-illustration-title"
+          >
+            <title id="hero-illustration-title">XentroX Solutions homepage illustration</title>
+            <defs>
+              <filter id="hero-line-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="soft-glow" />
+                <feMerge>
+                  <feMergeNode in="soft-glow" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <image href="/hero.svg" width="400" height="350" />
+            <path
+              d="M28 263C35 142 122 42 233 31c87-9 152 39 166 119 11 67-20 126-75 159"
+              pathLength="1"
+              fill="none"
+              filter="url(#hero-line-glow)"
+              stroke="#C7FF5E"
+              strokeOpacity=".82"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              data-draw-path
+              aria-hidden="true"
+            />
+            <path
+              d="M8 316C48 278 81 306 119 280S183 264 222 282"
+              pathLength="1"
+              fill="none"
+              filter="url(#hero-line-glow)"
+              stroke="#C7FF5E"
+              strokeOpacity=".9"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              data-draw-path
+              aria-hidden="true"
+            />
+            <path
+              d="M0 333C43 296 79 324 115 299S177 282 214 301"
+              pathLength="1"
+              fill="none"
+              filter="url(#hero-line-glow)"
+              stroke="#69F5B0"
+              strokeOpacity=".7"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              data-draw-path
+              aria-hidden="true"
+            />
+            <path
+              d="M20 347C57 315 86 340 123 317S176 304 204 319"
+              pathLength="1"
+              fill="none"
+              filter="url(#hero-line-glow)"
+              stroke="#C7FF5E"
+              strokeOpacity=".55"
+              strokeWidth="1"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              data-draw-path
+              aria-hidden="true"
+            />
+          </svg>
         </div>
       </div>
 
