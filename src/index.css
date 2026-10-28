@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-spinner-letter: spinner-letter 1.2s ease-in-out infinite;
+  --animate-spin-slow: spin 28s linear infinite;
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-signal: signal 3.2s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes signal {
+    to {
+      stroke-dashoffset: -72;
+    }
+  }
+
+  @keyframes spinner-letter {
+    0%,
+    60%,
+    100% {
+      color: #fff;
+      /* opacity: 0.45; */
+      transform: translateY(0);
+    }
+
+    30% {
+      color: #8bc34a;
+      opacity: 1;
+      transform: translateY(-0.2em);
+    }
+  }
+}
