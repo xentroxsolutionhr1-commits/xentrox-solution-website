@@ -123,7 +123,7 @@ export default function Navbar({ onOpenEnroll }) {
 
           {/* Desktop Nav */}
           <nav
-            className="hidden items-center gap-4 xl:flex xl:gap-6"
+            className="hidden items-center gap-7 xl:flex"
             aria-label="Main Navigation"
           >
             {navLinksBeforeServices.map((link) => (
@@ -132,8 +132,8 @@ export default function Navbar({ onOpenEnroll }) {
                 to={link.path}
                 end={link.path === '/'}
                 className={({ isActive }) =>
-                  `group relative py-1 text-[13px] tracking-normal no-underline transition-colors ${
-                    isActive ? 'font-semibold text-white' : 'font-medium text-white/70 hover:text-white'
+                  `group relative py-1 text-sm tracking-normal no-underline transition-colors ${
+                    isActive ? 'font-semibold text-white' : 'font-normal text-white/85 hover:text-[#a3e635]'
                   }`
                 }
               >
@@ -141,56 +141,68 @@ export default function Navbar({ onOpenEnroll }) {
                   <>
                     <span>{link.label}</span>
                     <span
-                      className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-[#84CC16] transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0'
                       }`}
                     />
                   </>
                 )}
               </NavLink>
             ))}
-            <div className="relative" ref={servicesRef}>
+            <div
+              className="relative"
+              ref={servicesRef}
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false);
+              }}
+            >
               <button
                 type="button"
                 aria-expanded={servicesOpen}
                 aria-controls="desktop-services-menu"
                 onClick={() => setServicesOpen((open) => !open)}
-                className={`group relative inline-flex items-center gap-1 py-1 text-[13px] tracking-normal transition-colors ${
-                  servicesOpen || isServiceRoute ? 'font-semibold text-white' : 'font-medium text-white/70 hover:text-white'
+                className={`group relative inline-flex items-center gap-1 py-1 text-sm tracking-normal transition-colors ${
+                  servicesOpen || isServiceRoute
+                    ? 'font-semibold text-white'
+                    : 'font-normal text-white/85 hover:text-[#a3e635]'
                 }`}
               >
                 Services
                 <Icon name="chevronDown" size={14} className={`transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
                 <span
-                  className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-[#84CC16] transition-all duration-300 ${
-                    servicesOpen || isServiceRoute ? 'w-full' : 'w-0 group-hover:w-full'
+                  className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
+                    isServiceRoute ? 'w-full' : 'w-0'
                   }`}
                 />
               </button>
               {servicesOpen && (
                 <div
                   id="desktop-services-menu"
-                  className="absolute left-1/2 top-full z-50 mt-4 w-72 -translate-x-1/2 overflow-hidden rounded-2xl border border-white/15 bg-[#062c23]/90 p-2 shadow-xl backdrop-blur-xl"
+                  className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3"
                 >
-                  {serviceLinks.map((service) => (
+                  <div className="overflow-hidden rounded-2xl border border-white/15 bg-[#062c23]/95 p-2 shadow-xl backdrop-blur-xl">
+                    {serviceLinks.map((service) => (
+                      <NavLink
+                        key={service.path}
+                        to={service.path}
+                        onClick={() => setServicesOpen(false)}
+                        className="block rounded-xl px-3 py-2.5 no-underline transition-colors hover:bg-white/10"
+                      >
+                        <span className="block text-sm font-semibold text-white">{service.label}</span>
+                        <span className="mt-0.5 block text-xs font-normal text-white/55">{service.detail}</span>
+                      </NavLink>
+                    ))}
                     <NavLink
-                      key={service.path}
-                      to={service.path}
+                      to="/services"
                       onClick={() => setServicesOpen(false)}
-                      className="block rounded-xl px-3 py-2.5 no-underline transition-colors hover:bg-white/10"
+                      className="mt-1 flex items-center justify-between border-t border-white/10 px-3 py-3 text-xs font-semibold text-[#a3e635] no-underline"
                     >
-                      <span className="block text-sm font-bold text-white">{service.label}</span>
-                      <span className="mt-0.5 block text-xs text-white/55">{service.detail}</span>
+                      Explore all services
+                      <Icon name="arrowRight" size={14} />
                     </NavLink>
-                  ))}
-                  <NavLink
-                    to="/services"
-                    onClick={() => setServicesOpen(false)}
-                    className="mt-1 flex items-center justify-between border-t border-white/10 px-3 py-3 text-xs font-bold text-[#a3e635] no-underline"
-                  >
-                    Explore all services
-                    <Icon name="arrowRight" size={14} />
-                  </NavLink>
+                  </div>
                 </div>
               )}
             </div>
@@ -199,8 +211,8 @@ export default function Navbar({ onOpenEnroll }) {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `group relative py-1 text-[13px] tracking-normal no-underline transition-colors ${
-                    isActive ? 'font-semibold text-white' : 'font-medium text-white/70 hover:text-white'
+                  `group relative py-1 text-sm tracking-normal no-underline transition-colors ${
+                    isActive ? 'font-semibold text-white' : 'font-normal text-white/85 hover:text-[#a3e635]'
                   }`
                 }
               >
@@ -208,8 +220,8 @@ export default function Navbar({ onOpenEnroll }) {
                   <>
                     <span>{link.label}</span>
                     <span
-                      className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-[#84CC16] transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0'
                       }`}
                     />
                   </>

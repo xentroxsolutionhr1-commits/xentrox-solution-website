@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 
@@ -40,18 +39,6 @@ function MagneticLink({ to, variant, children }) {
 }
 
 function Dashboard() {
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
-
-  const handleCorePointerMove = (event) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const bounds = event.currentTarget.getBoundingClientRect();
-    setPointer({
-      x: (event.clientX - bounds.left) / bounds.width * 2 - 1,
-      y: (event.clientY - bounds.top) / bounds.height * 2 - 1,
-    });
-  };
-
   return (
     <section className="relative isolate left-1/2 -ml-[50vw] -mt-24 -mb-8 flex min-h-svh w-screen flex-col justify-center overflow-hidden bg-[radial-gradient(ellipse_at_82%_18%,rgb(91_183_97_/_18%),transparent_36%),linear-gradient(122deg,#062c23_0%,#083c2d_52%,#0c5037_100%)] px-[max(1.25rem,calc((100vw-1200px)/2))] pt-32 pb-8 text-white max-[900px]:pt-32 max-[640px]:-mt-[5.5rem] max-[640px]:-mb-6 max-[640px]:px-[1.1rem] max-[640px]:pt-28 max-[640px]:pb-6">
       <div
@@ -109,110 +96,31 @@ function Dashboard() {
         </div>
 
         <div
-          className="relative mx-auto grid min-h-[440px] w-full max-w-[550px] place-items-center [perspective:1000px] transition-[rotate] duration-300 max-[900px]:min-h-[350px] max-[640px]:hidden"
-          role="img"
-          aria-label="Interactive XentroX neural hub connecting strategy, content, design, and web development"
+          className="relative mx-auto grid min-h-[440px] w-full max-w-[550px] -translate-y-[10%] place-items-center max-[900px]:min-h-[350px] max-[640px]:hidden"
           data-scroll-reveal
           data-reveal-from="right"
-          onPointerMove={handleCorePointerMove}
-          onPointerLeave={() => setPointer({ x: 0, y: 0 })}
-          style={{
-            rotate: `${pointer.y} ${-pointer.x} 0 ${Math.hypot(pointer.x, pointer.y) * 2}deg`,
-          }}
         >
-          <div className="absolute inset-[10%] rounded-full bg-[#8bc34a]/15 blur-[85px]" aria-hidden="true" />
-          <div className="absolute left-1/2 top-1/2 size-[78%] -translate-x-1/2 -translate-y-1/2 animate-spin-slow rounded-full border border-dashed border-white/15 motion-reduce:animate-none" aria-hidden="true" />
-
-          <svg
-            className="absolute inset-0 size-full"
-            viewBox="0 0 600 500"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path d="M300 75 497 190 300 305 103 190 300 75Z" fill="#11513A" stroke="#A3E635" strokeOpacity=".45" />
-            <path d="M103 190 300 305V390L103 275V190Z" fill="#082F25" stroke="white" strokeOpacity=".15" />
-            <path d="M497 190 300 305V390L497 275V190Z" fill="#0B3C2D" stroke="white" strokeOpacity=".2" />
-            <path d="M132 190 300 92 468 190 300 288 132 190Z" fill="#0C3D2D" stroke="white" strokeOpacity=".16" />
-            <path d="m300 305 197-115v85L300 390v-85Z" stroke="#A3E635" strokeOpacity=".22" />
-            <path d="M167 190h266M202 170h196M239 148h122" stroke="white" strokeOpacity=".14" />
-            <path d="M300 112v172M159 190l141 82 141-82" stroke="white" strokeOpacity=".12" />
-            <path d="m210 210 37-22 28 16-37 22-28-16Z" fill="#A3E635" fillOpacity=".85" />
-            <path d="m246 231 63-37 55 32-63 37-55-32Z" fill="#E8F7D6" fillOpacity=".88" />
-            <path d="m304 265 48-28 37 21-48 28-37-21Z" fill="#72B737" />
-            <path d="m188 307 56 33m112-1 56-33" stroke="#A3E635" strokeOpacity=".35" strokeWidth="2" strokeDasharray="4 8" className="animate-signal motion-reduce:animate-none" />
-          </svg>
-
-          <div className="absolute left-[8%] top-[8%] flex animate-float items-center gap-3 rounded-2xl border border-white/15 bg-[#062c23]/90 px-4 py-3 shadow-[0_18px_45px_rgb(0_0_0_/_22%)] backdrop-blur-xl motion-reduce:animate-none" style={{ animationDelay: '-1s', translate: `${pointer.x * -5}px ${pointer.y * -5}px` }}>
-            <span className="grid size-9 place-items-center rounded-xl bg-[#a4e85b]/15 text-[#b8f477]">
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                <circle cx="10.8" cy="10.8" r="6.8" />
-                <path d="m16 16 4 4M8 11h5M10.5 8.5v5" />
-              </svg>
-            </span>
-            <span>
-              <span className="block text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white/45">Be discovered</span>
-              <span className="mt-1 block text-xs font-semibold text-white">SEO & content</span>
-            </span>
-          </div>
-
-          <div className="absolute right-[5%] top-[11%] flex animate-float items-center gap-3 rounded-2xl border border-white/15 bg-[#062c23]/90 px-4 py-3 shadow-[0_18px_45px_rgb(0_0_0_/_22%)] backdrop-blur-xl motion-reduce:animate-none" style={{ animationDelay: '-2.5s', translate: `${pointer.x * 6}px ${pointer.y * -4}px` }}>
-            <span className="grid size-9 place-items-center rounded-xl bg-white/10 text-white">
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                <path d="M4 17.5 9.5 12l3.5 3.5L20 8.5M15.5 8.5H20V13" />
-              </svg>
-            </span>
-            <span>
-              <span className="block text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white/45">Build community</span>
-              <span className="mt-1 block text-xs font-semibold text-white">Social media</span>
-            </span>
-          </div>
-
-          <div className="absolute bottom-[12%] left-[5%] flex animate-float items-center gap-3 rounded-2xl border border-white/15 bg-[#062c23]/90 px-4 py-3 shadow-[0_18px_45px_rgb(0_0_0_/_22%)] backdrop-blur-xl motion-reduce:animate-none" style={{ animationDelay: '-3.5s', translate: `${pointer.x * -5}px ${pointer.y * 5}px` }}>
-            <span className="grid size-9 place-items-center rounded-xl bg-white/10 text-white">
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                <path d="M4 5h16v14H4zM8 9h8M8 13h5" />
-                <path d="m15 17 2 2 4-4" />
-              </svg>
-            </span>
-            <span>
-              <span className="block text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white/45">Make it memorable</span>
-              <span className="mt-1 block text-xs font-semibold text-white">Brand & design</span>
-            </span>
-          </div>
-
-          <div className="absolute bottom-[13%] right-[4%] flex animate-float items-center gap-3 rounded-2xl border border-white/15 bg-[#062c23]/90 px-4 py-3 shadow-[0_18px_45px_rgb(0_0_0_/_22%)] backdrop-blur-xl motion-reduce:animate-none" style={{ animationDelay: '-5s', translate: `${pointer.x * 6}px ${pointer.y * 5}px` }}>
-            <span className="grid size-9 place-items-center rounded-xl bg-[#a4e85b]/15 text-[#b8f477]">
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                <path d="M4 5h16v14H4zM8 9h8M8 13h3M15 13h1" />
-                <path d="m8 16 2 1 4-3" />
-              </svg>
-            </span>
-            <span>
-              <span className="block text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-white/45">Turn ideas into tools</span>
-              <span className="mt-1 block text-xs font-semibold text-white">Web & apps</span>
-            </span>
-          </div>
-
-          <div className="absolute left-1/2 top-[42%] z-10 grid size-20 -translate-x-1/2 -translate-y-1/2 animate-float place-items-center rounded-[1.6rem] border border-[#d9f99d]/60 bg-[#f3f8e9] p-3 shadow-[0_15px_45px_rgb(0_0_0_/_30%),0_0_50px_rgb(163_230_53_/_20%)] motion-reduce:animate-none sm:size-24">
-            <img className="size-full object-contain" src="/favicon.png" alt="" aria-hidden="true" />
-            <span className="absolute inset-[-0.8rem] animate-radar rounded-[2rem] border border-[#a4e635]/45 motion-reduce:animate-none" />
-            <span className="absolute inset-[-0.8rem] animate-radar rounded-[2rem] border border-[#a4e635]/35 [animation-delay:1.2s] motion-reduce:animate-none" />
-          </div>
-
-          <div className="absolute bottom-[2%] left-1/2 -translate-x-1/2 whitespace-nowrap text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-white/40">
-            A connected digital studio
-          </div>
+          <div className="absolute inset-[12%] rounded-full bg-[#8bc34a]/15 blur-[85px]" aria-hidden="true" />
+          <img
+            className="relative z-10 block h-auto w-full max-w-[550px] object-contain"
+            src="/hero.svg"
+            alt="XentroX Solutions homepage hero illustration"
+            width="400"
+            height="350"
+            fetchPriority="high"
+            decoding="async"
+          />
         </div>
       </div>
 
-      <div className="mx-auto mt-8 flex w-full max-w-[1200px] flex-wrap items-center justify-center gap-x-[clamp(0.7rem,2vw,1.5rem)] gap-y-2 border-t border-white/10 pt-5 text-[0.67rem] font-bold uppercase tracking-[0.18em] text-white/55 max-[640px]:mt-4 max-[640px]:gap-x-[0.6rem] max-[640px]:text-[0.55rem] max-[640px]:tracking-[0.1em]" data-scroll-reveal>
-        <span>SEO & Content</span>
+      <div className="mx-auto mt-8 flex w-full max-w-[1200px] flex-wrap items-center justify-center gap-x-[clamp(0.7rem,2vw,1.5rem)] gap-y-2 pt-5 text-[0.67rem] font-bold uppercase tracking-[0.18em] text-white/55 max-[640px]:mt-4 max-[640px]:gap-x-[0.6rem] max-[640px]:text-[0.55rem] max-[640px]:tracking-[0.1em]" data-scroll-reveal>
+        {/* <span>SEO & Content</span>
         <span className="size-1 rounded-full bg-[#9ce34a] max-[640px]:size-[0.2rem]" />
         <span>Social Media</span>
         <span className="size-1 rounded-full bg-[#9ce34a] max-[640px]:size-[0.2rem]" />
         <span>Brand & Design</span>
         <span className="size-1 rounded-full bg-[#9ce34a] max-[640px]:size-[0.2rem]" />
-        <span>Web & Apps</span>
+        <span>Web & Apps</span> */}
         {/* <span>Strategy</span><i className="size-1 rounded-full bg-[#9ce34a] max-[640px]:size-[0.2rem]" /><span>Design</span><i className="size-1 rounded-full bg-[#9ce34a] max-[640px]:size-[0.2rem]" /><span>Engineering</span><i className="size-1 rounded-full bg-[#9ce34a] max-[640px]:size-[0.2rem]" /><span>Growth</span> */}
       </div>
     </section>
