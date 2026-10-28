@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
-import Logo from '../shared/Logo.jsx';
 
 export default function Navbar({ onOpenEnroll }) {
   const [scrolled, setScrolled] = useState(() => window.scrollY > 15);
@@ -95,27 +94,46 @@ export default function Navbar({ onOpenEnroll }) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-header ${
-          scrolled ? 'shadow-xs py-2 bg-white/95 backdrop-blur-md' : 'py-2.5 bg-white/90 backdrop-blur-md'
+        className={`fixed inset-x-0 top-0 z-50 border-b border-white/10 text-white shadow-[0_8px_32px_rgb(0_0_0_/_10%)] backdrop-blur-xl transition-colors duration-300 ${
+          scrolled ? 'bg-[#062c23]/75' : 'bg-[#062c23]/45'
         }`}
       >
-        <div className="max-w-[1440px] w-full mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between gap-3">
+        <div
+          className="mx-auto flex min-h-[4.5rem] w-full max-w-[1440px] items-center justify-between gap-4 px-5 py-2 sm:px-8 lg:px-12 xl:px-16"
+        >
 
           {/* Logo with official Dark Teal + Lime theme */}
-          <div className="shrink-0 max-w-[210px] sm:max-w-none">
-            <Logo size="md" href="/" />
-          </div>
+          <NavLink
+            to="/"
+            aria-label="XentroX Solutions home"
+            className="group inline-flex shrink-0 items-center gap-2.5 text-white no-underline"
+          >
+            <span className="grid size-9 place-items-center">
+              <img src="/favicon.png" alt="" className="size-full object-contain drop-shadow-[0_0_12px_rgb(163_230_53_/_25%)]" />
+            </span>
+            <span className="flex flex-col leading-none">
+              <span className="text-sm font-black tracking-tight sm:text-base">
+                XENTRO<span className="text-[#a3e635]">X</span>
+              </span>
+              <span className="mt-1 text-[8px] font-bold tracking-[0.28em] text-white/55">
+                SOLUTIONS
+              </span>
+            </span>
+          </NavLink>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-4 xl:gap-6" aria-label="Main Navigation">
+          <nav
+            className="hidden items-center gap-7 xl:flex"
+            aria-label="Main Navigation"
+          >
             {navLinksBeforeServices.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 end={link.path === '/'}
                 className={({ isActive }) =>
-                  `relative py-1 text-[13px] tracking-normal no-underline transition-colors group ${
-                    isActive ? 'text-[#003831] font-semibold' : 'text-slate-600 hover:text-[#003831] font-medium'
+                  `group relative py-1 text-sm tracking-normal no-underline transition-colors ${
+                    isActive ? 'font-semibold text-white' : 'font-normal text-white/85 hover:text-[#a3e635]'
                   }`
                 }
               >
@@ -123,63 +141,78 @@ export default function Navbar({ onOpenEnroll }) {
                   <>
                     <span>{link.label}</span>
                     <span
-                      className={`absolute -bottom-1 left-0 h-[2px] rounded-full bg-[#84CC16] transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0'
                       }`}
                     />
                   </>
                 )}
               </NavLink>
             ))}
-            <div className="relative" ref={servicesRef}>
+            <div
+              className="relative"
+              ref={servicesRef}
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false);
+              }}
+            >
               <button
                 type="button"
                 aria-expanded={servicesOpen}
                 aria-controls="desktop-services-menu"
                 onClick={() => setServicesOpen((open) => !open)}
-                className={`inline-flex items-center gap-1 py-1 text-[13px] tracking-normal transition-colors ${
+                className={`group relative inline-flex items-center gap-1 py-1 text-sm tracking-normal transition-colors ${
                   servicesOpen || isServiceRoute
-                    ? 'text-[#003831] font-semibold'
-                    : 'text-slate-600 hover:text-[#003831] font-medium'
+                    ? 'font-semibold text-white'
+                    : 'font-normal text-white/85 hover:text-[#a3e635]'
                 }`}
               >
                 Services
                 <Icon name="chevronDown" size={14} className={`transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
+                <span
+                  className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
+                    isServiceRoute ? 'w-full' : 'w-0'
+                  }`}
+                />
               </button>
               {servicesOpen && (
                 <div
                   id="desktop-services-menu"
-                  className="absolute left-1/2 top-full z-50 mt-4 w-72 -translate-x-1/2 overflow-hidden rounded-2xl border border-[#E2EBE5] bg-white p-2 shadow-xl"
+                  className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3"
                 >
-                  {serviceLinks.map((service) => (
+                  <div className="overflow-hidden rounded-2xl border border-white/15 bg-[#062c23]/95 p-2 shadow-xl backdrop-blur-xl">
+                    {serviceLinks.map((service) => (
+                      <NavLink
+                        key={service.path}
+                        to={service.path}
+                        onClick={() => setServicesOpen(false)}
+                        className="block rounded-xl px-3 py-2.5 no-underline transition-colors hover:bg-white/10"
+                      >
+                        <span className="block text-sm font-semibold text-white">{service.label}</span>
+                        <span className="mt-0.5 block text-xs font-normal text-white/55">{service.detail}</span>
+                      </NavLink>
+                    ))}
                     <NavLink
-                      key={service.path}
-                      to={service.path}
+                      to="/services"
                       onClick={() => setServicesOpen(false)}
-                      className="block rounded-xl px-3 py-2.5 no-underline transition-colors hover:bg-[#F4F9F6]"
+                      className="mt-1 flex items-center justify-between border-t border-white/10 px-3 py-3 text-xs font-semibold text-[#a3e635] no-underline"
                     >
-                      <span className="block text-sm font-bold text-slate-800">{service.label}</span>
-                      <span className="mt-0.5 block text-xs text-slate-500">{service.detail}</span>
+                      Explore all services
+                      <Icon name="arrowRight" size={14} />
                     </NavLink>
-                  ))}
-                  <NavLink
-                    to="/services"
-                    onClick={() => setServicesOpen(false)}
-                    className="mt-1 flex items-center justify-between border-t border-[#E2EBE5] px-3 py-3 text-xs font-bold text-[#003831] no-underline"
-                  >
-                    Explore all services
-                    <Icon name="arrowRight" size={14} />
-                  </NavLink>
+                  </div>
                 </div>
               )}
             </div>
-            {navLinksAfterServices.filter((link) => link.path !== '/contact').map((link) => (
+            {navLinksAfterServices.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `relative py-1 text-[13px] tracking-normal no-underline transition-colors group ${
-                    isActive ? 'text-[#003831] font-semibold' : 'text-slate-600 hover:text-[#003831] font-medium'
+                  `group relative py-1 text-sm tracking-normal no-underline transition-colors ${
+                    isActive ? 'font-semibold text-white' : 'font-normal text-white/85 hover:text-[#a3e635]'
                   }`
                 }
               >
@@ -187,8 +220,8 @@ export default function Navbar({ onOpenEnroll }) {
                   <>
                     <span>{link.label}</span>
                     <span
-                      className={`absolute -bottom-1 left-0 h-[2px] rounded-full bg-[#84CC16] transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0'
                       }`}
                     />
                   </>
@@ -198,27 +231,11 @@ export default function Navbar({ onOpenEnroll }) {
           </nav>
 
           {/* Desktop contact and primary action */}
-          <div className="hidden xl:flex items-center gap-2.5 shrink-0">
-            <NavLink
-              to="/contact"
-              className="group relative py-1 text-[13px] font-medium tracking-normal text-slate-600 no-underline transition-colors hover:text-[#003831]"
-            >
-              {({ isActive }) => (
-                <>
-                  <span className={isActive ? 'font-semibold text-[#003831]' : ''}>Contact</span>
-                  <span
-                    className={`absolute -bottom-1 left-0 h-[2px] rounded-full bg-[#84CC16] transition-all duration-300 ${
-                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`}
-                  />
-                </>
-              )}
-            </NavLink>
-
+          <div className="hidden shrink-0 items-center gap-2.5 xl:flex">
             <button
               type="button"
               onClick={handleEnrollClick}
-              className={`inline-flex items-center justify-center gap-1.5 h-9 px-3.5 text-xs font-bold rounded-lg bg-[#84CC16] hover:bg-[#92dc1d] active:bg-[#78ba14] text-[#003831] shadow-xs hover:shadow-sm transition-all duration-200 whitespace-nowrap cursor-pointer select-none border border-[#72b513]/30 active:scale-95 ${
+              className={`inline-flex h-9 cursor-pointer select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-[#72b513]/30 bg-[#84CC16] px-3.5 text-xs font-bold text-[#003831] shadow-xs transition-all duration-200 hover:bg-[#92dc1d] hover:shadow-sm active:scale-95 active:bg-[#78ba14] ${
                 isEnrolling ? 'scale-95' : ''
               }`}
             >
@@ -228,11 +245,11 @@ export default function Navbar({ onOpenEnroll }) {
           </div>
 
           {/* Compact navigation for tablet and mobile */}
-          <div className="flex xl:hidden items-center gap-2 shrink-0 z-50">
+          <div className="z-50 flex shrink-0 items-center gap-2 xl:hidden">
             <button
               type="button"
               onClick={handleEnrollClick}
-              className="px-3 py-1 h-8 text-[11px] font-bold rounded-lg bg-[#84CC16] text-[#003831] shadow-xs active:scale-95 transition-transform cursor-pointer"
+              className="h-8 cursor-pointer rounded-lg bg-[#84CC16] px-3 text-[11px] font-bold text-[#003831] shadow-xs transition-transform active:scale-95"
             >
               Get Started
             </button>
@@ -246,10 +263,10 @@ export default function Navbar({ onOpenEnroll }) {
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"
-              className={`w-8.5 h-8.5 flex items-center justify-center rounded-lg border transition-all cursor-pointer ${
+              className={`flex size-9 cursor-pointer items-center justify-center rounded-full border transition-all ${
                 mobileOpen
-                  ? 'bg-[#84CC16] text-[#003831] border-lime-500'
-                  : 'bg-[#F4F9F6] border-[#E2EBE5] text-slate-800'
+                  ? 'border-lime-500 bg-[#84CC16] text-[#003831]'
+                  : 'border-white/15 bg-white/5 text-white'
               } active:scale-90`}
             >
               {mobileOpen ? <Icon name="close" size={18} className="animate-scale-in" /> : <Icon name="menu" size={18} />}
@@ -261,7 +278,7 @@ export default function Navbar({ onOpenEnroll }) {
         {mobileOpen && (
           <div
             id="mobile-navigation"
-            className="xl:hidden absolute top-full left-0 right-0 z-50 bg-white/98 backdrop-blur-xl border-b border-[#E2EBE5] px-5 py-6 shadow-2xl max-h-[calc(100vh-70px)] overflow-y-auto animate-drawer"
+            className="absolute top-full left-0 right-0 z-50 max-h-[calc(100vh-70px)] overflow-y-auto border-b border-white/10 bg-[#062c23]/95 px-5 py-6 text-white shadow-2xl backdrop-blur-xl animate-drawer xl:hidden"
           >
             <div className="flex flex-col space-y-1.5 mb-5">
               {navLinksBeforeServices.map((link) => (
@@ -273,8 +290,8 @@ export default function Navbar({ onOpenEnroll }) {
                   className={({ isActive }) =>
                     `px-3.5 py-3 rounded-xl text-base font-semibold transition-colors flex items-center justify-between ${
                       isActive
-                        ? 'bg-[#F0FDF4] text-[#003831] border border-[#BDE8CA] font-bold'
-                        : 'text-slate-800 hover:bg-slate-50'
+                        ? 'border border-[#a3e635]/30 bg-[#a3e635]/10 font-bold text-[#c8f589]'
+                        : 'text-white/85 hover:bg-white/10'
                     }`
                   }
                 >
@@ -289,7 +306,7 @@ export default function Navbar({ onOpenEnroll }) {
                   aria-controls="mobile-services-menu"
                   onClick={() => setMobileServicesOpen((open) => !open)}
                   className={`flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-base font-semibold transition-colors hover:bg-slate-50 ${
-                    isServiceRoute ? 'bg-[#F0FDF4] text-[#003831]' : 'text-slate-800'
+                    isServiceRoute ? 'bg-[#a3e635]/10 text-[#c8f589]' : 'text-white/85'
                   }`}
                 >
                   <span>Services</span>
@@ -300,13 +317,13 @@ export default function Navbar({ onOpenEnroll }) {
                   />
                 </button>
                 {mobileServicesOpen && (
-                  <div id="mobile-services-menu" className="ml-3 border-l border-[#E2EBE5] pl-3">
+                  <div id="mobile-services-menu" className="ml-3 border-l border-white/15 pl-3">
                     {serviceLinks.map((service) => (
                       <NavLink
                         key={service.path}
                         to={service.path}
                         onClick={closeMobileMenu}
-                        className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 no-underline hover:bg-[#F4F9F6] hover:text-[#003831]"
+                        className="block rounded-lg px-3 py-2.5 text-sm font-medium text-white/70 no-underline hover:bg-white/10 hover:text-white"
                       >
                         {service.label}
                       </NavLink>
@@ -314,7 +331,7 @@ export default function Navbar({ onOpenEnroll }) {
                     <NavLink
                       to="/services"
                       onClick={closeMobileMenu}
-                      className="block rounded-lg px-3 py-2.5 text-sm font-bold text-[#003831] no-underline hover:bg-[#F4F9F6]"
+                      className="block rounded-lg px-3 py-2.5 text-sm font-bold text-[#a3e635] no-underline hover:bg-white/10"
                     >
                       Explore all services
                     </NavLink>
@@ -329,8 +346,8 @@ export default function Navbar({ onOpenEnroll }) {
                   className={({ isActive }) =>
                     `px-3.5 py-3 rounded-xl text-base font-semibold transition-colors flex items-center justify-between ${
                       isActive
-                        ? 'bg-[#F0FDF4] text-[#003831] border border-[#BDE8CA] font-bold'
-                        : 'text-slate-800 hover:bg-slate-50'
+                        ? 'border border-[#a3e635]/30 bg-[#a3e635]/10 font-bold text-[#c8f589]'
+                        : 'text-white/85 hover:bg-white/10'
                     }`
                   }
                 >
@@ -341,14 +358,14 @@ export default function Navbar({ onOpenEnroll }) {
               <NavLink
                 to="/contact"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between rounded-xl px-3.5 py-3 text-base font-semibold text-slate-800 no-underline transition-colors hover:bg-slate-50"
+                className="flex items-center justify-between rounded-xl px-3.5 py-3 text-base font-semibold text-white/85 no-underline transition-colors hover:bg-white/10"
               >
                 <span>Contact</span>
                 <Icon name="arrowRight" size={14} className="opacity-40" />
               </NavLink>
             </div>
 
-            <div className="pt-3 border-t border-slate-200">
+            <div className="border-t border-white/15 pt-3">
               <button
                 type="button"
                 onClick={handleEnrollClick}
@@ -357,7 +374,7 @@ export default function Navbar({ onOpenEnroll }) {
                 <span>GET STARTED</span>
                 <Icon name="arrowRight" size={16} />
               </button>
-              <p className="text-center text-xs text-slate-500 mt-3 font-medium">
+              <p className="mt-3 text-center text-xs font-medium text-white/50">
                 XentroX Solutions • Digital growth, engineered.
               </p>
             </div>
