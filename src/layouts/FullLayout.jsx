@@ -75,9 +75,19 @@ function FullLayout() {
   }, [location.key]);
 
   return (
+    /* overflow-x-clip prevents full-bleed sections from adding a horizontal scrollbar */
     <div ref={revealRoot} className="min-h-screen overflow-x-clip bg-[#f8faf9] text-[#17231f]">
       <Navbar />
-      <main className="mx-auto min-h-[calc(100vh-4.5rem)] w-full max-w-[1200px] pt-24 pb-8 max-sm:pt-[5.5rem] max-sm:pb-6">
+      {/*
+        Main content wrapper:
+        - max-w-[1200px] caps content width on large screens
+        - w-full ensures it fills available width on smaller screens
+        - px-4 sm:px-6 lg:px-8 gives horizontal breathing room on all breakpoints
+        - pt-24 clears the fixed navbar height (≈68px + some gap)
+        - On phones (max-sm) the navbar is slightly shorter so pt-20 works
+        - Dashboard hero & section 2/3 break out of this with left-1/2 -ml-[50vw] w-screen
+      */}
+      <main className="mx-auto min-h-[calc(100vh-4.5rem)] w-full max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-24 pb-8 max-sm:pt-20 max-sm:pb-6">
         <Outlet />
       </main>
       <Footer />

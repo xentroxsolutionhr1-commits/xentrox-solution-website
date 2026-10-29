@@ -290,3 +290,74 @@ html {
     will-change: auto !important;
   }
 }
+
+/* =====================================================================
+   GLOBAL RESPONSIVE BASELINE ADDITIONS
+   ===================================================================== */
+
+/* Prevent horizontal overflow on all viewports */
+html {
+  overflow-x: hidden;
+  /* Prevent iOS Safari from inflating font-size on landscape rotation */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  /* Remove blue flash on tap (iOS / Android) */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fluid media — never wider than their container */
+img,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/* Touch-friendly minimum hit-target */
+button,
+[role="button"],
+a {
+  touch-action: manipulation;
+}
+
+/* Drawer animation for mobile nav */
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-drawer {
+  animation: drawer-in 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 200ms ease both;
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.7) rotate(-15deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.animate-scale-in {
+  animation: scale-in 180ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}

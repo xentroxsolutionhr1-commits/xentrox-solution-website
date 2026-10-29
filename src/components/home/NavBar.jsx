@@ -36,6 +36,11 @@ export default function Navbar({ onOpenEnroll }) {
     };
   }, [mobileOpen]);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    closeMobileMenu();
+  }, [pathname]);
+
   useEffect(() => () => window.clearTimeout(enrollTimerRef.current), []);
 
   useEffect(() => {
@@ -94,36 +99,42 @@ export default function Navbar({ onOpenEnroll }) {
   return (
     <>
       <header
-        className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-4 text-white sm:pt-5"
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 text-white sm:px-4 sm:pt-4 lg:pt-5"
       >
+        {/*
+          Pill navbar:
+          - Full width on mobile with small horizontal margin (px-3)
+          - Caps at max-w-[1160px] on large screens and centers
+          - min-h scales: 3.75rem phone → 4rem tablet → 4.25rem desktop
+        */}
         <div
-          className={`pointer-events-auto relative mx-auto flex min-h-[4.25rem] w-full max-w-[1160px] items-center justify-between gap-4 rounded-full px-5 py-2 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.65)] backdrop-blur-2xl transition-colors duration-300 sm:px-7 xl:px-9 ${
+          className={`pointer-events-auto relative mx-auto flex min-h-[3.75rem] w-full max-w-[1160px] items-center justify-between gap-3 rounded-2xl px-4 py-2 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.65)] backdrop-blur-2xl transition-colors duration-300 sm:min-h-[4rem] sm:rounded-full sm:px-5 sm:gap-4 xl:min-h-[4.25rem] xl:px-7 xl:gap-6 2xl:px-9 ${
             scrolled ? 'bg-[#062c23]/90' : 'bg-[#062c23]/80'
           }`}
         >
 
-          {/* Logo with official Dark Teal + Lime theme */}
+          {/* Logo */}
           <NavLink
             to="/"
             aria-label="XentroX Solutions home"
-            className="group inline-flex shrink-0 items-center gap-2.5 text-white no-underline"
+            className="group inline-flex shrink-0 items-center gap-2 text-white no-underline sm:gap-2.5"
           >
-            <span className="grid size-9 place-items-center">
+            <span className="grid size-8 place-items-center sm:size-9">
               <img src="/favicon.png" alt="" className="size-full object-contain drop-shadow-[0_0_12px_rgb(163_230_53_/_25%)]" />
             </span>
             <span className="flex flex-col leading-none">
-              <span className="text-sm font-black tracking-tight sm:text-base">
+              <span className="text-[0.8rem] font-black tracking-tight sm:text-sm xl:text-base">
                 XENTRO<span className="text-[#a3e635]">X</span>
               </span>
-              <span className="mt-1 text-[8px] font-bold tracking-[0.28em] text-white/55">
+              <span className="mt-0.5 text-[7px] font-bold tracking-[0.28em] text-white/55 sm:text-[8px]">
                 SOLUTIONS
               </span>
             </span>
           </NavLink>
 
-          {/* Desktop Nav */}
+          {/* Desktop Nav — visible from xl (1280px) upwards */}
           <nav
-            className="hidden items-center gap-7 xl:flex"
+            className="hidden items-center gap-5 xl:flex 2xl:gap-7"
             aria-label="Main Navigation"
           >
             {navLinksBeforeServices.map((link) => (
@@ -149,6 +160,7 @@ export default function Navbar({ onOpenEnroll }) {
                 )}
               </NavLink>
             ))}
+            {/* Services dropdown */}
             <div
               className="relative"
               ref={servicesRef}
@@ -230,7 +242,7 @@ export default function Navbar({ onOpenEnroll }) {
             ))}
           </nav>
 
-          {/* Desktop contact and primary action */}
+          {/* Desktop CTA — xl+ */}
           <div className="hidden shrink-0 items-center gap-2.5 xl:flex">
             <button
               type="button"
@@ -244,12 +256,12 @@ export default function Navbar({ onOpenEnroll }) {
             </button>
           </div>
 
-          {/* Compact navigation for tablet and mobile */}
+          {/* Compact nav for tablet & mobile (< xl) */}
           <div className="z-50 flex shrink-0 items-center gap-2 xl:hidden">
             <button
               type="button"
               onClick={handleEnrollClick}
-              className="h-8 cursor-pointer rounded-lg bg-[#84CC16] px-3 text-[11px] font-bold text-[#003831] shadow-xs transition-transform active:scale-95"
+              className="h-8 cursor-pointer rounded-lg bg-[#84CC16] px-2.5 text-[10px] font-bold text-[#003831] shadow-xs transition-transform active:scale-95 sm:px-3 sm:text-[11px]"
             >
               Get Started
             </button>
@@ -263,13 +275,13 @@ export default function Navbar({ onOpenEnroll }) {
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"
-              className={`flex size-9 cursor-pointer items-center justify-center rounded-full border transition-all ${
+              className={`flex size-8 cursor-pointer items-center justify-center rounded-full border transition-all sm:size-9 ${
                 mobileOpen
                   ? 'border-lime-500 bg-[#84CC16] text-[#003831]'
                   : 'border-white/15 bg-white/5 text-white'
               } active:scale-90`}
             >
-              {mobileOpen ? <Icon name="close" size={18} className="animate-scale-in" /> : <Icon name="menu" size={18} />}
+              {mobileOpen ? <Icon name="close" size={16} className="animate-scale-in" /> : <Icon name="menu" size={16} />}
             </button>
           </div>
         </div>
@@ -278,9 +290,9 @@ export default function Navbar({ onOpenEnroll }) {
         {mobileOpen && (
           <div
             id="mobile-navigation"
-            className="absolute left-0 right-0 top-[calc(100%+0.65rem)] z-50 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-[1.75rem] border border-white/15 bg-[#062c23]/95 px-5 py-6 text-white shadow-[0_24px_70px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl animate-drawer xl:hidden"
+            className="absolute left-3 right-3 top-[calc(100%+0.5rem)] z-50 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#062c23]/97 px-4 py-5 text-white shadow-[0_24px_70px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl animate-drawer sm:left-4 sm:right-4 sm:px-5 sm:py-6 sm:rounded-[1.75rem] xl:hidden"
           >
-            <div className="flex flex-col space-y-1.5 mb-5">
+            <div className="flex flex-col space-y-1 mb-4 sm:space-y-1.5 sm:mb-5">
               {navLinksBeforeServices.map((link) => (
                 <NavLink
                   key={link.path}
@@ -288,7 +300,7 @@ export default function Navbar({ onOpenEnroll }) {
                   end={link.path === '/'}
                   onClick={closeMobileMenu}
                   className={({ isActive }) =>
-                    `px-3.5 py-3 rounded-xl text-base font-semibold transition-colors flex items-center justify-between ${
+                    `px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between sm:px-3.5 sm:py-3 sm:text-base ${
                       isActive
                         ? 'border border-[#a3e635]/30 bg-[#a3e635]/10 font-bold text-[#c8f589]'
                         : 'text-white/85 hover:bg-white/10'
@@ -296,28 +308,29 @@ export default function Navbar({ onOpenEnroll }) {
                   }
                 >
                   <span>{link.label}</span>
-                  <Icon name="arrowRight" size={14} className="opacity-40" />
+                  <Icon name="arrowRight" size={13} className="opacity-40" />
                 </NavLink>
               ))}
+              {/* Mobile Services accordion */}
               <div>
                 <button
                   type="button"
                   aria-expanded={mobileServicesOpen}
                   aria-controls="mobile-services-menu"
                   onClick={() => setMobileServicesOpen((open) => !open)}
-                  className={`flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-base font-semibold transition-colors hover:bg-slate-50 ${
-                    isServiceRoute ? 'bg-[#a3e635]/10 text-[#c8f589]' : 'text-white/85'
+                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition-colors sm:px-3.5 sm:py-3 sm:text-base ${
+                    isServiceRoute ? 'bg-[#a3e635]/10 text-[#c8f589]' : 'text-white/85 hover:bg-white/10'
                   }`}
                 >
                   <span>Services</span>
                   <Icon
                     name="chevronDown"
-                    size={16}
+                    size={15}
                     className={`transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
                 {mobileServicesOpen && (
-                  <div id="mobile-services-menu" className="ml-3 border-l border-white/15 pl-3">
+                  <div id="mobile-services-menu" className="ml-3 mt-1 border-l border-white/15 pl-3">
                     {serviceLinks.map((service) => (
                       <NavLink
                         key={service.path}
@@ -344,7 +357,7 @@ export default function Navbar({ onOpenEnroll }) {
                   to={link.path}
                   onClick={closeMobileMenu}
                   className={({ isActive }) =>
-                    `px-3.5 py-3 rounded-xl text-base font-semibold transition-colors flex items-center justify-between ${
+                    `px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between sm:px-3.5 sm:py-3 sm:text-base ${
                       isActive
                         ? 'border border-[#a3e635]/30 bg-[#a3e635]/10 font-bold text-[#c8f589]'
                         : 'text-white/85 hover:bg-white/10'
@@ -352,16 +365,16 @@ export default function Navbar({ onOpenEnroll }) {
                   }
                 >
                   <span>{link.label}</span>
-                  <Icon name="arrowRight" size={14} className="opacity-40" />
+                  <Icon name="arrowRight" size={13} className="opacity-40" />
                 </NavLink>
               ))}
               <NavLink
                 to="/contact"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between rounded-xl px-3.5 py-3 text-base font-semibold text-white/85 no-underline transition-colors hover:bg-white/10"
+                className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-white/85 no-underline transition-colors hover:bg-white/10 sm:px-3.5 sm:py-3 sm:text-base"
               >
                 <span>Contact</span>
-                <Icon name="arrowRight" size={14} className="opacity-40" />
+                <Icon name="arrowRight" size={13} className="opacity-40" />
               </NavLink>
             </div>
 
@@ -369,10 +382,10 @@ export default function Navbar({ onOpenEnroll }) {
               <button
                 type="button"
                 onClick={handleEnrollClick}
-                className="w-full btn-primary py-3.5 text-sm justify-center font-black shadow-md cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#84CC16] py-3 text-sm font-black text-[#003831] shadow-md cursor-pointer transition-all active:scale-95 sm:py-3.5"
               >
                 <span>GET STARTED</span>
-                <Icon name="arrowRight" size={16} />
+                <Icon name="arrowRight" size={15} />
               </button>
               <p className="mt-3 text-center text-xs font-medium text-white/50">
                 XentroX Solutions • Digital growth, engineered.
@@ -382,7 +395,7 @@ export default function Navbar({ onOpenEnroll }) {
         )}
       </header>
 
-      {/* Backdrop overlay on phone view */}
+      {/* Backdrop overlay on mobile/tablet */}
       {mobileOpen && (
         <div
           className="fixed inset-0 z-40 bg-slate-950/40 backdrop-blur-xs xl:hidden animate-fade-in"
