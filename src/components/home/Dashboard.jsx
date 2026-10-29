@@ -4,9 +4,6 @@ import { animate, svg } from 'animejs';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 
-const gradientTextClass =
-  'bg-[linear-gradient(100deg,#fff_0%,#d9f99d_36%,#a3e635_70%,#fff_100%)] bg-clip-text text-transparent [background-size:220%_auto] animate-gradient-flow motion-reduce:animate-none';
-
 function MagneticLink({ to, variant, children }) {
   const handlePointerMove = (event) => {
     if (
@@ -58,21 +55,45 @@ function Dashboard() {
       ease: 'inOutSine',
     });
 
-    return () => drawing.pause();
+    const heroImage = target.querySelector('[data-hero-image]');
+    const imageMotion = heroImage
+      ? animate(heroImage, {
+        translateX: [-4, 4],
+        scale: [1.015, 1.035],
+        duration: 9000,
+        ease: 'inOutSine',
+        alternate: true,
+        loop: true,
+      })
+      : null;
+
+    return () => {
+      drawing.pause();
+      imageMotion?.pause();
+    };
   }, []);
 
   return (
     <section className="relative isolate left-1/2 -ml-[50vw] -mt-24 -mb-8 flex min-h-svh w-screen flex-col justify-center overflow-hidden bg-[#062c23] px-[max(1.25rem,calc((100vw-1200px)/2))] pt-32 pb-8 text-white max-[900px]:pt-32 max-[640px]:-mt-[5.5rem] max-[640px]:-mb-6 max-[640px]:px-[1.1rem] max-[640px]:pt-28 max-[640px]:pb-6">
 
-      {/* Background image with natural blending */}
+      {/* Keep the statue visible while the image gently drifts */}
       <div
-        className="pointer-events-none absolute inset-0 -z-20 bg-[url('/hero%20section.png')] bg-cover bg-center bg-no-repeat opacity-80 max-[640px]:bg-[position:65%_center]"
+        className="pointer-events-none absolute inset-y-0 right-0 -z-20 w-[68%] overflow-hidden max-[900px]:w-full"
         aria-hidden="true"
-      />
+      >
+        <img
+          className="absolute inset-0 size-full object-cover object-[100%_center] opacity-90 max-[900px]:object-[88%_center] max-[640px]:object-[84%_center]"
+          src="/hero%20section.png"
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          data-hero-image
+        />
+      </div>
 
-      {/* Dark green gradient overlay for readability */}
+      {/* Preserve readable contrast over the image */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,35,27,0.97)_0%,rgba(4,44,33,0.90)_32%,rgba(4,44,33,0.55)_58%,rgba(4,44,33,0.16)_100%)] max-[900px]:bg-[linear-gradient(90deg,rgba(4,35,27,0.92),rgba(4,44,33,0.62))] max-[640px]:bg-[linear-gradient(180deg,rgba(4,35,27,0.92)_0%,rgba(4,44,33,0.80)_55%,rgba(4,35,27,0.55)_100%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,35,27,0.97)_0%,rgba(4,44,33,0.90)_32%,rgba(4,44,33,0.55)_58%,rgba(4,44,33,0.16)_100%)] max-[900px]:bg-[linear-gradient(180deg,rgba(4,35,27,0.92)_0%,rgba(4,44,33,0.80)_52%,rgba(4,35,27,0.2)_100%)]"
         aria-hidden="true"
       />
 
@@ -159,17 +180,20 @@ function Dashboard() {
 
           <h1 className="m-0 text-[clamp(2.5rem,4.4vw,4rem)] font-bold leading-[1.05] tracking-[-0.05em] max-[640px]:text-[clamp(2.2rem,10vw,3.5rem)] max-[640px]:leading-[1.08]">
             <span className="inline-block animate-reveal-up motion-reduce:animate-none">
-              Learn digital skills,
+             Wisdom rooted
+in heritage.
+Ready for
+what's next.
             </span>
-            <br />
 
-            <span className="inline-block animate-reveal-up [animation-delay:120ms] motion-reduce:animate-none">
-              <span className={gradientTextClass}>
-                build your future.
-              </span>
-            </span>
+
           </h1>
-
+<p
+        className="mt-7 max-w-[480px] text-[1.02rem] leading-[1.8] text-[#d3e2d9] max-[640px]:mt-5 max-[640px]:max-w-[38rem] max-[640px]:text-[0.93rem] max-[640px]:leading-[1.7]"
+        data-hero-copy
+      >
+        We empower ambitious learners with cutting-edge technology skills to innovate, build, and shape the digital future.
+      </p>
 
 
           <div className="mt-8 flex flex-wrap items-center gap-[0.85rem] max-[640px]:mt-[1.4rem] max-[640px]:gap-[0.65rem]">
@@ -204,11 +228,7 @@ function Dashboard() {
         className="mx-auto mt-8 flex w-full max-w-[1200px] flex-wrap items-center justify-center gap-x-[clamp(0.7rem,2vw,1.5rem)] gap-y-2 pt-5 text-[0.67rem] font-bold uppercase tracking-[0.18em] text-white/55 max-[640px]:mt-4 max-[640px]:gap-x-[0.6rem] max-[640px]:text-[0.55rem] max-[640px]:tracking-[0.1em]"
         data-scroll-reveal
       >
-        <span>Digital Skills</span>
-        <span className="size-1 rounded-full bg-[#9ce34a]" />
-        <span>Technology</span>
-        <span className="size-1 rounded-full bg-[#9ce34a]" />
-        <span>Youth Empowerment</span>
+
       </div>
     </section>
   );
