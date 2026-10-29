@@ -1,8 +1,30 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { animate, svg } from 'animejs';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
+import ShinyText from '../react-bits/ShinyText.jsx';
+
+const growthPrinciples = [
+  {
+    number: '01',
+    category: 'Direction',
+    title: 'Start with the outcome.',
+    description: 'Set a clear goal first. Then choose the right strategy to get there.',
+  },
+  {
+    number: '02',
+    category: 'Clarity',
+    title: 'Measure what matters.',
+    description: 'Look beyond surface-level numbers to understand what is working.',
+  },
+  {
+    number: '03',
+    category: 'Momentum',
+    title: 'Improve with intent.',
+    description: 'Use what you learn to make the next move more effective.',
+  },
+];
 
 function MagneticLink({ to, variant, children }) {
   const handlePointerMove = (event) => {
@@ -38,8 +60,100 @@ function MagneticLink({ to, variant, children }) {
   );
 }
 
+function PrincipleCard({ principle }) {
+  return (
+    <article className="group relative min-h-[12.5rem] overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#092f25] p-5 text-white shadow-[0_26px_64px_-34px_rgba(2,25,18,0.72)] max-[640px]:min-h-[11.5rem] max-[640px]:rounded-[1.1rem] max-[640px]:p-4">
+      <div
+        className="pointer-events-none absolute -right-14 -top-20 size-64 rounded-full border border-[#a3e635]/10 transition-transform duration-700 group-hover:scale-110 max-[640px]:size-52"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-5 -top-12 size-48 rounded-full bg-[#a3e635]/[0.07] blur-3xl max-[640px]:size-40"
+        aria-hidden="true"
+      />
+      <div className="relative flex min-h-[10.5rem] flex-col justify-between max-[640px]:min-h-[9.5rem]">
+        <div className="flex items-center justify-between">
+          <span className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#c5e1a0]">
+            {principle.category}
+          </span>
+          <span className="font-mono text-[0.75rem] tracking-[0.16em] text-white/45">
+            {principle.number} <span className="text-[#a3e635]">/ 03</span>
+          </span>
+        </div>
+        <div className="max-w-[27rem] pb-1">
+          <h3 className="mb-2 text-[clamp(1.4rem,2.3vw,1.8rem)] font-semibold leading-[1.08] tracking-[-0.05em] max-[640px]:text-[1.45rem]">
+            {principle.title}
+          </h3>
+          <p className="m-0 max-w-[24rem] text-[0.84rem] leading-[1.65] text-[#d3e2d9]/75">
+            {principle.description}
+          </p>
+        </div>
+        <span className="absolute bottom-0 left-0 h-[3px] w-12 bg-[#a3e635] transition-[width] duration-500 group-hover:w-24" aria-hidden="true" />
+      </div>
+    </article>
+  );
+}
+
 function Dashboard() {
   const heroDrawingRef = useRef(null);
+  const principleTrackRef = useRef(null);
+  const activeCardRef = useRef(null);
+  const [activePrinciple, setActivePrinciple] = useState(0);
+
+  useEffect(() => {
+    const track = principleTrackRef.current;
+    if (!track) return undefined;
+
+    let frameId = 0;
+    const updateActivePrinciple = () => {
+      frameId = 0;
+      if (window.innerWidth <= 900) {
+        setActivePrinciple(0);
+        return;
+      }
+
+      const trackTop = track.getBoundingClientRect().top + window.scrollY;
+      const stickyTop = window.innerHeight * 0.5 - 100;
+      const stepSize = window.innerHeight * 0.68;
+      const progress = window.scrollY + stickyTop - trackTop;
+      const nextIndex = Math.max(
+        0,
+        Math.min(growthPrinciples.length - 1, Math.floor(progress / stepSize)),
+      );
+      setActivePrinciple((current) => current === nextIndex ? current : nextIndex);
+    };
+
+    const scheduleUpdate = () => {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(updateActivePrinciple);
+    };
+
+    updateActivePrinciple();
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+    };
+  }, []);
+
+  useEffect(() => {
+    const card = activeCardRef.current;
+    if (!card || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined;
+    }
+
+    const entrance = animate(card, {
+      opacity: [0, 1],
+      translateY: [24, 0],
+      duration: 420,
+      ease: 'outCubic',
+    });
+
+    return () => entrance.pause();
+  }, [activePrinciple]);
 
   useEffect(() => {
     const target = heroDrawingRef.current;
@@ -74,21 +188,15 @@ function Dashboard() {
   }, []);
 
   return (
-    <section className="relative isolate left-1/2 -ml-[50vw] -mt-24 -mb-8 flex min-h-svh w-screen flex-col justify-center overflow-hidden bg-[#062c23] px-[max(1.25rem,calc((100vw-1200px)/2))] pt-32 pb-8 text-white max-[900px]:pt-32 max-[640px]:-mt-[5.5rem] max-[640px]:-mb-6 max-[640px]:px-[1.1rem] max-[640px]:pt-28 max-[640px]:pb-6">
+    <>
+    <section className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex h-screen min-h-svh w-screen flex-col justify-center overflow-hidden bg-[#062c23] px-[max(1.25rem,calc((100vw-1200px)/2))] pt-32 pb-8 text-white max-[900px]:h-svh max-[900px]:pt-32 max-[640px]:-mt-[5.5rem] max-[640px]:px-[1.1rem] max-[640px]:pt-28 max-[640px]:pb-6">
 
       {/* Keep the statue visible while the image gently drifts */}
       <div
         className="pointer-events-none absolute inset-y-0 right-0 -z-20 w-[68%] overflow-hidden max-[900px]:w-full"
         aria-hidden="true"
       >
-        <img
-          className="absolute inset-0 size-full object-cover object-[100%_center] opacity-90 max-[900px]:object-[88%_center] max-[640px]:object-[84%_center]"
-          src="/hero%20section.png"
-          alt=""
-          fetchPriority="high"
-          decoding="async"
-          data-hero-image
-        />
+
       </div>
 
       {/* Preserve readable contrast over the image */}
@@ -179,22 +287,38 @@ function Dashboard() {
 
 
           <h1 className="m-0 text-[clamp(2.5rem,4.4vw,4rem)] font-bold leading-[1.05] tracking-[-0.05em] max-[640px]:text-[clamp(2.2rem,10vw,3.5rem)] max-[640px]:leading-[1.08]">
-            <span className="inline-block animate-reveal-up motion-reduce:animate-none">
-             Wisdom rooted
-in heritage.
-Ready for
-what's next.
+            <span className="block">Wisdom rooted</span>
+            <span className="block">in heritage.</span>
+            <span className="block text-[#b8ed58]">
+              <ShinyText
+                color="#b8ed58"
+                shineColor="#efffc0"
+                speed={4}
+                shineWidth={24}
+                trigger="view"
+              >
+                Ready for
+              </ShinyText>
             </span>
-
-
+            <span className="block text-[#b8ed58]">
+              <ShinyText
+                color="#b8ed58"
+                shineColor="#efffc0"
+                speed={4}
+                shineWidth={24}
+                trigger="view"
+              >
+                what&apos;s next.
+              </ShinyText>
+            </span>
           </h1>
-<p
-        className="mt-7 max-w-[480px] text-[1.02rem] leading-[1.8] text-[#d3e2d9] max-[640px]:mt-5 max-[640px]:max-w-[38rem] max-[640px]:text-[0.93rem] max-[640px]:leading-[1.7]"
-        data-hero-copy
-      >
-        We empower ambitious learners with cutting-edge technology skills to innovate, build, and shape the digital future.
-      </p>
-
+          <p
+            className="mt-7 max-w-[480px] text-[1.02rem] leading-[1.8] text-[#d3e2d9] max-[640px]:mt-5 max-[640px]:max-w-[38rem] max-[640px]:text-[0.93rem] max-[640px]:leading-[1.7]"
+            data-hero-copy
+          >
+            We empower ambitious learners with cutting-edge technology skills to
+            innovate, build, and shape the digital future.
+          </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-[0.85rem] max-[640px]:mt-[1.4rem] max-[640px]:gap-[0.65rem]">
             <MagneticLink to="/contact" variant="primary">
@@ -231,6 +355,50 @@ what's next.
 
       </div>
     </section>
+    <section
+      className="relative left-1/2 -ml-[50vw] w-screen bg-[#f4f6ef] px-[max(1.25rem,calc((100vw-1200px)/2))] py-[clamp(5rem,9vw,8rem)] text-[#102719] max-[640px]:px-[1.1rem] max-[640px]:py-16"
+      aria-labelledby="why-xentrox-title"
+    >
+      <div className="mx-auto grid w-full max-w-[1200px] grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] items-start gap-[clamp(3rem,7vw,7rem)] max-[900px]:grid-cols-1 max-[900px]:gap-10">
+        <div className="sticky top-32 pt-3 max-[900px]:static max-[900px]:pt-0">
+          <p className="mb-6 flex items-center gap-3 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#527a3a] max-[640px]:mb-5">
+            <span className="h-px w-8 bg-[#82b545]" />
+            Why XentroX
+          </p>
+          <h2
+            id="why-xentrox-title"
+            className="m-0 text-[clamp(2.8rem,4.3vw,4rem)] font-semibold leading-[1.02] tracking-[-0.065em] max-[900px]:max-w-[700px] max-[640px]:text-[clamp(2.5rem,10vw,3.6rem)]"
+          >
+            <span className="block">Built for</span>
+            <span className="block">measurable</span>
+            <span className="block text-[#618c39]">growth, not</span>
+            <span className="block text-[#618c39]">vanity metrics.</span>
+          </h2>
+          <p className="mt-7 max-w-[25rem] text-[0.98rem] leading-[1.8] text-[#536158] max-[900px]:max-w-[38rem]">
+            Every decision has a reason. Every next step moves your business
+            closer to something that matters.
+          </p>
+        </div>
+
+        <div ref={principleTrackRef} className="relative max-[900px]:hidden">
+          <div className="sticky" style={{ top: 'calc(50svh - 6.25rem)' }}>
+            <div ref={activeCardRef} key={growthPrinciples[activePrinciple].number}>
+              <PrincipleCard principle={growthPrinciples[activePrinciple]} />
+            </div>
+          </div>
+          {growthPrinciples.map((principle) => (
+            <div key={principle.number} className="h-[68svh]" aria-hidden="true" />
+          ))}
+        </div>
+
+        <div className="hidden space-y-3 max-[900px]:block">
+          {growthPrinciples.map((principle) => (
+            <PrincipleCard key={principle.number} principle={principle} />
+          ))}
+        </div>
+      </div>
+    </section>
+    </>
   );
 }
 

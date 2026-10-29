@@ -94,12 +94,12 @@ export default function Navbar({ onOpenEnroll }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-white/10 text-white shadow-[0_8px_32px_rgb(0_0_0_/_10%)] backdrop-blur-xl transition-colors duration-300 ${
-          scrolled ? 'bg-[#062c23]/75' : 'bg-[#062c23]/45'
-        }`}
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-4 text-white sm:pt-5"
       >
         <div
-          className="mx-auto flex min-h-[4.5rem] w-full max-w-[1440px] items-center justify-between gap-4 px-5 py-2 sm:px-8 lg:px-12 xl:px-16"
+          className={`pointer-events-auto relative mx-auto flex min-h-[4.25rem] w-full max-w-[1160px] items-center justify-between gap-4 rounded-full px-5 py-2 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.65)] backdrop-blur-2xl transition-colors duration-300 sm:px-7 xl:px-9 ${
+            scrolled ? 'bg-[#062c23]/90' : 'bg-[#062c23]/80'
+          }`}
         >
 
           {/* Logo with official Dark Teal + Lime theme */}
@@ -278,7 +278,7 @@ export default function Navbar({ onOpenEnroll }) {
         {mobileOpen && (
           <div
             id="mobile-navigation"
-            className="absolute top-full left-0 right-0 z-50 max-h-[calc(100vh-70px)] overflow-y-auto border-b border-white/10 bg-[#062c23]/95 px-5 py-6 text-white shadow-2xl backdrop-blur-xl animate-drawer xl:hidden"
+            className="absolute left-0 right-0 top-[calc(100%+0.65rem)] z-50 max-h-[calc(100vh-6rem)] overflow-y-auto rounded-[1.75rem] border border-white/15 bg-[#062c23]/95 px-5 py-6 text-white shadow-[0_24px_70px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl animate-drawer xl:hidden"
           >
             <div className="flex flex-col space-y-1.5 mb-5">
               {navLinksBeforeServices.map((link) => (
