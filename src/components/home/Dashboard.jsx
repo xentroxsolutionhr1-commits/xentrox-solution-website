@@ -192,7 +192,7 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Background image provides the main visual */}
+
         <div
           className="relative mx-auto min-h-[440px] w-full max-w-[550px] max-[900px]:hidden"
           aria-hidden="true"
