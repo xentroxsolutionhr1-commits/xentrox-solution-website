@@ -402,32 +402,11 @@ function Dashboard() {
         className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex min-h-[100svh] w-screen flex-col items-center justify-center overflow-hidden bg-[#062c23] px-4 pt-32 pb-20 text-white sm:px-6 sm:pt-36 sm:pb-24 lg:pt-40"
         onPointerMove={handleHeroPointerMove}
       >
-        {/* Ambient lighting mesh */}
-        <div
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(16,77,59,0.9)_0%,rgba(6,44,35,0.98)_70%,#041e17_100%)]"
-          aria-hidden="true"
-        />
+ 
 
-        <div
-          className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-25 mix-blend-screen"
-          style={{ backgroundImage: "url('/thiruvalluvar.svg')" }}
-          aria-hidden="true"
-        />
-
-        {/* Subtle geometric grid backdrop */}
-        <div
-          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px] sm:bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"
-          aria-hidden="true"
-        />
-
-        {/* Glow Spheres */}
-        <div
-          className="pointer-events-none absolute top-1/4 left-1/2 -z-10 size-[clamp(16rem,40vw,36rem)] -translate-x-1/2 rounded-full bg-[#75c943]/[0.14] blur-[120px] sm:blur-[140px]"
-          aria-hidden="true"
-        />
 
         {/* Interactive Dynamic Ribbons */}
-        <div
+        {/* <div
           ref={heroRibbonsRef}
           className="pointer-events-none absolute inset-0 z-[1] hidden opacity-100 transition-opacity duration-500 lg:block"
           aria-hidden="true"
@@ -447,123 +426,9 @@ function Dashboard() {
             opacity={0.85}
             fade
           />
-        </div>
+        </div> */}
 
-        {/* Hero Centerpiece Content */}
-        <div className="relative z-10 mx-auto my-auto flex w-full max-w-[1000px] flex-col items-center justify-center text-center">
-          {/* Headline */}
-          <h1 className="m-0 flex flex-col items-center justify-center gap-1.5 text-[clamp(2.1rem,8vw,5.2rem)] font-extrabold leading-[1.08] tracking-[-0.04em] text-white sm:gap-2">
-            {/* Line 1 */}
-            <span className="flex flex-wrap items-center justify-center gap-x-[0.25em] gap-y-1 sm:gap-x-[0.3em]">
-              {heroWordsLine1.map((word, idx) => {
-                const style = {
-                  transition: `all 850ms cubic-bezier(0.16, 1, 0.3, 1) ${word.delay}ms`,
-                  transform: wordsAnimated
-                    ? 'translate(0px, 0px) rotate(0deg) scale(1)'
-                    : `translate(${word.from.x}px, ${word.from.y}px) rotate(${word.from.rotate}deg) scale(0.85)`,
-                  opacity: wordsAnimated ? 1 : 0,
-                  filter: wordsAnimated ? 'blur(0px)' : 'blur(10px)',
-                };
-
-                return (
-                  <span
-                    key={idx}
-                    style={style}
-                    className="inline-block will-change-transform"
-                  >
-                    {word.text}
-                  </span>
-                );
-              })}
-            </span>
-
-            {/* Line 2 with Lime / Shiny highlight */}
-            <span className="flex flex-wrap items-center justify-center gap-x-[0.25em] gap-y-1 sm:gap-x-[0.3em]">
-              {heroWordsLine2.map((word, idx) => {
-                const style = {
-                  transition: `all 850ms cubic-bezier(0.16, 1, 0.3, 1) ${word.delay}ms`,
-                  transform: wordsAnimated
-                    ? 'translate(0px, 0px) rotate(0deg) scale(1)'
-                    : `translate(${word.from.x}px, ${word.from.y}px) rotate(${word.from.rotate}deg) scale(0.85)`,
-                  opacity: wordsAnimated ? 1 : 0,
-                  filter: wordsAnimated ? 'blur(0px)' : 'blur(10px)',
-                };
-
-                return (
-                  <span
-                    key={idx}
-                    style={style}
-                    className={`inline-block will-change-transform ${
-                      word.isLime ? 'text-[#b8ed58] drop-shadow-[0_0_24px_rgba(184,237,88,0.35)]' : ''
-                    }`}
-                  >
-                    {word.isLime ? (
-                      <ShinyText
-                        color="#b8ed58"
-                        shineColor="#f4ffdb"
-                        speed={3.5}
-                        shineWidth={30}
-                        trigger="view"
-                      >
-                        {word.text}
-                      </ShinyText>
-                    ) : (
-                      word.text
-                    )}
-                  </span>
-                );
-              })}
-            </span>
-          </h1>
-
-          {/* Centered Supporting Paragraph */}
-          <p
-            className={`mt-5 max-w-[660px] text-sm leading-[1.8] text-[#d4e4dc]/90 transition-all duration-700 delay-700 sm:mt-7 sm:text-base lg:text-lg ${
-              wordsAnimated ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
-            }`}
-          >
-            We empower forward-thinking businesses and ambitious builders with production-grade engineering, digital acceleration, and scalable technology.
-          </p>
-
-          {/* Centered 2 Action Buttons */}
-          <div
-            className={`mt-7 flex flex-wrap items-center justify-center gap-3 transition-all duration-700 delay-[850ms] sm:mt-9 sm:gap-4 ${
-              wordsAnimated ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-            }`}
-          >
-            <MagneticLink to="/contact" variant="primary">
-              <span>Get Started</span>
-              <Icon name="arrowRight" size={17} />
-            </MagneticLink>
-
-            <MagneticLink to="#why-xentrox" variant="secondary" onClick={handleScrollToWhy}>
-              <span>Why XentroX</span>
-              <span className="text-xs">↓</span>
-            </MagneticLink>
-          </div>
-
-          {/* Micro trust indicators */}
-          <div
-            className={`mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[0.7rem] font-medium text-white/50 transition-all duration-700 delay-1000 sm:mt-10 sm:gap-x-6 sm:text-xs ${
-              wordsAnimated ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-[#a3e635]" />
-              <span>Full-Stack Engineering</span>
-            </div>
-            <span className="hidden text-white/20 sm:inline">•</span>
-            <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-[#a3e635]" />
-              <span>Outcome-First Architecture</span>
-            </div>
-            <span className="hidden text-white/20 sm:inline">•</span>
-            <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-[#a3e635]" />
-              <span>XentroX Labs Academy</span>
-            </div>
-          </div>
-        </div>
+        
       </section>
 
       {/* ========================================================================= */}

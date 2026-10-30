@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
+import AnimatedLogo from '../shared/AnimatedLogo.jsx';
 
 export default function Navbar({ onOpenEnroll }) {
   const [scrolled, setScrolled] = useState(() => window.scrollY > 15);
@@ -120,7 +121,7 @@ export default function Navbar({ onOpenEnroll }) {
             className="group inline-flex shrink-0 items-center gap-2 text-white no-underline sm:gap-2.5"
           >
             <span className="grid size-8 place-items-center sm:size-9">
-              <img src="/favicon.png" alt="" className="size-full object-contain drop-shadow-[0_0_12px_rgb(163_230_53_/_25%)]" />
+              <AnimatedLogo size="100%" />
             </span>
             <span className="flex flex-col leading-none">
               <span className="text-[0.8rem] font-black tracking-tight sm:text-sm xl:text-base">

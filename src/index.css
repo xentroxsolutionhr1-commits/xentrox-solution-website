@@ -361,3 +361,86 @@ a {
   from { width: 0%; }
   to { width: 100%; }
 }
+
+/* XentroX mark: trace the real silhouette before revealing its original art. */
+.animated-logo-mark {
+  position: relative;
+  display: inline-block;
+  width: var(--animated-logo-size, 38px);
+  height: var(--animated-logo-size, 38px);
+  flex: none;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.animated-logo-mark__artwork,
+.animated-logo-mark__outline {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.animated-logo-mark__artwork {
+  object-fit: contain;
+  opacity: 0;
+  animation: xentrox-logo-fill 1.8s cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+
+.animated-logo-mark__outline {
+  overflow: visible;
+  pointer-events: none;
+}
+
+.animated-logo-mark__stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  animation: xentrox-logo-draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) 80ms both;
+}
+
+@keyframes xentrox-logo-draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+
+  4% {
+    opacity: 1;
+  }
+
+  68% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes xentrox-logo-fill {
+  0%,
+  68% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-logo-mark__artwork {
+    opacity: 1;
+    animation: none;
+  }
+
+  .animated-logo-mark__stroke {
+    stroke-dashoffset: 1;
+    opacity: 0;
+    animation: none;
+  }
+}
