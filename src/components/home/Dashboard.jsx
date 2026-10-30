@@ -295,7 +295,7 @@ function Dashboard() {
           });
         }
 
-        // 4. Animate Metric Counter dial up with Anime.js!
+        // 4. Animate Metric Counter dial up with Anime.js
         const cardData = carouselCards[activeSlide];
         const counterTarget = { val: 0 };
         animate(counterTarget, {
@@ -561,7 +561,7 @@ function Dashboard() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 2: WHY XENTROX (WHITE LUXURY CANVAS + ANIME.JS POWERED CAROUSEL)  */}
+      {/* SECTION 2: WHY XENTROX (WHITE LUXURY CANVAS + BIDIRECTIONAL SCROLL REVEAL) */}
       {/* ========================================================================= */}
       <section
         ref={section2Ref}
@@ -612,14 +612,13 @@ function Dashboard() {
             {/* LEFT SIDE: Strategic Narrative & Anime.js Controls            */}
             {/* ------------------------------------------------------------- */}
             <div className="flex flex-col items-start lg:col-span-5">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#84cc16]/40 bg-[#f4faee] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#2f5e13] shadow-xs">
-                <span className="size-2 rounded-full bg-[#84cc16] shadow-[0_0_8px_#84cc16]" />
-                <span>02 // WHY XENTROX</span>
-              </div>
-
-              {/* Headline */}
-              <h2 className="mt-5 text-[clamp(2.1rem,4.2vw,3.6rem)] font-extrabold leading-[1.12] tracking-tight text-[#07241a]">
+             
+              {/* Headline with Staggered Scroll Reveal */}
+              <h2
+                data-scroll-reveal
+                style={{ '--reveal-delay': '80ms' }}
+                className="mt-5 text-[clamp(2.1rem,4.2vw,3.6rem)] font-extrabold leading-[1.12] tracking-tight text-[#07241a]"
+              >
                 Built for{' '}
                 <span className="bg-gradient-to-r from-[#2e7d32] via-[#4d8b18] to-[#84cc16] bg-clip-text text-transparent">
                   measurable growth
@@ -627,13 +626,21 @@ function Dashboard() {
                 , not vanity metrics.
               </h2>
 
-              {/* Subtext */}
-              <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
+              {/* Subtext with Staggered Scroll Reveal */}
+              <p
+                data-scroll-reveal
+                style={{ '--reveal-delay': '140ms' }}
+                className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base"
+              >
                 Every decision has a quantifiable reason. We eliminate guesswork, subjective scope creep, and bloated timelines by anchoring all architecture to verifiable, compounding commercial value.
               </p>
 
-              {/* Value Bullet Highlights */}
-              <div className="mt-6 flex flex-col gap-2.5 sm:mt-7">
+              {/* Value Bullet Highlights with Staggered Scroll Reveal */}
+              <div
+                data-scroll-reveal
+                style={{ '--reveal-delay': '200ms' }}
+                className="mt-6 flex flex-col gap-2.5 sm:mt-7"
+              >
                 {[
                   'Outcome-first architecture tied directly to commercial ROI',
                   'High-fidelity telemetry across every layer of the product',
@@ -648,8 +655,12 @@ function Dashboard() {
                 ))}
               </div>
 
-              {/* Interactive Quick-Jump Tabs */}
-              <div className="mt-7 flex flex-wrap gap-2">
+              {/* Interactive Quick-Jump Tabs with Scroll Reveal */}
+              <div
+                data-scroll-reveal
+                style={{ '--reveal-delay': '240ms' }}
+                className="mt-7 flex flex-wrap gap-2"
+              >
                 {carouselCards.map((card, idx) => {
                   const isActive = activeSlide === idx;
                   return (
@@ -673,8 +684,12 @@ function Dashboard() {
                 })}
               </div>
 
-              {/* Carousel Controls (Timer Line, Nav Arrows & Anime.js Counter) */}
-              <div className="mt-8 flex w-full flex-col gap-4 border-t border-slate-100 pt-6 sm:mt-9">
+              {/* Carousel Controls with Scroll Reveal */}
+              <div
+                data-scroll-reveal
+                style={{ '--reveal-delay': '280ms' }}
+                className="mt-8 flex w-full flex-col gap-4 border-t border-slate-100 pt-6 sm:mt-9"
+              >
                 {/* Visual Auto-Play Progress Bar */}
                 <div className="h-1 w-full overflow-hidden rounded-full bg-slate-100">
                   <div
@@ -747,6 +762,9 @@ function Dashboard() {
             {/* RIGHT SIDE: Anime.js Powered Carousel Track & 3D Cards        */}
             {/* ------------------------------------------------------------- */}
             <div
+              data-scroll-reveal
+              data-reveal-from="right"
+              style={{ '--reveal-delay': '160ms' }}
               className="relative overflow-hidden lg:col-span-7"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
@@ -861,7 +879,7 @@ function Dashboard() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 3: NEXT SECTION (WHAT'S NEXT / CTA)                              */}
+      {/* SECTION 3: NEXT SECTION (WHAT'S NEXT / CTA - BIDIRECTIONAL SCROLL REVEAL) */}
       {/* ========================================================================= */}
       <section
         id="next-section"
@@ -870,20 +888,35 @@ function Dashboard() {
         <div className="mx-auto w-full max-w-[1200px]">
           {/* Header */}
           <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#a3e635]/15 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-[#a3e635] ring-1 ring-[#a3e635]/20">
+            <span
+              data-scroll-reveal
+              className="inline-flex items-center gap-2 rounded-full bg-[#a3e635]/15 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-[#a3e635] ring-1 ring-[#a3e635]/20"
+            >
               What’s Next
             </span>
-            <h2 className="mt-4 text-[clamp(2.2rem,4vw,3.5rem)] font-extrabold tracking-tight text-white">
+            <h2
+              data-scroll-reveal
+              style={{ '--reveal-delay': '90ms' }}
+              className="mt-4 text-[clamp(2.2rem,4vw,3.5rem)] font-extrabold tracking-tight text-white"
+            >
               Ready to transform your vision into reality?
             </h2>
-            <p className="mt-4 text-base text-[#d4e4db]/85 sm:text-lg">
+            <p
+              data-scroll-reveal
+              style={{ '--reveal-delay': '160ms' }}
+              className="mt-4 text-base text-[#d4e4db]/85 sm:text-lg"
+            >
               Partner with XentroX for high-velocity software engineering, scalable cloud systems, and industry-grade talent training.
             </p>
           </div>
 
-          {/* Feature Grid */}
+          {/* Feature Grid with Staggered Scroll Reveal */}
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8">
+            <div
+              data-scroll-reveal
+              style={{ '--reveal-delay': '100ms' }}
+              className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8"
+            >
               <div className="flex size-12 items-center justify-center rounded-xl bg-[#a3e635]/20 font-mono text-lg font-bold text-[#a3e635]">
                 01
               </div>
@@ -896,7 +929,11 @@ function Dashboard() {
               </Link>
             </div>
 
-            <div className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8">
+            <div
+              data-scroll-reveal
+              style={{ '--reveal-delay': '200ms' }}
+              className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8"
+            >
               <div className="flex size-12 items-center justify-center rounded-xl bg-[#a3e635]/20 font-mono text-lg font-bold text-[#a3e635]">
                 02
               </div>
@@ -909,7 +946,11 @@ function Dashboard() {
               </Link>
             </div>
 
-            <div className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8">
+            <div
+              data-scroll-reveal
+              style={{ '--reveal-delay': '300ms' }}
+              className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8"
+            >
               <div className="flex size-12 items-center justify-center rounded-xl bg-[#a3e635]/20 font-mono text-lg font-bold text-[#a3e635]">
                 03
               </div>
@@ -923,8 +964,12 @@ function Dashboard() {
             </div>
           </div>
 
-          {/* Action Callout */}
-          <div className="mt-14 flex flex-col items-center justify-between gap-6 rounded-2xl border border-[#a3e635]/20 bg-gradient-to-r from-[#0a382c] via-[#0e4839] to-[#0a382c] p-6 text-center sm:flex-row sm:p-8 sm:text-left">
+          {/* Action Callout with Scroll Reveal */}
+          <div
+            data-scroll-reveal
+            style={{ '--reveal-delay': '180ms' }}
+            className="mt-14 flex flex-col items-center justify-between gap-6 rounded-2xl border border-[#a3e635]/20 bg-gradient-to-r from-[#0a382c] via-[#0e4839] to-[#0a382c] p-6 text-center sm:flex-row sm:p-8 sm:text-left"
+          >
             <div>
               <h4 className="text-xl font-bold text-white">Have a project in mind or want to join our academy?</h4>
               <p className="mt-1 text-sm text-[#d3e2d9]/80">Let’s discuss your objectives and build something remarkable together.</p>
