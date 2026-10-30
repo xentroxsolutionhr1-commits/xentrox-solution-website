@@ -2,8 +2,6 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { animate, stagger } from 'animejs';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
-import ShinyText from '../react-bits/ShinyText.jsx';
-import Ribbons from '../../bits/Ribbons.jsx';
 
 const carouselCards = [
   {
@@ -88,18 +86,10 @@ const carouselCards = [
   },
 ];
 
-const heroWordsLine1 = [
-  { text: 'Wisdom', from: { x: -80, y: -20, rotate: -8 }, delay: 120 },
-  { text: 'rooted', from: { x: 0, y: -60, rotate: 0 }, delay: 240 },
-  { text: 'in', from: { x: 0, y: 50, rotate: 0 }, delay: 340 },
-  { text: 'heritage.', from: { x: 80, y: -20, rotate: 8 }, delay: 440 },
-];
-
-const heroWordsLine2 = [
-  { text: 'Ready', from: { x: -90, y: 30, rotate: -6 }, delay: 580 },
-  { text: 'for', from: { x: 0, y: 60, rotate: 0 }, delay: 680 },
-  { text: "what's", from: { x: 30, y: -45, rotate: 4 }, delay: 780, isLime: true },
-  { text: 'next.', from: { x: 90, y: 30, rotate: 6 }, delay: 880, isLime: true },
+const heroStatistics = [
+  { value: 120, suffix: '+', label: 'Projects delivered' },
+  { value: 98, suffix: '%', label: 'Client satisfaction' },
+  { value: 10, suffix: '+', label: 'Industries served' },
 ];
 
 function MagneticLink({ to, variant, children, onClick }) {
@@ -156,8 +146,7 @@ function MagneticLink({ to, variant, children, onClick }) {
 }
 
 function Dashboard() {
-  const heroRef = useRef(null);
-  const heroRibbonsRef = useRef(null);
+  const heroStatsRef = useRef(null);
   const section2Ref = useRef(null);
   const carouselTrackRef = useRef(null);
   const counterNumberRef = useRef(null);
@@ -165,7 +154,6 @@ function Dashboard() {
   const bgRingRef = useRef(null);
   const bgHexRef = useRef(null);
 
-  const [wordsAnimated, setWordsAnimated] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [slideProgress, setSlideProgress] = useState(0);
@@ -174,17 +162,37 @@ function Dashboard() {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  // Trigger hero words animation on mount
+  // Count the hero metrics from zero without delaying the page content.
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setWordsAnimated(true);
-    }, 150);
+    const nodes = heroStatsRef.current?.querySelectorAll('[data-stat-count]');
+    if (!nodes?.length) return undefined;
 
-    if (heroRibbonsRef.current) {
-      heroRibbonsRef.current.style.opacity = '1';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      nodes.forEach((node) => {
+        node.textContent = node.dataset.statCount;
+      });
+      return undefined;
     }
 
-    return () => window.clearTimeout(timer);
+    const animations = Array.from(nodes, (node, index) => {
+      const counter = { value: 0 };
+      const target = Number(node.dataset.statCount);
+
+      return animate(counter, {
+        value: target,
+        delay: index * 110,
+        duration: 1200,
+        ease: 'outExpo',
+        onUpdate: () => {
+          node.textContent = String(Math.floor(counter.value));
+        },
+        onComplete: () => {
+          node.textContent = String(target);
+        },
+      });
+    });
+
+    return () => animations.forEach((animation) => animation.pause());
   }, []);
 
   // Animate ambient background shapes using animejs
@@ -207,18 +215,6 @@ function Dashboard() {
       });
     }
   }, []);
-
-  // Ribbon interactive hover behavior
-  const handleHeroPointerMove = (event) => {
-    if (
-      event.pointerType !== 'mouse' ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) return;
-
-    const ribbons = heroRibbonsRef.current;
-    if (!ribbons) return;
-    ribbons.style.opacity = '1';
-  };
 
   // Carousel navigation handlers
   const handlePrev = useCallback(() => {
@@ -388,47 +384,76 @@ function Dashboard() {
     e.preventDefault();
     const section = section2Ref.current;
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      section.scrollIntoView({ behavior });
     }
   };
 
   return (
     <>
       {/* ========================================================================= */}
-      {/* SECTION 1: HERO PAGE DESIGN (CENTERED WORDS ANIMATING IN SEPARATELY)      */}
+      {/* SECTION 1: EDITORIAL HERO */}
       {/* ========================================================================= */}
       <section
-        ref={heroRef}
-        className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex min-h-[100svh] w-screen flex-col items-center justify-center overflow-hidden bg-[#062c23] px-4 pt-32 pb-20 text-white sm:px-6 sm:pt-36 sm:pb-24 lg:pt-40"
-        onPointerMove={handleHeroPointerMove}
+        className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex min-h-[100svh] w-screen flex-col overflow-hidden bg-[#062c23] px-4 pt-28 pb-7 text-white sm:px-6 sm:pt-32 sm:pb-8 lg:pt-36"
       >
- 
-
-
-        {/* Interactive Dynamic Ribbons */}
-        {/* <div
-          ref={heroRibbonsRef}
-          className="pointer-events-none absolute inset-0 z-[1] hidden opacity-100 transition-opacity duration-500 lg:block"
+        <div className="pointer-events-none absolute inset-0 bg-[#062c23]/35 sm:bg-transparent" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#062c23]/95 via-[#062c23]/85 to-[#062c23]/45" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#062c23]/85 via-transparent to-[#062c23]/20" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(ellipse 45% 42% at 76% 38%, rgba(163, 230, 53, 0.18), transparent 72%), radial-gradient(ellipse 36% 30% at 20% 82%, rgba(34, 197, 94, 0.12), transparent 74%)',
+          }}
           aria-hidden="true"
-        >
-          <Ribbons
-            className="absolute inset-0"
-            colors={['#a3e635', '#72d856', '#c7ff5e']}
-            stationaryColors={['#a3e635', '#72d856', '#c7ff5e', '#a3e635', '#72d856', '#c7ff5e', '#a3e635', '#72d856', '#c7ff5e']}
-            thickness={22}
-            length={1.25}
-            spread={14}
-            stiffness={0.45}
-            bounce={0.4}
-            shape="lens"
-            wave={0.08}
-            softness={0.16}
-            opacity={0.85}
-            fade
-          />
-        </div> */}
+        />
 
-        
+        <div className="home-nav-type relative z-10 mx-auto flex min-h-[calc(100svh-9rem)] w-full max-w-[1240px] flex-col justify-center sm:min-h-[calc(100svh-10rem)]">
+          <div className="mx-auto max-w-[900px] py-8 text-center sm:py-10">
+            <h1
+              id="home-hero-title"
+              aria-label="Digital marketing & Custom Software Solutions"
+              className="m-0 max-w-full text-[clamp(1.25rem,5.86vw,4.6875rem)] font-semibold leading-[1.02] tracking-[-.055em] text-white"
+            >
+              <span className="block whitespace-nowrap">Digital marketing &amp; </span>
+              <span className="block mt-3">Custom Software Solutions</span>
+            </h1>
+            <p className="mx-auto mb-0 mt-5 max-w-[610px] text-[20px] leading-relaxed text-white/80">
+              Digital Growth. Intelligent Technology. Real Results.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <MagneticLink to="/contact" variant="primary">
+                Get Started
+                <Icon name="arrowRight" size={16} />
+              </MagneticLink>
+              <MagneticLink to="#why-xentrox" variant="secondary" onClick={handleScrollToWhy}>
+                Our Services
+                <Icon name="arrowRight" size={16} />
+              </MagneticLink>
+            </div>
+          </div>
+
+          <div
+            ref={heroStatsRef}
+            className="mx-auto mt-auto grid w-full max-w-[560px] grid-cols-3 "
+            role="group"
+            aria-label="XentroX in numbers"
+          >
+            {heroStatistics.map(({ value, suffix, label }) => (
+              <div
+                key={label}
+                className="rounded-2xl   text-center  sm:py-4"
+              >
+                <p className="m-0 text-[1.65rem] font-medium leading-none tracking-[-.05em] text-[#a3e635] sm:text-2xl lg:text-3xl">
+                  <span data-stat-count={value}>0</span>{suffix}
+                </p>
+                <p className="mb-0 mt-2 text-[8px] font-medium uppercase tracking-[.12em] text-white/65 sm:text-[10px]">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ========================================================================= */}
@@ -441,12 +466,6 @@ function Dashboard() {
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        {/* Subtle architectural dot grid on pristine white */}
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(#d1d5db_1px,transparent_1px)] [background-size:24px_24px] opacity-40"
-          aria-hidden="true"
-        />
-
         {/* Anime.js animated rotating ambient geometric rings */}
         <div
           ref={bgRingRef}
