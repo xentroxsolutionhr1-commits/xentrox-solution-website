@@ -362,6 +362,10 @@ a {
   to { width: 100%; }
 }
 
+.home-nav-type {
+  font-family: "Merriweather", "Merriweather Fallback Georgia", "Merriweather Fallback Noto", "Merriweather Fallback Times", "Clash Display", serif;
+}
+
 /* XentroX mark: trace the real silhouette before revealing its original art. */
 .animated-logo-mark {
   position: relative;

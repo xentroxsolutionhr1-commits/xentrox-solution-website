@@ -105,11 +105,11 @@ export default function Navbar({ onOpenEnroll }) {
         {/*
           Pill navbar:
           - Full width on mobile with small horizontal margin (px-3)
-          - Caps at max-w-[1160px] on large screens and centers
+          - Caps at max-w-[1080px] on large screens and centers
           - min-h scales: 3.75rem phone → 4rem tablet → 4.25rem desktop
         */}
         <div
-          className={`pointer-events-auto relative mx-auto flex min-h-[3.75rem] w-full max-w-[1160px] items-center justify-between gap-3 rounded-2xl px-4 py-2 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.65)] backdrop-blur-2xl transition-colors duration-300 sm:min-h-[4rem] sm:rounded-full sm:px-5 sm:gap-4 xl:min-h-[4.25rem] xl:px-7 xl:gap-6 2xl:px-9 ${
+          className={`pointer-events-auto relative mx-auto flex min-h-[3.75rem] w-full max-w-[1080px] items-center justify-between gap-3 rounded-2xl px-4 py-2 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.65)] backdrop-blur-2xl transition-colors duration-300 sm:min-h-[4rem] sm:rounded-full sm:px-5 sm:gap-4 xl:min-h-[4.25rem] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:px-6 xl:gap-4 2xl:px-8 2xl:gap-5 ${
             scrolled ? 'bg-[#062c23]/90' : 'bg-[#062c23]/80'
           }`}
         >
@@ -118,7 +118,7 @@ export default function Navbar({ onOpenEnroll }) {
           <NavLink
             to="/"
             aria-label="XentroX Solutions home"
-            className="group inline-flex shrink-0 items-center gap-2 text-white no-underline sm:gap-2.5"
+            className="group inline-flex shrink-0 items-center gap-2 text-white no-underline sm:gap-2.5 xl:justify-self-start"
           >
             <span className="grid size-8 place-items-center sm:size-9">
               <AnimatedLogo size="100%" />
@@ -135,7 +135,7 @@ export default function Navbar({ onOpenEnroll }) {
 
           {/* Desktop Nav — visible from xl (1280px) upwards */}
           <nav
-            className="hidden items-center gap-5 xl:flex 2xl:gap-7"
+            className="home-nav-type hidden items-center gap-4 xl:flex xl:justify-self-center 2xl:gap-5"
             aria-label="Main Navigation"
           >
             {navLinksBeforeServices.map((link) => (
@@ -144,8 +144,8 @@ export default function Navbar({ onOpenEnroll }) {
                 to={link.path}
                 end={link.path === '/'}
                 className={({ isActive }) =>
-                  `group relative py-1 text-sm tracking-normal no-underline transition-colors ${
-                    isActive ? 'font-semibold text-white' : 'font-normal text-white/85 hover:text-[#a3e635]'
+                  `group relative py-1 text-[15px] tracking-normal no-underline transition-colors 2xl:text-base ${
+                    isActive ? 'font-semibold text-white' : 'font-medium text-white/85 hover:text-[#a3e635]'
                   }`
                 }
               >
@@ -176,10 +176,10 @@ export default function Navbar({ onOpenEnroll }) {
                 aria-expanded={servicesOpen}
                 aria-controls="desktop-services-menu"
                 onClick={() => setServicesOpen((open) => !open)}
-                className={`group relative inline-flex items-center gap-1 py-1 text-sm tracking-normal transition-colors ${
+                className={`group relative inline-flex items-center gap-1 py-1 text-[15px] tracking-normal transition-colors 2xl:text-base ${
                   servicesOpen || isServiceRoute
                     ? 'font-semibold text-white'
-                    : 'font-normal text-white/85 hover:text-[#a3e635]'
+                    : 'font-medium text-white/85 hover:text-[#a3e635]'
                 }`}
               >
                 Services
@@ -224,8 +224,8 @@ export default function Navbar({ onOpenEnroll }) {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `group relative py-1 text-sm tracking-normal no-underline transition-colors ${
-                    isActive ? 'font-semibold text-white' : 'font-normal text-white/85 hover:text-[#a3e635]'
+                  `group relative py-1 text-[15px] tracking-normal no-underline transition-colors 2xl:text-base ${
+                    isActive ? 'font-semibold text-white' : 'font-medium text-white/85 hover:text-[#a3e635]'
                   }`
                 }
               >
@@ -244,11 +244,11 @@ export default function Navbar({ onOpenEnroll }) {
           </nav>
 
           {/* Desktop CTA — xl+ */}
-          <div className="hidden shrink-0 items-center gap-2.5 xl:flex">
+          <div className="home-nav-type hidden shrink-0 items-center gap-2.5 xl:flex xl:justify-self-end">
             <button
               type="button"
               onClick={handleEnrollClick}
-              className={`inline-flex h-9 cursor-pointer select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-[#72b513]/30 bg-[#84CC16] px-3.5 text-xs font-bold text-[#003831] shadow-xs transition-all duration-200 hover:bg-[#92dc1d] hover:shadow-sm active:scale-95 active:bg-[#78ba14] ${
+              className={`inline-flex h-10 cursor-pointer select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-[#72b513]/30 bg-[#84CC16] px-4 text-sm font-bold text-[#003831] shadow-xs transition-all duration-200 hover:bg-[#92dc1d] hover:shadow-sm active:scale-95 active:bg-[#78ba14] 2xl:h-11 2xl:px-5 2xl:text-base ${
                 isEnrolling ? 'scale-95' : ''
               }`}
             >
@@ -258,11 +258,11 @@ export default function Navbar({ onOpenEnroll }) {
           </div>
 
           {/* Compact nav for tablet & mobile (< xl) */}
-          <div className="z-50 flex shrink-0 items-center gap-2 xl:hidden">
+          <div className="home-nav-type z-50 flex shrink-0 items-center gap-2 xl:hidden">
             <button
               type="button"
               onClick={handleEnrollClick}
-              className="h-8 cursor-pointer rounded-lg bg-[#84CC16] px-2.5 text-[10px] font-bold text-[#003831] shadow-xs transition-transform active:scale-95 sm:px-3 sm:text-[11px]"
+              className="h-8 cursor-pointer rounded-full bg-[#84CC16] px-3 text-[11px] font-bold text-[#003831] shadow-xs transition-transform active:scale-95 sm:h-10 sm:px-4 sm:text-sm"
             >
               Get Started
             </button>
@@ -291,7 +291,7 @@ export default function Navbar({ onOpenEnroll }) {
         {mobileOpen && (
           <div
             id="mobile-navigation"
-            className="absolute left-3 right-3 top-[calc(100%+0.5rem)] z-50 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#062c23]/97 px-4 py-5 text-white shadow-[0_24px_70px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl animate-drawer sm:left-4 sm:right-4 sm:px-5 sm:py-6 sm:rounded-[1.75rem] xl:hidden"
+            className="home-nav-type absolute left-3 right-3 top-[calc(100%+0.5rem)] z-50 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-[1.5rem] border border-white/15 bg-[#062c23]/97 px-4 py-5 text-white shadow-[0_24px_70px_-24px_rgba(0,0,0,0.75)] backdrop-blur-2xl animate-drawer sm:left-4 sm:right-4 sm:px-5 sm:py-6 sm:rounded-[1.75rem] xl:hidden"
           >
             <div className="flex flex-col space-y-1 mb-4 sm:space-y-1.5 sm:mb-5">
               {navLinksBeforeServices.map((link) => (
