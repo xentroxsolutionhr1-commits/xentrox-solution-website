@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { animate, stagger } from 'animejs';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
-import AnimatedLogo from '../shared/AnimatedLogo.jsx';
 
 const carouselCards = [
   {
@@ -148,7 +147,6 @@ function MagneticLink({ to, variant, children, onClick }) {
 
 function Dashboard() {
   const heroStatsRef = useRef(null);
-  const heroSectionRef = useRef(null);
   const section2Ref = useRef(null);
   const carouselTrackRef = useRef(null);
   const counterNumberRef = useRef(null);
@@ -164,66 +162,55 @@ function Dashboard() {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  // Let the logo draw, then move to the hero unless the visitor has interacted.
+  // Start the hero metric count-up after the logo intro reaches the navbar.
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let visitorInteracted = false;
-    const cancelAutoScroll = () => {
-      visitorInteracted = true;
+    let hasStarted = false;
+    let animations = [];
+
+    const startCounters = () => {
+      if (hasStarted) return;
+      const nodes = heroStatsRef.current?.querySelectorAll('[data-stat-count]');
+      if (!nodes?.length) return;
+      hasStarted = true;
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        nodes.forEach((node) => {
+          node.textContent = node.dataset.statCount;
+        });
+        return;
+      }
+
+      animations = Array.from(nodes, (node, index) => {
+        const counter = { value: 0 };
+        const target = Number(node.dataset.statCount);
+
+        return animate(counter, {
+          value: target,
+          delay: index * 110,
+          duration: 1200,
+          ease: 'outExpo',
+          onUpdate: () => {
+            node.textContent = String(Math.floor(counter.value));
+          },
+          onComplete: () => {
+            node.textContent = String(target);
+          },
+        });
+      });
     };
-    const interactionEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
 
-    interactionEvents.forEach((eventName) => {
-      window.addEventListener(eventName, cancelAutoScroll, { passive: true });
-    });
-
-    const timer = window.setTimeout(() => {
-      if (visitorInteracted || window.scrollY > 16) return;
-      heroSectionRef.current?.scrollIntoView({
-        behavior: prefersReducedMotion ? 'auto' : 'smooth',
-        block: 'start',
-      });
-    }, prefersReducedMotion ? 900 : 1950);
-
-    return () => {
-      window.clearTimeout(timer);
-      interactionEvents.forEach((eventName) => {
-        window.removeEventListener(eventName, cancelAutoScroll);
-      });
-    };
-  }, []);
-
-  // Count the hero metrics from zero without delaying the page content.
-  useEffect(() => {
-    const nodes = heroStatsRef.current?.querySelectorAll('[data-stat-count]');
-    if (!nodes?.length) return undefined;
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      nodes.forEach((node) => {
-        node.textContent = node.dataset.statCount;
-      });
-      return undefined;
+    const introAlreadyFinished = document.querySelector('[data-logo-intro-complete="true"]');
+    const introIsRunning = document.querySelector('[data-logo-intro-active="true"]');
+    if (introAlreadyFinished || !introIsRunning) {
+      startCounters();
+    } else {
+      window.addEventListener('xentrox:logo-intro-complete', startCounters);
     }
 
-    const animations = Array.from(nodes, (node, index) => {
-      const counter = { value: 0 };
-      const target = Number(node.dataset.statCount);
-
-      return animate(counter, {
-        value: target,
-        delay: index * 110,
-        duration: 1200,
-        ease: 'outExpo',
-        onUpdate: () => {
-          node.textContent = String(Math.floor(counter.value));
-        },
-        onComplete: () => {
-          node.textContent = String(target);
-        },
-      });
-    });
-
-    return () => animations.forEach((animation) => animation.pause());
+    return () => {
+      window.removeEventListener('xentrox:logo-intro-complete', startCounters);
+      animations.forEach((animation) => animation.pause());
+    };
   }, []);
 
   // Animate ambient background shapes using animejs
@@ -422,27 +409,11 @@ function Dashboard() {
 
   return (
     <>
-      {/* Full-screen brand moment; the existing mark draws on initial load. */}
-      <section
-        aria-label="XentroX Solutions logo"
-        className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex h-[100svh] w-screen items-center justify-center overflow-hidden bg-[#062c23]"
-      >
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: 'radial-gradient(ellipse 42% 68% at 50% 50%, rgba(163, 230, 53, 0.12), transparent 72%)',
-          }}
-          aria-hidden="true"
-        />
-        <AnimatedLogo size="min(46vw, 32svh)" alt="XentroX Solutions logo" />
-      </section>
-
       {/* ========================================================================= */}
       {/* SECTION 1: EDITORIAL HERO */}
       {/* ========================================================================= */}
       <section
-        ref={heroSectionRef}
-        className="relative isolate left-1/2 -ml-[50vw] flex min-h-[100svh] w-screen flex-col overflow-hidden bg-[#062c23] px-4 pt-28 pb-7 text-white sm:px-6 sm:pt-32 sm:pb-8 lg:pt-36"
+        className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex min-h-[100svh] w-screen flex-col overflow-hidden bg-[#062c23] px-4 pt-28 pb-7 text-white max-sm:-mt-20 sm:px-6 sm:pt-32 sm:pb-8 lg:pt-36"
       >
         <div className="pointer-events-none absolute inset-0 bg-[#062c23]/35 sm:bg-transparent" aria-hidden="true" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#062c23]/95 via-[#062c23]/85 to-[#062c23]/45" aria-hidden="true" />

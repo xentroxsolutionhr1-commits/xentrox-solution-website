@@ -120,7 +120,7 @@ export default function Navbar({ onOpenEnroll }) {
             aria-label="XentroX Solutions home"
             className="group inline-flex shrink-0 items-center gap-2 text-white no-underline sm:gap-2.5 xl:justify-self-start"
           >
-            <span className="grid size-8 place-items-center sm:size-9">
+            <span data-navbar-logo-mark className="grid size-8 place-items-center opacity-100 transition-opacity sm:size-9">
               <AnimatedLogo size="100%" />
             </span>
             <span className="flex flex-col leading-none">

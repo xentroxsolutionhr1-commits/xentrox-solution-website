@@ -415,6 +415,10 @@ a {
   vertical-align: middle;
 }
 
+[data-logo-intro-active='true'] [data-navbar-logo-mark] {
+  opacity: 0;
+}
+
 .animated-logo-mark__artwork,
 .animated-logo-mark__outline {
   position: absolute;
