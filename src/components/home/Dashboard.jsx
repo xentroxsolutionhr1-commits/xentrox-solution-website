@@ -434,7 +434,7 @@ function Dashboard() {
           }}
           aria-hidden="true"
         />
-        <AnimatedLogo size="min(76vw, 62svh)" alt="XentroX Solutions logo" />
+        <AnimatedLogo size="min(46vw, 32svh)" alt="XentroX Solutions logo" />
       </section>
 
       {/* ========================================================================= */}
@@ -460,29 +460,17 @@ function Dashboard() {
             <h1
               id="home-hero-title"
               aria-label="Digital marketing & Custom Software Solutions"
-              className="m-0 max-w-full text-[clamp(1.25rem,5.86vw,4.6875rem)] font-semibold leading-[1.02] tracking-[-.055em] text-white"
+              className="m-0 max-w-full text-[clamp(1.1rem,4.0vw,3.75rem)] font-semibold leading-[1.02] tracking-[-.055em] text-white"
             >
               <span className="block whitespace-nowrap">Digital marketing &amp; </span>
               <span className="block mt-3">Custom Software Solutions</span>
             </h1>
-            <p className="mx-auto mb-0 mt-5 max-w-[610px] text-[20px] leading-relaxed text-white/80">
+            {/* <p className="mx-auto mb-0 mt-5 max-w-[610px] text-[20px] leading-relaxed text-white/80">
               Digital Growth. Intelligent Technology. Real Results.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-              <MagneticLink to="/contact" variant="primary">
-                Get Started
-                <Icon name="arrowRight" size={16} />
-              </MagneticLink>
-              <MagneticLink to="#why-xentrox" variant="secondary" onClick={handleScrollToWhy}>
-                Our Services
-                <Icon name="arrowRight" size={16} />
-              </MagneticLink>
-            </div>
-          </div>
-
-          <div
+            </p> */}
+           <div
             ref={heroStatsRef}
-            className="mx-auto mt-auto grid w-full max-w-[560px] grid-cols-3 "
+            className="mx-auto mt-4 grid w-full max-w-[560px] grid-cols-3 "
             role="group"
             aria-label="XentroX in numbers"
           >
@@ -500,6 +488,18 @@ function Dashboard() {
               </div>
             ))}
           </div>
+          </div>
+ <div className="mt-1 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <MagneticLink to="/contact" variant="primary">
+                Get Started
+                <Icon name="arrowRight" size={16} />
+              </MagneticLink>
+              <MagneticLink to="#why-xentrox" variant="secondary" onClick={handleScrollToWhy}>
+                Our Services
+                <Icon name="arrowRight" size={16} />
+              </MagneticLink>
+            </div>
+          
         </div>
       </section>
 
