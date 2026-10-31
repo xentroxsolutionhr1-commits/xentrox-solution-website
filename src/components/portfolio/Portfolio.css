@@ -21,7 +21,7 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  margin-top: -1.5rem; /* starts cleanly below 4.5rem navbar */
+  margin-top: -6rem; /* Starts from margin 0 at top */ /* starts cleanly below 4.5rem navbar */
   margin-bottom: -2rem;
   overflow-x: hidden;
   background-color: var(--pj-bg-soft);
@@ -31,7 +31,7 @@
 
 @media (max-width: 640px) {
   .portfolio-page {
-    margin-top: -1.25rem;
+    margin-top: -5rem; /* Starts from margin 0 on mobile */
     margin-bottom: -1.5rem;
   }
 }
@@ -45,7 +45,7 @@
 /* Container Utility */
 .pj-container {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1080px; /* Occupies the exact width of navbar */
   margin-left: auto;
   margin-right: auto;
   padding-left: clamp(1rem, 3.5vw, 2.25rem);
@@ -57,9 +57,10 @@
    ========================================================================== */
 .pj-hero-section {
   position: relative;
-  background-color: var(--pj-bg-soft);
-  padding-top: clamp(3.5rem, 6vw, 5.5rem);
-  padding-bottom: clamp(3.5rem, 6vw, 5rem);
+  background-color: var(--pj-forest);
+  color: #FFFFFF;
+  padding-top: clamp(6.5rem, 9.5vw, 8.5rem);
+  padding-bottom: clamp(6.5rem, 9.5vw, 9rem);
   overflow: hidden;
 }
 
@@ -722,4 +723,59 @@
 
 .pj-invitation-btn:hover .pj-btn-arrow {
   transform: translateX(4px);
+}
+
+/* Hero Text Styling on Dark Forest Green Background */
+.pj-hero-section .pj-title-forest {
+  color: #FFFFFF;
+}
+
+.pj-hero-section .pj-title-lime {
+  color: #A3E635;
+  background: linear-gradient(135deg, #A3E635 0%, #84CC16 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pj-hero-section .pj-hero-lead {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.pj-hero-section .pj-journal-badge {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(163, 230, 53, 0.35);
+  color: #A3E635;
+  box-shadow: none;
+}
+
+.pj-hero-section .pj-badge-dot {
+  background-color: #A3E635;
+}
+
+.pj-hero-section .pj-hero-caption-line {
+  background-color: #A3E635;
+  opacity: 0.8;
+}
+
+.pj-hero-section .pj-hero-caption-text {
+  color: #A3E635;
+}
+
+/* Curved bottom wave on hero like pricing */
+.pj-hero-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: clamp(50px, 6vw, 75px);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.pj-hero-wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }

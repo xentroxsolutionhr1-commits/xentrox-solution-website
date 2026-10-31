@@ -3,12 +3,16 @@ import {
   ArrowRight,
   ArrowUp,
   ArrowUpRight,
+  Award,
   BookOpen,
   Briefcase,
   Check,
   ChevronDown,
+  Clock,
+  Cloud,
   Code,
   Cpu,
+  FileText,
   Globe,
   Heart,
   Layers,
@@ -20,10 +24,12 @@ import {
   Search,
   Shield,
   Sparkles,
+  Star,
   Target,
   TrendingUp,
   Users,
   X,
+  Zap,
 } from 'lucide-react';
 
 const icons = {
@@ -37,6 +43,7 @@ const icons = {
   chevronDown: ChevronDown,
   menu: Menu,
   close: X,
+  x: X,
   globe: Globe,
   arrowUp: ArrowUp,
   mapPin: MapPin,
@@ -52,6 +59,12 @@ const icons = {
   shield: Shield,
   mail: Mail,
   phone: Phone,
+  zap: Zap,
+  star: Star,
+  clock: Clock,
+  award: Award,
+  cloud: Cloud,
+  fileText: FileText,
 };
 
 const brandShapes = {
@@ -93,25 +106,33 @@ function Icon({ name, size = 16, className = '' }) {
     return <LucideIcon aria-hidden="true" size={size} strokeWidth={2} className={className} />;
   }
 
-  if (!Object.hasOwn(brandShapes, name)) {
-    throw new Error(`Unknown icon: ${name}`);
+  if (Object.hasOwn(brandShapes, name)) {
+    return (
+      <svg
+        aria-hidden="true"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+      >
+        {brandShapes[name]}
+      </svg>
+    );
   }
 
+  // Graceful fallback for any missing or undefined icon names - never crash the app
+  console.warn(`Icon "${name}" not found. Falling back gracefully.`);
   return (
-    <svg
+    <span
       aria-hidden="true"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-    >
-      {brandShapes[name]}
-    </svg>
+      style={{ width: size, height: size }}
+      className={`inline-block shrink-0 rounded-full bg-current opacity-40 ${className}`}
+    />
   );
 }
 
