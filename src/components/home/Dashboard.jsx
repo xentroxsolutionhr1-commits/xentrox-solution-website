@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { animate } from 'animejs';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
-import FlexCarousel from '../../bits/FlexCarousel.jsx';
+import Carousel from '../../bits/Carousel.jsx';
 import GhostFibers from '../../bits/GhostFibers.jsx';
 import VariableProximity from '../../bits/VariableProximity.jsx';
 
@@ -12,36 +12,40 @@ const heroStatistics = [
   { value: 10, suffix: '+', label: 'Industries served' },
 ];
 
+function ApproachIcon({ kind }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {kind === 'people' && <><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20" /><circle cx="10" cy="7.5" r="3.5" /><path d="M16 4.5a3.5 3.5 0 0 1 0 6.8M17 15h.5a3.5 3.5 0 0 1 3.5 3.5V20" /></>}
+      {kind === 'build' && <><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14" /></>}
+      {kind === 'learn' && <><path d="m3 5.5 7-2 7 2v15l-7-2-7 2zM17 5.5l4-1v15l-4 1M10 3.5v15" /></>}
+    </svg>
+  );
+}
+
 const approachGallery = [
   {
-    src: '/heroimage.png',
-    alt: 'People learning and collaborating around digital technology',
+    id: 'people',
+    image: '/whyxentroxcarosel1.png',
+    alt: 'XentroX team collaborating on technology',
     title: 'Technology for people',
-    subtitle: 'Practical skills. Meaningful outcomes.',
+    description: 'We listen first, then shape digital tools around the way your team and customers actually work.',
+    icon: <ApproachIcon kind="people" />,
   },
   {
-    src: '/hero section.png',
-    alt: 'A team of learners working together on software',
-    title: 'Build the next generation',
-    subtitle: 'Learning through real engineering work.',
+    id: 'engineering',
+    image: '/whyxentroxcarosel2.png',
+    alt: 'A software engineering team working together',
+    title: 'Engineering with care',
+    description: 'Thoughtful web and mobile products, built to feel clear today and stay useful as your business grows.',
+    icon: <ApproachIcon kind="build" />,
   },
   {
-    src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format&fit=crop',
-    alt: 'Laptop displaying a software development workspace',
-    title: 'Engineering with clarity',
-    subtitle: 'Purposeful products, designed to scale.',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80&auto=format&fit=crop',
-    alt: 'A team collaborating around a table',
-    title: 'Better work, together',
-    subtitle: 'Strategy and delivery in sync.',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80&auto=format&fit=crop',
-    alt: 'A digital view of global networks and technology',
-    title: 'Ready for what’s next',
-    subtitle: 'Connected systems. Lasting progress.',
+    id: 'learning',
+    image: '/whyxentroxcarosel3.png',
+    alt: 'Learners building practical software skills',
+    title: 'Learning by doing',
+    description: 'Learners work alongside practicing engineers, building the confidence to contribute to real projects.',
+    icon: <ApproachIcon kind="learn" />,
   },
 ];
 
@@ -295,48 +299,78 @@ function Dashboard() {
       <section
         ref={section2Ref}
         id="why-xentrox"
-        className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden bg-[#f7faf8] px-4 py-20 text-[#0d2a1a] sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+        className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden bg-[#F5FBF7] px-4 py-20 text-[#164B35] sm:px-6 sm:py-24 lg:px-8 lg:py-28"
       >
-        <div className="pointer-events-none absolute -right-32 top-0 size-[34rem] rounded-full bg-[#a3e635]/15 blur-[130px]" aria-hidden="true" />
-        <div className="pointer-events-none absolute -left-32 bottom-0 size-[30rem] rounded-full bg-[#10b981]/10 blur-[130px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -right-32 top-0 size-[34rem] rounded-full bg-[#16A36A]/10 blur-[140px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -left-32 bottom-0 size-[30rem] rounded-full bg-[#B7E4CC]/35 blur-[130px]" aria-hidden="true" />
 
-        <div className="relative mx-auto w-full max-w-[1240px]">
-          <div className="mx-auto max-w-3xl text-center" data-scroll-reveal>
-            <h2 className="text-[clamp(2.1rem,4.2vw,3.6rem)] font-extrabold leading-[1.08] tracking-tight text-[#07241a]">
-              Built for <span className="bg-gradient-to-r from-[#2e7d32] via-[#4d8b18] to-[#84cc16] bg-clip-text text-transparent">measurable growth</span>.
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-              Explore how strategy, engineering, and people come together to turn ambitious ideas into useful digital products.
-            </p>
-          </div>
-
-          <div className="mt-10 overflow-hidden rounded-[2rem] border border-[#dce8dc] bg-[#062c23] p-3 shadow-[0_30px_90px_-45px_rgba(7,36,26,.5)] sm:mt-14 sm:p-5" data-scroll-reveal>
-            <FlexCarousel
-              items={approachGallery}
-              preset="ribbon"
-              intro="rise"
-              cardHeight={0.62}
-              gap={16}
-              radius={18}
-              fit="landscape"
-              captions
-              autoplay={false}
-              focusOnClick
-              className="h-[280px] w-full sm:h-[390px] lg:h-[480px]"
-            />
-          </div>
-
-          <div className="mt-8 grid gap-4 text-center sm:grid-cols-3 sm:gap-6" data-scroll-reveal>
-            {[
-              ['01', 'Start with outcomes'],
-              ['02', 'Build with clarity'],
-              ['03', 'Improve continuously'],
-            ].map(([number, label]) => (
-              <div key={number} className="border-t border-[#dce8dc] px-3 py-4">
-                <span className="text-xs font-bold tracking-[.16em] text-[#6b9b36]">{number}</span>
-                <p className="mb-0 mt-1 text-sm font-semibold text-[#173c2e]">{label}</p>
+        <div className="relative mx-auto w-full max-w-[1080px]">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+            <div className="lg:col-span-5">
+              <h2 data-scroll-reveal data-reveal-from="left" className="text-[clamp(2rem,3.4vw,3.15rem)] font-bold leading-[1.08] tracking-[-.045em] text-[#164B35]">
+                Built for <span className="bg-gradient-to-r from-[#164B35] via-[#16A36A] to-[#43B982] bg-clip-text text-transparent">measurable growth</span>
+              </h2>
+              <p data-scroll-reveal data-reveal-from="left" style={{ '--reveal-delay': '90ms' }} className="mt-5 max-w-[34rem] text-[15px] leading-[1.75] text-[#476557] sm:text-base">
+                We bring strategy, engineering, and practical learning together to turn ambitious ideas into useful digital products.
+              </p>
+              <div data-scroll-reveal data-reveal-from="left" style={{ '--reveal-delay': '160ms' }} className="mt-8 space-y-4">
+                {[
+                  'Start with outcomes that matter to your business',
+                  'Build clear, dependable digital experiences',
+                  'Keep improving through real feedback and measurement',
+                ].map((point) => (
+                  <div key={point} className="flex items-start gap-3.5 text-sm font-medium leading-[1.6] text-[#164B35] sm:text-[15px]">
+                    <span className="mt-0.5 flex size-[22px] shrink-0 items-center justify-center rounded-full bg-[#DDF5E8] text-[#16A36A] ring-1 ring-[#16A36A]/15">
+                      <svg viewBox="0 0 16 16" className="size-3.5" fill="none" aria-hidden="true"><path d="m3.5 8.2 2.8 2.7 6.2-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    </span>
+                    <span className="pt-px">{point}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+              <Link data-scroll-reveal data-reveal-from="left" style={{ '--reveal-delay': '230ms' }} to="/services" className="group mt-9 inline-flex min-h-12 items-center gap-3 rounded-full bg-[#164B35] py-2 pl-5 pr-2 text-sm font-semibold text-white shadow-[0_12px_28px_-16px_rgba(22,75,53,.75)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#16A36A] hover:shadow-[0_16px_32px_-15px_rgba(22,163,106,.65)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#16A36A]">
+                Discover our approach
+                <span className="grid size-8 place-items-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-0.5"><Icon name="arrowRight" size={16} /></span>
+              </Link>
+            </div>
+
+            <div className="min-w-0 lg:col-span-7" data-scroll-reveal data-reveal-from="right" style={{ '--reveal-delay': '140ms' }}>
+              <Carousel
+                items={approachGallery}
+                baseWidth={640}
+                aspectRatio={1.34}
+                peek={0}
+                gap={0}
+                radius={28}
+                frame={false}
+                effect="fade"
+                indicator="none"
+                autoplay
+                autoplayDelay={3800}
+                pauseOnHover
+                loop
+                draggable
+                theme="light"
+                className="mx-auto w-full"
+                style={{
+                  '--carousel-frame': 'rgba(221, 245, 232, 0.76)',
+                  '--carousel-frame-edge': 'rgba(22, 75, 53, 0.13)',
+                  '--carousel-frame-highlight': 'rgba(255, 255, 255, 0.9)',
+                  '--carousel-frame-shadow': '0 32px 72px -38px rgba(22, 75, 53, 0.42)',
+                  '--carousel-tile': '#F5FBF7',
+                  '--carousel-tile-edge': 'rgba(22, 75, 53, 0.15)',
+                  '--carousel-tile-highlight': 'rgba(255, 255, 255, 0.92)',
+                  '--carousel-tile-shadow': '0 24px 60px -32px rgba(22, 75, 53, 0.58)',
+                  '--carousel-ink': '#164B35',
+                  '--carousel-muted': 'rgba(255, 255, 255, 0.82)',
+                  '--carousel-faint': 'rgba(22, 163, 106, 0.22)',
+                  '--carousel-soft': 'rgba(22, 163, 106, 0.42)',
+                  '--carousel-badge': 'rgba(183, 228, 204, 0.2)',
+                  '--carousel-accent': '#16A36A',
+                  '--carousel-hover': 'brightness(1.06)',
+                  '--carousel-press': 'brightness(0.95)',
+                }}
+              />
+            </div>
           </div>
         </div>
       </section>
