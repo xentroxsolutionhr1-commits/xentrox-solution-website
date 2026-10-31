@@ -3,6 +3,7 @@ import { animate } from 'animejs';
 import { Outlet, useLocation } from 'react-router-dom';
 import Footer from '../components/common/Footer.jsx';
 import Navbar from '../components/home/NavBar.jsx';
+import FloatingActionWidgets from '../components/common/FloatingActionWidgets.jsx';
 
 function FullLayout() {
   const revealRoot = useRef(null);
@@ -120,6 +121,8 @@ function FullLayout() {
         <Outlet />
       </main>
       <Footer />
+      {/* Floating Scroll-to-Top with Progress Bar & WhatsApp Action */}
+      <FloatingActionWidgets />
     </div>
   );
 }

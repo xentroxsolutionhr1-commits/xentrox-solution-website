@@ -490,3 +490,7 @@ a {
     animation: none;
   }
 }
+
+    .max-sm\:pb-6 {
+        padding-bottom: calc(var(--spacing) * 0);
+    }

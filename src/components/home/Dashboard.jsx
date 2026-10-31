@@ -383,18 +383,13 @@ function Dashboard() {
         <div className="mx-auto w-full max-w-[1200px]">
           {/* Header */}
           <div className="mx-auto max-w-2xl text-center">
-            <span
-              data-scroll-reveal
-              className="inline-flex items-center gap-2 rounded-full bg-[#a3e635]/15 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-[#a3e635] ring-1 ring-[#a3e635]/20"
-            >
-              What’s Next
-            </span>
+            
             <h2
               data-scroll-reveal
               style={{ '--reveal-delay': '90ms' }}
               className="mt-4 text-[clamp(2.2rem,4vw,3.5rem)] font-extrabold tracking-tight text-white"
             >
-              Ready to transform your vision into reality?
+              Ready to transform your vision <span className="bg-gradient-to-r from-[#a3e635] to-[#84cc16] bg-clip-text text-transparent">into reality?</span>
             </h2>
             <p
               data-scroll-reveal
@@ -412,11 +407,15 @@ function Dashboard() {
               style={{ '--reveal-delay': '100ms' }}
               className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8"
             >
-              <div className="flex size-12 items-center justify-center rounded-xl bg-[#a3e635]/20 font-mono text-lg font-bold text-[#a3e635]">
-                01
+              <div className="flex items-center gap-4">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#a3e635]/20 text-[#a3e635]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="size-6" aria-hidden="true">
+                    <path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-white">Web & Mobile Engineering</h3>
               </div>
-              <h3 className="mt-6 text-xl font-bold text-white">Web & Mobile Engineering</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#d3e2d9]/80">
+              <p className="mt-4 text-sm leading-relaxed text-[#d3e2d9]/80">
                 Architecting responsive, lightning-fast web applications and mobile experiences tailored to your business goals.
               </p>
               <Link to="/services" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#a3e635] group-hover:underline">
@@ -429,11 +428,17 @@ function Dashboard() {
               style={{ '--reveal-delay': '200ms' }}
               className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8"
             >
-              <div className="flex size-12 items-center justify-center rounded-xl bg-[#a3e635]/20 font-mono text-lg font-bold text-[#a3e635]">
-                02
+              <div className="flex items-center gap-4">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#a3e635]/20 text-[#a3e635]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="size-6" aria-hidden="true">
+                    <path d="M17.5 19c0-1.7-1.3-3-3-3h-11c-1.7 0-3 1.3-3 3" />
+                    <path d="M17.5 16c3 0 5.5-2.5 5.5-5.5S20.5 5 17.5 5 12 7.5 12 10.5" />
+                    <path d="M12 10.5c0-3-2.5-5.5-5.5-5.5S1 7.5 1 10.5 3.5 16 6.5 16" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-white">Cloud & AI Acceleration</h3>
               </div>
-              <h3 className="mt-6 text-xl font-bold text-white">Cloud & AI Acceleration</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#d3e2d9]/80">
+              <p className="mt-4 text-sm leading-relaxed text-[#d3e2d9]/80">
                 Deploying robust microservices, cloud infrastructure, and generative AI integrations built for high concurrency.
               </p>
               <Link to="/services" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#a3e635] group-hover:underline">
@@ -446,11 +451,15 @@ function Dashboard() {
               style={{ '--reveal-delay': '300ms' }}
               className="group rounded-2xl border border-white/10 bg-[#093529] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#a3e635]/40 hover:bg-[#0c4032] sm:p-8"
             >
-              <div className="flex size-12 items-center justify-center rounded-xl bg-[#a3e635]/20 font-mono text-lg font-bold text-[#a3e635]">
-                03
+              <div className="flex items-center gap-4">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#a3e635]/20 text-[#a3e635]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="size-6" aria-hidden="true">
+                    <path d="m3 5.5 7-2 7 2v15l-7-2-7 2zM17 5.5l4-1v15l-4 1M10 3.5v15" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-white">XentroX Labs Academy</h3>
               </div>
-              <h3 className="mt-6 text-xl font-bold text-white">XentroX Labs Academy</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#d3e2d9]/80">
+              <p className="mt-4 text-sm leading-relaxed text-[#d3e2d9]/80">
                 Bridging university education with production-grade engineering, preparing aspiring developers for real-world impact.
               </p>
               <Link to="/courses" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#a3e635] group-hover:underline">
