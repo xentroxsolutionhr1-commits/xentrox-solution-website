@@ -1,0 +1,789 @@
+/* ==========================================================================
+   XENTROX SOLUTIONS - CAREERS PAGE STYLESHEET
+   Clean, modern, editorial green-and-white theme
+   Matching exact visual reference specifications
+   ========================================================================== */
+
+.careers-page {
+  /* Brand Tokens */
+  --c-forest-green: #064B38;
+  --c-deep-green: #023C2D;
+  --c-lime-green: #A3E635;
+  --c-white: #FFFFFF;
+  --c-light-green: #E9F8E9;
+  --c-soft-grey: #F5F7F5;
+  --c-border-light: #E2EBE5;
+  --c-border-subtle: #EDF3EF;
+  --c-body-text: #53665E;
+  --c-dark-text: #172A24;
+
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: -1.5rem;
+  margin-bottom: -2rem;
+  overflow-x: hidden;
+  background-color: var(--c-white);
+  color: var(--c-body-text);
+  font-family: inherit;
+}
+
+@media (max-width: 640px) {
+  .careers-page {
+    margin-top: -1.25rem;
+    margin-bottom: -1.5rem;
+  }
+}
+
+.careers-page *,
+.careers-page *::before,
+.careers-page *::after {
+  box-sizing: border-box;
+}
+
+/* Container */
+.careers-container {
+  width: 100%;
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 3.5vw, 2.25rem);
+  padding-right: clamp(1rem, 3.5vw, 2.25rem);
+}
+
+/* ==========================================================================
+   SECTION 1 — HERO SECTION (DARK FOREST GREEN #064B38)
+   Full-width canvas with photograph filling and blending right side
+   ========================================================================== */
+.careers-hero {
+  position: relative;
+  min-height: clamp(520px, 60vh, 640px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(4.5rem, 7.5vw, 6.75rem);
+  padding-bottom: clamp(6.5rem, 9.5vw, 9rem);
+  background-color: var(--c-forest-green);
+  color: var(--c-white);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Background image filling the entire right half of the hero */
+.careers-hero-bg-photo-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 56%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.careers-hero-bg-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  opacity: 0.94;
+  filter: contrast(1.06) brightness(0.96);
+}
+
+.careers-hero-bg-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, #064B38 0%, rgba(6, 75, 56, 0.96) 18%, rgba(6, 75, 56, 0.5) 45%, transparent 80%),
+    linear-gradient(to top, #064B38 0%, rgba(6, 75, 56, 0.8) 22%, transparent 50%),
+    linear-gradient(to bottom, rgba(6, 75, 56, 0.65) 0%, transparent 30%),
+    linear-gradient(135deg, rgba(6, 75, 56, 0.25) 0%, rgba(2, 60, 45, 0.35) 100%);
+}
+
+/* Subtle organic curved lines in background */
+.careers-hero-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.careers-hero-lines svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.careers-hero-container {
+  position: relative;
+  z-index: 3;
+}
+
+/* Hero Content Column (Left Side) */
+.careers-hero-content-wrap {
+  max-width: 600px;
+}
+
+/* Small uppercase plain label: CAREERS (no badge, no pill, no border, no background) */
+.careers-hero-eyebrow {
+  display: inline-block;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-lime-green);
+  margin-bottom: 1rem;
+}
+
+/* Main heading: Turn Your Ideas / Into Impact. */
+.careers-hero-heading {
+  margin: 0 0 1.5rem;
+  font-size: clamp(3rem, 5.2vw, 4.85rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--c-white);
+}
+
+.careers-hero-heading-line1 {
+  display: block;
+  color: var(--c-white);
+}
+
+.careers-lime-highlight {
+  display: block;
+  color: var(--c-lime-green);
+}
+
+.careers-hero-desc {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.3vw, 1.22rem);
+  line-height: 1.68;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 400;
+  max-width: 520px;
+}
+
+/* Hero Wave Transition into White Section */
+.careers-hero-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 65px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.careers-hero-wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   SECTION 2 — CURRENT OPENINGS (WHITE BACKGROUND #FFFFFF)
+   ========================================================================== */
+.careers-openings-section {
+  position: relative;
+  padding-top: clamp(3.5rem, 5.5vw, 5rem);
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+  background-color: var(--c-white);
+}
+
+.careers-openings-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.careers-section-eyebrow {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-forest-green);
+  margin-bottom: 0.5rem;
+}
+
+.careers-openings-heading {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 2.85rem);
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  color: var(--c-forest-green);
+  line-height: 1.18;
+}
+
+.careers-lime-text,
+.careers-lime-gradient-text {
+  color: #16A34A;
+  background: linear-gradient(135deg, #15803D 0%, #16A34A 55%, #A3E635 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.careers-view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--c-forest-green);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.careers-view-all-link:hover {
+  color: #16A34A;
+  transform: translateX(3px);
+}
+
+/* Filter & Search Bar */
+.careers-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--c-border-light);
+}
+
+.careers-category-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.careers-category-btn {
+  padding: 0.48rem 1.15rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid var(--c-border-light);
+  background: var(--c-soft-grey);
+  color: var(--c-body-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.careers-category-btn:hover {
+  border-color: var(--c-forest-green);
+  color: var(--c-forest-green);
+}
+
+.careers-category-btn.is-active {
+  background: var(--c-forest-green);
+  border-color: var(--c-forest-green);
+  color: var(--c-white);
+  box-shadow: 0 4px 12px rgba(6, 75, 56, 0.18);
+}
+
+.careers-search-wrap {
+  position: relative;
+  min-width: 260px;
+  max-width: 340px;
+  flex: 1;
+}
+
+.careers-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  pointer-events: none;
+}
+
+.careers-search-input {
+  width: 100%;
+  height: 42px;
+  border-radius: 9999px;
+  border: 1px solid var(--c-border-light);
+  background: var(--c-soft-grey);
+  padding: 0 2.25rem 0 2.5rem;
+  font-size: 0.88rem;
+  color: var(--c-dark-text);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.careers-search-input:focus {
+  border-color: var(--c-forest-green);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(6, 75, 56, 0.1);
+}
+
+.careers-search-clear {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.careers-search-clear:hover {
+  color: var(--c-dark-text);
+}
+
+/* ==========================================================================
+   Horizontal Full-Width Job Cards List
+   ========================================================================== */
+.careers-horizontal-jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+/* Horizontal Job Card */
+.careers-horizontal-job-card {
+  width: 100%;
+  background: var(--c-white);
+  border: 1px solid rgba(6, 75, 56, 0.12);
+  border-radius: 22px;
+  padding: clamp(1.35rem, 2.2vw, 1.85rem) clamp(1.5rem, 2.8vw, 2.25rem);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  align-items: center;
+  box-shadow: 0 4px 20px -4px rgba(6, 75, 56, 0.05);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.careers-horizontal-job-card:hover {
+  background: #FAFDF9;
+  border-color: rgba(163, 230, 53, 0.85);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -10px rgba(6, 75, 56, 0.12);
+}
+
+/* LEFT: Circular light-green icon */
+.careers-job-left-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.careers-job-circle-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: var(--c-light-green);
+  color: var(--c-forest-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(163, 230, 53, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.careers-horizontal-job-card:hover .careers-job-circle-icon {
+  background-color: var(--c-forest-green);
+  color: var(--c-lime-green);
+  border-color: var(--c-forest-green);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(6, 75, 56, 0.18);
+}
+
+/* CENTER: Title, description, skill pill tags */
+.careers-job-center-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.careers-job-card-title {
+  margin: 0;
+  font-size: clamp(1.18rem, 1.5vw, 1.35rem);
+  font-weight: 850;
+  color: var(--c-forest-green);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.careers-job-card-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--c-body-text);
+  line-height: 1.55;
+  max-width: 720px;
+}
+
+.careers-job-skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+
+.careers-job-skill-pill {
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: var(--c-soft-grey);
+  color: #475569;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
+}
+
+.careers-horizontal-job-card:hover .careers-job-skill-pill {
+  background: #FFFFFF;
+  border-color: rgba(6, 75, 56, 0.2);
+  color: var(--c-forest-green);
+}
+
+/* RIGHT: Employment type badge, location, circular arrow button */
+.careers-job-right-col {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.careers-job-meta-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.45rem;
+  text-align: right;
+}
+
+.careers-job-badge-type {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.28rem 0.75rem;
+  border-radius: 9999px;
+  background: var(--c-light-green);
+  color: var(--c-forest-green);
+  border: 1px solid rgba(6, 75, 56, 0.1);
+  white-space: nowrap;
+}
+
+.careers-job-location-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748B;
+  white-space: nowrap;
+}
+
+.careers-job-circle-arrow-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--c-soft-grey);
+  border: 1.5px solid var(--c-border-light);
+  color: var(--c-forest-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.careers-horizontal-job-card:hover .careers-job-circle-arrow-btn {
+  background-color: var(--c-lime-green);
+  border-color: var(--c-lime-green);
+  color: var(--c-forest-green);
+  transform: scale(1.1) rotate(6deg);
+  box-shadow: 0 6px 16px rgba(163, 230, 53, 0.35);
+}
+
+/* Empty State */
+.careers-empty-state {
+  width: 100%;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: var(--c-soft-grey);
+  border-radius: 1.5rem;
+  border: 1px dashed var(--c-border-light);
+}
+
+.careers-empty-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--c-white);
+  color: var(--c-forest-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 4px 14px rgba(6, 75, 56, 0.06);
+}
+
+.careers-empty-state h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--c-forest-green);
+}
+
+.careers-empty-state p {
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+  color: var(--c-body-text);
+}
+
+.careers-reset-btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 9999px;
+  background: var(--c-forest-green);
+  color: var(--c-white);
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.careers-reset-btn:hover {
+  background: #086148;
+}
+
+/* ==========================================================================
+   SECTION 3 — GENERAL APPLICATION INVITATION BANNER
+   ========================================================================== */
+.careers-invite-section {
+  position: relative;
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+  background-color: var(--c-white);
+}
+
+.careers-invite-box {
+  background-color: var(--c-forest-green);
+  border-radius: 1.75rem;
+  padding: clamp(2.5rem, 4vw, 3.5rem);
+  color: var(--c-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  box-shadow: 0 20px 48px -12px rgba(6, 75, 56, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.careers-invite-box::before {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(163, 230, 53, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.careers-invite-content {
+  max-width: 640px;
+  position: relative;
+  z-index: 2;
+}
+
+.careers-invite-badge {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-lime-green);
+  margin-bottom: 0.5rem;
+}
+
+.careers-invite-title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.65rem, 2.5vw, 2.2rem);
+  font-weight: 850;
+  line-height: 1.25;
+  color: var(--c-white);
+  letter-spacing: -0.02em;
+}
+
+.careers-invite-text {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.careers-invite-action {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.careers-invite-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.95rem 1.85rem;
+  border-radius: 9999px;
+  background-color: var(--c-lime-green);
+  color: var(--c-forest-green);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(163, 230, 53, 0.28);
+}
+
+.careers-invite-btn:hover {
+  background-color: #b3f24b;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(163, 230, 53, 0.38);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN ADJUSTMENTS
+   ========================================================================== */
+@media (max-width: 980px) {
+  .careers-hero-bg-photo-wrap {
+    width: 65%;
+    opacity: 0.65;
+  }
+
+  .careers-hero-bg-gradient-overlay {
+    background:
+      linear-gradient(to right, #064B38 0%, rgba(6, 75, 56, 0.96) 35%, rgba(6, 75, 56, 0.6) 65%, transparent 100%),
+      linear-gradient(to top, #064B38 0%, rgba(6, 75, 56, 0.8) 25%, transparent 50%),
+      linear-gradient(to bottom, rgba(6, 75, 56, 0.65) 0%, transparent 30%);
+  }
+
+  .careers-hero-content-wrap {
+    max-width: 520px;
+  }
+
+  .careers-openings-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .careers-horizontal-job-card {
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .careers-job-right-col {
+    grid-column: 2 / -1;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 0;
+    padding-top: 0.85rem;
+    border-top: 1px dashed rgba(6, 75, 56, 0.12);
+  }
+
+  .careers-job-meta-details {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+  .careers-hero {
+    padding-top: 3.25rem;
+    padding-bottom: 5.25rem;
+  }
+
+  .careers-hero-bg-photo-wrap {
+    width: 100%;
+    opacity: 0.35;
+  }
+
+  .careers-hero-bg-gradient-overlay {
+    background:
+      linear-gradient(to top, #064B38 10%, rgba(6, 75, 56, 0.9) 60%, rgba(6, 75, 56, 0.75) 100%);
+  }
+
+  .careers-hero-heading {
+    font-size: clamp(2.35rem, 8.5vw, 3.15rem);
+  }
+
+  .careers-hero-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .careers-horizontal-job-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.35rem 1.25rem;
+    gap: 1.15rem;
+    border-radius: 18px;
+  }
+
+  .careers-job-circle-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .careers-job-right-col {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--c-border-subtle);
+    margin-left: 0;
+  }
+
+  .careers-job-meta-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .careers-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .careers-search-wrap {
+    max-width: 100%;
+  }
+
+  .careers-invite-box {
+    padding: 2rem 1.25rem;
+    border-radius: 1.25rem;
+  }
+}

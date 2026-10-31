@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2F8F2" />
+      <stop offset="100%" stop-color="#E1EFE3" />
+    </linearGradient>
+    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#168B46" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#168B46" stop-opacity="0.0" />
+    </linearGradient>
+    <filter id="shadow1" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#063F32" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="500" rx="16" fill="url(#bg1)" />
+
+  <!-- Grid Pattern Overlay -->
+  <g opacity="0.15" stroke="#168B46" stroke-width="1">
+    <line x1="0" y1="100" x2="800" y2="100" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+    <line x1="0" y1="400" x2="800" y2="400" />
+    <line x1="160" y1="0" x2="160" y2="500" />
+    <line x1="320" y1="0" x2="320" y2="500" />
+    <line x1="480" y1="0" x2="480" y2="500" />
+    <line x1="640" y1="0" x2="640" y2="500" />
+  </g>
+
+  <!-- Main Analytics Window Mockup -->
+  <g transform="translate(60, 45)" filter="url(#shadow1)">
+    <!-- Browser/App Chrome -->
+    <rect width="680" height="410" rx="12" fill="#FFFFFF" stroke="#E2EBE5" stroke-width="1.5" />
+    <rect width="680" height="42" rx="12" fill="#F8FAF8" />
+    <path d="M0 42 h680" stroke="#E2EBE5" stroke-width="1" />
+    
+    <!-- Chrome Controls -->
+    <circle cx="24" cy="21" r="5" fill="#EF4444" opacity="0.75" />
+    <circle cx="40" cy="21" r="5" fill="#F59E0B" opacity="0.75" />
+    <circle cx="56" cy="21" r="5" fill="#10B981" opacity="0.75" />
+    
+    <!-- URL Bar -->
+    <rect x="85" y="10" width="340" height="22" rx="6" fill="#FFFFFF" stroke="#E2EBE5" />
+    <text x="100" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#64748B">analytics.greenrootsorganics.com/seo-performance</text>
+    
+    <!-- Status Badge -->
+    <rect x="540" y="10" width="120" height="22" rx="6" fill="#E8F5EA" />
+    <circle cx="554" cy="21" r="3.5" fill="#168B46" />
+    <text x="564" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="#168B46">LIVE AUDIT 99/100</text>
+
+    <!-- Dashboard Content -->
+    <!-- Top KPI Metric Cards -->
+    <g transform="translate(25, 60)">
+      <!-- KPI 1 -->
+      <rect width="195" height="74" rx="8" fill="#FBFDFB" stroke="#E8F5EA" stroke-width="1.5" />
+      <text x="16" y="24" font-family="sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="0.5">ORGANIC SESSIONS</text>
+      <text x="16" y="52" font-family="sans-serif" font-size="22" font-weight="900" fill="#063F32">184,250</text>
+      <rect x="130" y="36" width="52" height="18" rx="4" fill="#E8F5EA" />
+      <text x="136" y="49" font-family="sans-serif" font-size="11" font-weight="800" fill="#168B46">+314%</text>
+
+      <!-- KPI 2 -->
+      <g transform="translate(215, 0)">
+        <rect width="195" height="74" rx="8" fill="#FBFDFB" stroke="#E8F5EA" stroke-width="1.5" />
+        <text x="16" y="24" font-family="sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="0.5">TOP 3 KEYWORDS</text>
+        <text x="16" y="52" font-family="sans-serif" font-size="22" font-weight="900" fill="#063F32">428</text>
+        <rect x="130" y="36" width="52" height="18" rx="4" fill="#E8F5EA" />
+        <text x="136" y="49" font-family="sans-serif" font-size="11" font-weight="800" fill="#168B46">+182%</text>
+      </g>
+
+      <!-- KPI 3 -->
+      <g transform="translate(430, 0)">
+        <rect width="200" height="74" rx="8" fill="#FBFDFB" stroke="#E8F5EA" stroke-width="1.5" />
+        <text x="16" y="24" font-family="sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="0.5">LOCAL STORE VISITS</text>
+        <text x="16" y="52" font-family="sans-serif" font-size="22" font-weight="900" fill="#063F32">26,410</text>
+        <rect x="135" y="36" width="52" height="18" rx="4" fill="#E8F5EA" />
+        <text x="142" y="49" font-family="sans-serif" font-size="11" font-weight="800" fill="#168B46">+89%</text>
+      </g>
+    </g>
+
+    <!-- Interactive Organic Growth Chart Area -->
+    <g transform="translate(25, 150)">
+      <rect width="630" height="235" rx="10" fill="#FFFFFF" stroke="#E2EBE5" stroke-width="1" />
+      <text x="20" y="28" font-family="sans-serif" font-size="13" font-weight="800" fill="#063F32">6-Month Search Engine Trajectory &amp; Local Pack Visibility</text>
+      <text x="535" y="28" font-family="sans-serif" font-size="11" font-weight="600" fill="#168B46">Month 1 → Month 6</text>
+      
+      <!-- Chart Grid lines -->
+      <g stroke="#F1F5F2" stroke-width="1">
+        <line x1="20" y1="60" x2="610" y2="60" />
+        <line x1="20" y1="100" x2="610" y2="100" />
+        <line x1="20" y1="140" x2="610" y2="140" />
+        <line x1="20" y1="180" x2="610" y2="180" />
+      </g>
+
+      <!-- Area Path -->
+      <path d="M 20 180 C 120 175, 180 160, 260 140 C 340 120, 420 85, 500 65 C 560 50, 600 42, 610 40 L 610 190 L 20 190 Z" fill="url(#chartGrad)" />
+      <!-- Line Path -->
+      <path d="M 20 180 C 120 175, 180 160, 260 140 C 340 120, 420 85, 500 65 C 560 50, 600 42, 610 40" fill="none" stroke="#168B46" stroke-width="3" stroke-linecap="round" />
+      
+      <!-- Node Points -->
+      <circle cx="20" cy="180" r="4" fill="#FFFFFF" stroke="#168B46" stroke-width="2.5" />
+      <circle cx="160" cy="165" r="4" fill="#FFFFFF" stroke="#168B46" stroke-width="2.5" />
+      <circle cx="300" cy="130" r="4" fill="#FFFFFF" stroke="#168B46" stroke-width="2.5" />
+      <circle cx="440" cy="80" r="4" fill="#FFFFFF" stroke="#168B46" stroke-width="2.5" />
+      <circle cx="610" cy="40" r="6" fill="#168B46" stroke="#FFFFFF" stroke-width="2.5" />
+
+      <!-- Month Labels -->
+      <text x="20" y="212" font-family="sans-serif" font-size="10" fill="#94A3B8">May</text>
+      <text x="140" y="212" font-family="sans-serif" font-size="10" fill="#94A3B8">June</text>
+      <text x="260" y="212" font-family="sans-serif" font-size="10" fill="#94A3B8">July</text>
+      <text x="380" y="212" font-family="sans-serif" font-size="10" fill="#94A3B8">August</text>
+      <text x="490" y="212" font-family="sans-serif" font-size="10" fill="#94A3B8">September</text>
+      <text x="585" y="212" font-family="sans-serif" font-size="10" font-weight="700" fill="#168B46">October</text>
+    </g>
+  </g>
+</svg>
+
