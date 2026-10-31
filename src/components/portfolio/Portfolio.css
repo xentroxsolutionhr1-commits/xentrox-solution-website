@@ -1,0 +1,725 @@
+/* ==========================================================================
+   XENTROX SOLUTIONS – THE PROJECT JOURNAL (PORTFOLIO PAGE)
+   Editorial Design: Good Work. Real-World Impact.
+   ========================================================================== */
+
+.portfolio-page {
+  --pj-forest: #064B38;
+  --pj-forest-dark: #043D2F;
+  --pj-forest-deep: #02291F;
+  --pj-lime: #A3E635;
+  --pj-lime-soft: rgba(163, 230, 53, 0.15);
+  --pj-white: #FFFFFF;
+  --pj-bg-soft: #F5F8F3;
+  --pj-mint-light: #EAF5EE;
+  --pj-text-body: #53665E;
+  --pj-text-muted: #64748B;
+  --pj-border-light: #E1ECE5;
+  --pj-border-card: rgba(6, 75, 56, 0.08);
+
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: -1.5rem; /* starts cleanly below 4.5rem navbar */
+  margin-bottom: -2rem;
+  overflow-x: hidden;
+  background-color: var(--pj-bg-soft);
+  color: var(--pj-text-body);
+  font-family: inherit;
+}
+
+@media (max-width: 640px) {
+  .portfolio-page {
+    margin-top: -1.25rem;
+    margin-bottom: -1.5rem;
+  }
+}
+
+.portfolio-page *,
+.portfolio-page *::before,
+.portfolio-page *::after {
+  box-sizing: border-box;
+}
+
+/* Container Utility */
+.pj-container {
+  width: 100%;
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 3.5vw, 2.25rem);
+  padding-right: clamp(1rem, 3.5vw, 2.25rem);
+}
+
+/* ==========================================================================
+   1. PORTFOLIO HERO – LARGE EDITORIAL SPLIT
+   ========================================================================== */
+.pj-hero-section {
+  position: relative;
+  background-color: var(--pj-bg-soft);
+  padding-top: clamp(3.5rem, 6vw, 5.5rem);
+  padding-bottom: clamp(3.5rem, 6vw, 5rem);
+  overflow: hidden;
+}
+
+.pj-hero-split {
+  display: grid;
+  grid-template-columns: 52% 48%;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  align-items: center;
+}
+
+.pj-hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding-right: clamp(0.5rem, 1.5vw, 1.5rem);
+}
+
+.pj-journal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: 9999px;
+  background: var(--pj-white);
+  border: 1px solid rgba(6, 75, 56, 0.15);
+  color: var(--pj-forest);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: clamp(1.2rem, 2vw, 1.6rem);
+  box-shadow: 0 2px 8px rgba(6, 75, 56, 0.04);
+}
+
+.pj-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--pj-forest);
+}
+
+.pj-hero-title {
+  margin: 0 0 clamp(1.1rem, 1.8vw, 1.5rem);
+  font-size: clamp(2.75rem, 4.6vw, 4.25rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.pj-title-forest {
+  display: block;
+  color: var(--pj-forest);
+}
+
+.pj-title-lime {
+  display: block;
+  color: #168B46;
+  background: linear-gradient(135deg, #15803D 0%, #65A30D 60%, #84CC16 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pj-hero-lead {
+  margin: 0 0 clamp(1.5rem, 2.2vw, 2rem);
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.65;
+  color: var(--pj-text-body);
+  max-width: 540px;
+  font-weight: 450;
+}
+
+.pj-hero-caption-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pj-hero-caption-line {
+  width: 32px;
+  height: 2px;
+  background-color: var(--pj-forest);
+  opacity: 0.4;
+}
+
+.pj-hero-caption-text {
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--pj-forest);
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* Hero Right: Integrated Photo */
+.pj-hero-photo-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.pj-hero-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  max-height: 440px;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  box-shadow:
+    0 20px 45px -12px rgba(6, 75, 56, 0.16),
+    0 1px 3px rgba(6, 75, 56, 0.04);
+  background-color: #E2EBE5;
+}
+
+.pj-hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pj-hero-photo-frame:hover .pj-hero-photo {
+  transform: scale(1.03);
+}
+
+.pj-hero-photo-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 65%, rgba(6, 75, 56, 0.25) 100%);
+}
+
+@media (max-width: 960px) {
+  .pj-hero-split {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .pj-hero-photo-frame {
+    max-height: 340px;
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* ==========================================================================
+   2. FEATURED PROJECT – 01 / GREENROOTS ORGANICS
+   ========================================================================== */
+.pj-featured-section {
+  position: relative;
+  padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(4rem, 6vw, 5.5rem);
+  background-color: var(--pj-bg-soft);
+}
+
+.pj-featured-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 1.15fr;
+  background-color: var(--pj-forest);
+  color: var(--pj-white);
+  border-radius: 1.75rem;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(6, 75, 56, 0.28);
+}
+
+.pj-featured-content {
+  padding: clamp(2.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.pj-featured-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--pj-lime);
+  margin-bottom: 0.85rem;
+}
+
+.pj-featured-num {
+  font-size: 1.05rem;
+}
+
+.pj-meta-sep {
+  opacity: 0.45;
+}
+
+.pj-featured-client {
+  letter-spacing: 0.18em;
+}
+
+.pj-featured-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 1.1rem;
+}
+
+.pj-featured-headline {
+  margin: 0 0 1.15rem;
+  font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--pj-white);
+}
+
+.pj-featured-desc {
+  margin: 0 0 1.75rem;
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 520px;
+}
+
+.pj-featured-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.pj-tech-chip {
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(163, 230, 53, 0.25);
+  color: #D1E7DD;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.pj-featured-cta {
+  display: flex;
+  align-items: center;
+}
+
+.pj-link-lime {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--pj-lime);
+  font-size: 1.02rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: gap 0.25s ease, opacity 0.25s ease;
+}
+
+.pj-link-lime:hover {
+  gap: 0.85rem;
+  opacity: 0.95;
+}
+
+.pj-featured-visual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+}
+
+.pj-featured-img-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.pj-featured-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pj-featured-card:hover .pj-featured-img {
+  transform: scale(1.04);
+}
+
+.pj-featured-img-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--pj-forest) 0%, rgba(6, 75, 56, 0.35) 25%, transparent 60%);
+}
+
+@media (max-width: 960px) {
+  .pj-featured-card {
+    grid-template-columns: 1fr;
+  }
+  .pj-featured-visual {
+    height: 320px;
+    min-height: 300px;
+    order: -1;
+  }
+  .pj-featured-img-overlay {
+    background: linear-gradient(180deg, transparent 40%, var(--pj-forest) 100%);
+  }
+}
+
+/* ==========================================================================
+   3. EDITORIAL SHOWCASE – SECTION HEADER & GRIDS
+   ========================================================================== */
+.pj-showcase-section {
+  position: relative;
+  padding: clamp(3rem, 5vw, 5rem) 0 clamp(4rem, 7vw, 6.5rem);
+  background-color: var(--pj-white);
+  border-top: 1px solid var(--pj-border-light);
+}
+
+.pj-showcase-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto clamp(3rem, 5vw, 4.5rem);
+}
+
+.pj-section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--pj-forest);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.pj-tag-dash {
+  width: 16px;
+  height: 2px;
+  background-color: var(--pj-forest);
+  border-radius: 2px;
+}
+
+.pj-showcase-header h2 {
+  margin: 0 0 0.85rem;
+  font-size: clamp(2rem, 3.6vw, 2.85rem);
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  color: var(--pj-forest);
+}
+
+.pj-showcase-header p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--pj-text-muted);
+}
+
+/* ROW 1: Two Medium-Width Cards (Projects 02 & 03) */
+.pj-grid-row-two {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.pj-card-medium {
+  background: var(--pj-bg-soft);
+  border: 1px solid var(--pj-border-light);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.pj-card-medium:hover {
+  transform: translateY(-6px);
+  border-color: rgba(6, 75, 56, 0.25);
+  box-shadow: 0 20px 40px -10px rgba(6, 75, 56, 0.12);
+}
+
+.pj-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: #E2EBE5;
+}
+
+.pj-aspect-compact {
+  aspect-ratio: 16 / 11;
+}
+
+.pj-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pj-card-medium:hover .pj-card-img,
+.pj-card-compact:hover .pj-card-img {
+  transform: scale(1.05);
+}
+
+.pj-card-num-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.6rem;
+  background: rgba(6, 75, 56, 0.88);
+  color: var(--pj-white);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(8px);
+}
+
+.pj-card-body {
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pj-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.pj-category-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--pj-forest);
+  text-transform: uppercase;
+  background: rgba(6, 75, 56, 0.07);
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.pj-client-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--pj-text-muted);
+}
+
+.pj-card-title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  font-weight: 850;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--pj-forest);
+}
+
+.pj-card-desc {
+  margin: 0 0 1.25rem;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--pj-text-body);
+  flex: 1;
+}
+
+.pj-chips-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.pj-chip {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.55rem;
+  border-radius: 0.4rem;
+  background: var(--pj-white);
+  border: 1px solid var(--pj-border-light);
+  color: var(--pj-text-body);
+}
+
+.pj-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--pj-forest);
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: gap 0.25s ease, color 0.25s ease;
+  margin-top: auto;
+}
+
+.pj-card-link:hover {
+  gap: 0.75rem;
+  color: #168B46;
+}
+
+.pj-arrow {
+  transition: transform 0.25s ease;
+}
+
+.pj-card-link:hover .pj-arrow {
+  transform: translateX(3px);
+}
+
+/* ROW 2: Three Balanced Compact Cards (Projects 04, 05 & 06) */
+.pj-grid-row-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.pj-card-compact {
+  background: var(--pj-bg-soft);
+  border: 1px solid var(--pj-border-light);
+  border-radius: 1.4rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.pj-card-compact:hover {
+  transform: translateY(-6px);
+  border-color: rgba(6, 75, 56, 0.25);
+  box-shadow: 0 18px 36px -10px rgba(6, 75, 56, 0.1);
+}
+
+.pj-card-compact .pj-card-body {
+  padding: clamp(1.25rem, 2vw, 1.65rem);
+}
+
+.pj-card-compact .pj-card-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.55rem;
+}
+
+.pj-card-compact .pj-card-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .pj-grid-row-three {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pj-grid-row-two,
+  .pj-grid-row-three {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   4. CLOSING INVITATION – LIGHT MINT-GREEN SECTION
+   ========================================================================== */
+.pj-invitation-section {
+  position: relative;
+  background-color: var(--pj-bg-soft);
+  padding: clamp(4rem, 6.5vw, 6.5rem) 0 clamp(5rem, 8vw, 7.5rem);
+}
+
+.pj-invitation-box {
+  position: relative;
+  background: linear-gradient(135deg, #EAF5EE 0%, #F0F8F2 100%);
+  border: 1px solid rgba(22, 139, 70, 0.2);
+  border-radius: 2rem;
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 12px 36px -8px rgba(6, 75, 56, 0.08);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.pj-invitation-accent {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  pointer-events: none;
+}
+
+.pj-invitation-pill {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  background: var(--pj-white);
+  border: 1px solid rgba(22, 139, 70, 0.25);
+  color: var(--pj-forest);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.pj-invitation-heading {
+  margin: 0 0 1.15rem;
+  font-size: clamp(2rem, 3.8vw, 3.25rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: var(--pj-forest);
+}
+
+.pj-invitation-highlight {
+  color: #15803D;
+  background: linear-gradient(135deg, #15803D 0%, #65A30D 60%, #84CC16 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pj-invitation-subtext {
+  margin: 0 auto 2rem;
+  font-size: clamp(1.02rem, 1.2vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--pj-text-body);
+  max-width: 580px;
+}
+
+.pj-invitation-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.95rem 2rem;
+  border-radius: 9999px;
+  background-color: var(--pj-forest);
+  color: var(--pj-white);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  box-shadow: 0 10px 25px -5px rgba(6, 75, 56, 0.35);
+  transition: all 0.3s ease;
+}
+
+.pj-invitation-btn:hover {
+  background-color: var(--pj-forest-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -5px rgba(6, 75, 56, 0.45);
+}
+
+.pj-btn-arrow {
+  transition: transform 0.25s ease;
+}
+
+.pj-invitation-btn:hover .pj-btn-arrow {
+  transform: translateX(4px);
+}

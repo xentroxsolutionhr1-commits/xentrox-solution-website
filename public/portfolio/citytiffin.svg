@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cityBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3FAF4" />
+      <stop offset="100%" stop-color="#E5F3E7" />
+    </linearGradient>
+    <filter id="phoneShadow" x="-15%" y="-10%" width="130%" height="125%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#063F32" flood-opacity="0.14" />
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" rx="16" fill="url(#cityBg)" />
+
+  <!-- Two Mobile Phone App Mockups (Screen 1: Home Chef Feed, Screen 2: Active Order Tracking) -->
+  
+  <!-- Left Phone (Home Chef Discovery) -->
+  <g transform="translate(140, 35)" filter="url(#phoneShadow)">
+    <!-- Phone Body -->
+    <rect width="230" height="430" rx="36" fill="#1E293B" />
+    <!-- Screen Bezel -->
+    <rect x="6" y="6" width="218" height="418" rx="30" fill="#FFFFFF" />
+    <!-- Dynamic Island / Speaker Notch -->
+    <rect x="75" y="14" width="80" height="18" rx="9" fill="#1E293B" />
+    
+    <!-- Screen Content -->
+    <g transform="translate(18, 45)">
+      <!-- App Header -->
+      <text x="0" y="16" font-family="sans-serif" font-size="9" font-weight="700" fill="#168B46" letter-spacing="1">CITYTIFFIN APP</text>
+      <text x="0" y="34" font-family="sans-serif" font-size="14" font-weight="900" fill="#063F32">Fresh Homestyle Meals</text>
+      <text x="0" y="48" font-family="sans-serif" font-size="9" fill="#64748B">Delivering to: Trivandrum West</text>
+
+      <!-- Search Bar -->
+      <rect x="0" y="58" width="194" height="28" rx="8" fill="#F4F8F4" stroke="#E2EBE5" />
+      <text x="28" y="76" font-family="sans-serif" font-size="9" fill="#94A3B8">Search chefs or cuisines...</text>
+
+      <!-- Chef Card 1 -->
+      <g transform="translate(0, 96)">
+        <rect width="194" height="110" rx="12" fill="#FBFDFB" stroke="#E8F5EA" stroke-width="1.5" />
+        <rect x="8" y="8" width="178" height="55" rx="8" fill="#E8F5EA" />
+        <text x="97" y="38" font-family="sans-serif" font-size="11" font-weight="700" fill="#168B46" text-anchor="middle">Traditional South Indian Thali</text>
+        <text x="12" y="80" font-family="sans-serif" font-size="11" font-weight="800" fill="#063F32">Amma's Kitchen</text>
+        <text x="12" y="96" font-family="sans-serif" font-size="9" fill="#64748B">★ 4.9 (320+ reviews) • 25 mins</text>
+        <rect x="140" y="74" width="44" height="22" rx="6" fill="#168B46" />
+        <text x="162" y="88" font-family="sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">Order</text>
+      </g>
+
+      <!-- Chef Card 2 -->
+      <g transform="translate(0, 218)">
+        <rect width="194" height="100" rx="12" fill="#FBFDFB" stroke="#E8F5EA" stroke-width="1.5" />
+        <rect x="8" y="8" width="178" height="48" rx="8" fill="#E8F5EA" />
+        <text x="97" y="34" font-family="sans-serif" font-size="11" font-weight="700" fill="#168B46" text-anchor="middle">Healthy Millet Bowls</text>
+        <text x="12" y="74" font-family="sans-serif" font-size="11" font-weight="800" fill="#063F32">GreenLeaf Chef Pod</text>
+        <text x="12" y="89" font-family="sans-serif" font-size="9" fill="#64748B">★ 4.8 (190+ reviews)</text>
+      </g>
+    </g>
+
+    <!-- Bottom Home Indicator -->
+    <rect x="75" y="412" width="80" height="4" rx="2" fill="#94A3B8" />
+  </g>
+
+  <!-- Right Phone (Live Order & Driver Tracking) -->
+  <g transform="translate(430, 35)" filter="url(#phoneShadow)">
+    <rect width="230" height="430" rx="36" fill="#1E293B" />
+    <rect x="6" y="6" width="218" height="418" rx="30" fill="#FFFFFF" />
+    <rect x="75" y="14" width="80" height="18" rx="9" fill="#1E293B" />
+
+    <!-- Screen Content -->
+    <g transform="translate(18, 45)">
+      <!-- Order Live Bar -->
+      <rect width="194" height="42" rx="10" fill="#E8F5EA" />
+      <circle cx="20" cy="21" r="5" fill="#168B46" />
+      <text x="32" y="18" font-family="sans-serif" font-size="10" font-weight="800" fill="#063F32">ORDER #CT-8192</text>
+      <text x="32" y="32" font-family="sans-serif" font-size="9" fill="#168B46">On the way • 12 mins away</text>
+
+      <!-- Map Mockup within Phone -->
+      <g transform="translate(0, 52)">
+        <rect width="194" height="180" rx="12" fill="#F1F8F3" stroke="#D1E7D5" />
+        <!-- Map roads -->
+        <line x1="0" y1="90" x2="194" y2="90" stroke="#FFFFFF" stroke-width="8" />
+        <line x1="97" y1="0" x2="97" y2="180" stroke="#FFFFFF" stroke-width="8" />
+        <path d="M 30 140 Q 97 120 120 70" fill="none" stroke="#168B46" stroke-width="4" stroke-linecap="round" />
+        <!-- Start Point (Kitchen) -->
+        <circle cx="30" cy="140" r="6" fill="#063F32" />
+        <!-- Delivery Partner Pulse -->
+        <circle cx="120" cy="70" r="10" fill="#168B46" opacity="0.3">
+          <animate attributeName="r" values="6;14;6" dur="2s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="120" cy="70" r="5" fill="#168B46" />
+      </g>
+
+      <!-- Delivery Details Card -->
+      <g transform="translate(0, 245)">
+        <rect width="194" height="95" rx="12" fill="#F8FAF8" stroke="#E2EBE5" />
+        <text x="14" y="24" font-family="sans-serif" font-size="10" font-weight="800" fill="#063F32">Delivery Hero: Anand K.</text>
+        <text x="14" y="40" font-family="sans-serif" font-size="9" fill="#64748B">Electric EV Delivery • 100% Green</text>
+        <line x1="14" y1="52" x2="180" y2="52" stroke="#E2EBE5" stroke-width="1" />
+        <text x="14" y="70" font-family="sans-serif" font-size="10" font-weight="800" fill="#168B46">React Native Cross-Platform</text>
+        <text x="14" y="84" font-family="sans-serif" font-size="9" fill="#64748B">Real-time WebSocket Geofencing</text>
+      </g>
+    </g>
+
+    <rect x="75" y="412" width="80" height="4" rx="2" fill="#94A3B8" />
+  </g>
+</svg>
+
