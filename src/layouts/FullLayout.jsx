@@ -3,6 +3,7 @@ import { animate } from 'animejs';
 import { Outlet, useLocation } from 'react-router-dom';
 import Footer from '../components/common/Footer.jsx';
 import Navbar from '../components/home/NavBar.jsx';
+import FloatingActionWidgets from '../components/common/FloatingActionWidgets.jsx';
 
 function FullLayout() {
   const revealRoot = useRef(null);
@@ -16,7 +17,20 @@ function FullLayout() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) return undefined;
 
+    // Track scroll direction for bidirectional animations
+    let lastScrollY = window.scrollY;
+    let isScrollingDown = true;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      isScrollingDown = currentScrollY >= lastScrollY;
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     const animations = new Map();
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const target = entry.target;
@@ -24,23 +38,46 @@ function FullLayout() {
         if (entry.isIntersecting === wasInView) return;
 
         target.classList.toggle('is-in-view', entry.isIntersecting);
-        const fromX = target.dataset.revealFrom === 'left' ? -32 : target.dataset.revealFrom === 'right' ? 32 : 0;
+
+        // Directional offsets
+        let fromX = 0;
+        if (target.dataset.revealFrom === 'left') fromX = -32;
+        else if (target.dataset.revealFrom === 'right') fromX = 32;
+
+        const fromY = isScrollingDown ? 36 : -36;
+        const exitY = isScrollingDown ? -24 : 24;
+
         animations.get(target)?.pause();
         animations.delete(target);
-        const animation = animate(target, {
-          opacity: entry.isIntersecting ? [0, 1] : [1, 0],
-          translateX: entry.isIntersecting ? [fromX, 0] : [0, fromX],
-          translateY: entry.isIntersecting ? [24, 0] : [0, 24],
-          delay: Number.parseFloat(getComputedStyle(target).getPropertyValue('--reveal-delay')) || 0,
-          duration: 650,
-          ease: 'outCubic',
-        });
-        animations.set(target, animation);
+
+        if (entry.isIntersecting) {
+          // Entering viewport: glide in with luxury fade
+          const animation = animate(target, {
+            opacity: [0, 1],
+            translateX: fromX !== 0 ? [fromX, 0] : 0,
+            translateY: [fromY, 0],
+            delay: Number.parseFloat(getComputedStyle(target).getPropertyValue('--reveal-delay')) || 0,
+            duration: 750,
+            ease: 'outCubic',
+          });
+          animations.set(target, animation);
+        } else {
+          // Exiting viewport: smoothly fade out so reverse scroll re-triggers cleanly
+          const animation = animate(target, {
+            opacity: [1, 0],
+            translateX: fromX !== 0 ? [0, fromX] : 0,
+            translateY: [0, exitY],
+            duration: 480,
+            ease: 'outCubic',
+          });
+          animations.set(target, animation);
+        }
       });
     }, {
       threshold: 0.08,
       rootMargin: '0px 0px -5% 0px',
     });
+
     const observedTargets = new WeakSet();
     const observeTargets = (node) => {
       if (!(node instanceof Element)) return;
@@ -56,6 +93,7 @@ function FullLayout() {
         observer.observe(target);
       });
     };
+
     const mutationObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach(observeTargets);
@@ -67,6 +105,7 @@ function FullLayout() {
     mutationObserver.observe(root, { childList: true, subtree: true });
 
     return () => {
+      window.removeEventListener('scroll', handleScroll);
       mutationObserver.disconnect();
       observer.disconnect();
       animations.forEach((animation) => animation.pause());
@@ -75,12 +114,15 @@ function FullLayout() {
   }, [location.key]);
 
   return (
+    /* overflow-x-clip prevents full-bleed sections from adding a horizontal scrollbar */
     <div ref={revealRoot} className="min-h-screen overflow-x-clip bg-[#f8faf9] text-[#17231f]">
       <Navbar />
-      <main className="mx-auto min-h-[calc(100vh-4.5rem)] w-full max-w-[1200px] pt-24 pb-8 max-sm:pt-[5.5rem] max-sm:pb-6">
+      <main className="mx-auto min-h-[calc(100vh-4.5rem)] w-full max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-24 pb-8 max-sm:pt-20 max-sm:pb-6">
         <Outlet />
       </main>
       <Footer />
+      {/* Floating Scroll-to-Top with Progress Bar & WhatsApp Action */}
+      <FloatingActionWidgets />
     </div>
   );
 }
