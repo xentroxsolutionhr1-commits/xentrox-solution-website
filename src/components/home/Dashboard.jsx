@@ -299,16 +299,16 @@ function Dashboard() {
       <section
         ref={section2Ref}
         id="why-xentrox"
-        className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden bg-[#F5FBF7] px-4 py-20 text-[#164B35] sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+        className="relative left-1/2 -ml-[50vw] flex min-h-[100svh] w-screen items-center overflow-hidden bg-[#F5FBF7] px-4 py-20 text-[#164B35] sm:px-6 sm:py-24 lg:px-8 lg:py-28"
       >
         <div className="pointer-events-none absolute -right-32 top-0 size-[34rem] rounded-full bg-[#16A36A]/10 blur-[140px]" aria-hidden="true" />
         <div className="pointer-events-none absolute -left-32 bottom-0 size-[30rem] rounded-full bg-[#B7E4CC]/35 blur-[130px]" aria-hidden="true" />
 
         <div className="relative mx-auto w-full max-w-[1080px]">
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid grid-cols-1 items-center gap-10 lg:translate-y-6 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-5">
-              <h2 data-scroll-reveal data-reveal-from="left" className="text-[clamp(2rem,3.4vw,3.15rem)] font-bold leading-[1.08] tracking-[-.045em] text-[#164B35]">
-                Built for <span className="bg-gradient-to-r from-[#164B35] via-[#16A36A] to-[#43B982] bg-clip-text text-transparent">measurable growth</span>
+              <h2 data-scroll-reveal data-reveal-from="left" className="text-[clamp(2rem,3.4vw,3.15rem)] font-bold leading-[1.08] tracking-[-.045em] text-[#062c23]">
+                Built for <span className="bg-gradient-to-r from-[#2e7d32] via-[#4d8b18] to-[#84cc16] bg-clip-text text-transparent">measurable growth</span>
               </h2>
               <p data-scroll-reveal data-reveal-from="left" style={{ '--reveal-delay': '90ms' }} className="mt-5 max-w-[34rem] text-[15px] leading-[1.75] text-[#476557] sm:text-base">
                 We bring strategy, engineering, and practical learning together to turn ambitious ideas into useful digital products.
@@ -327,9 +327,9 @@ function Dashboard() {
                   </div>
                 ))}
               </div>
-              <Link data-scroll-reveal data-reveal-from="left" style={{ '--reveal-delay': '230ms' }} to="/services" className="group mt-9 inline-flex min-h-12 items-center gap-3 rounded-full bg-[#164B35] py-2 pl-5 pr-2 text-sm font-semibold text-white shadow-[0_12px_28px_-16px_rgba(22,75,53,.75)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#16A36A] hover:shadow-[0_16px_32px_-15px_rgba(22,163,106,.65)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#16A36A]">
+              <Link data-scroll-reveal data-reveal-from="left" style={{ '--reveal-delay': '230ms' }} to="/services" className="group mt-9 inline-flex min-h-12 items-center gap-3 rounded-full bg-gradient-to-r from-[#a3e635] to-[#84cc16] py-2 pl-5 pr-2 text-sm font-bold text-[#062c23] shadow-[0_12px_28px_-16px_rgba(163,230,53,.65)] transition duration-300 hover:-translate-y-0.5 hover:from-[#b5f34b] hover:to-[#93db24] hover:shadow-[0_16px_32px_-15px_rgba(163,230,53,.75)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a3e635]">
                 Discover our approach
-                <span className="grid size-8 place-items-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-0.5"><Icon name="arrowRight" size={16} /></span>
+                <span className="grid size-8 place-items-center rounded-full bg-[#062c23]/10 transition-transform duration-300 group-hover:translate-x-0.5"><Icon name="arrowRight" size={16} /></span>
               </Link>
             </div>
 
