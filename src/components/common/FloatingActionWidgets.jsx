@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
+import { MessageCircle } from 'lucide-react';
 
 export default function FloatingActionWidgets() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -125,7 +126,7 @@ export default function FloatingActionWidgets() {
 
         {/* WhatsApp Icon */}
         <span className="relative z-10 transition-transform duration-200 group-hover:scale-110">
-          <Icon name="whatsapp" size={26} />
+          <MessageCircle size={26} />
         </span>
 
         {/* Hover Tooltip (Desktop) */}
