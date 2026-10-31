@@ -46,7 +46,7 @@ export default function AnimatedLogo({ size = 38, className = '', alt = '' }) {
         aria-hidden="true"
         focusable="false"
       >
-        <g transform="translate(0 -7.5949) scale(1.012658)" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="translate(0 -7.5949) scale(1.012658)" strokeLinecap="round" strokeLinejoin="round">
           {outlinePaths.map(({ color, d }, index) => (
             <path
               key={index}

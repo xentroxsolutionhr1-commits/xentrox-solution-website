@@ -1,95 +1,48 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { animate, stagger } from 'animejs';
+import { useEffect, useRef } from 'react';
+import { animate } from 'animejs';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
-
-const carouselCards = [
-  {
-    number: '01',
-    category: 'Direction',
-    tagline: 'Strategic North Star',
-    title: 'Start with the outcome.',
-    description: 'Set a clear goal first. Then choose the right architectural strategy to get there without costly scope drift or guesswork.',
-    metricNum: 100,
-    metricSuffix: '% Target Focus',
-    decimals: 0,
-    statLabel: 'Alignment Score',
-    statValue: '100%',
-    statusTone: 'border-emerald-200/80 bg-emerald-50 text-emerald-800',
-    topBarGradient: 'from-[#84cc16] via-[#22c55e] to-[#059669]',
-    highlights: [
-      'Define quantified, contract-grade end-states',
-      'Eliminate guesswork, waste & scope creep',
-      'Directly align engineering with commercial value',
-    ],
-    telemetryCode: 'NODE_01 // END_STATE_LOCKED',
-  },
-  {
-    number: '02',
-    category: 'Clarity',
-    tagline: 'Precision Telemetry',
-    title: 'Measure what matters.',
-    description: 'Look beyond superficial vanity numbers. We instrument real-time telemetry to know exactly what drives customer and business value.',
-    metricNum: 99.9,
-    metricSuffix: '% Zero Vanity',
-    decimals: 1,
-    statLabel: 'Data Fidelity',
-    statValue: '99.9%',
-    statusTone: 'border-lime-200/80 bg-lime-50 text-lime-800',
-    topBarGradient: 'from-[#65a30d] via-[#84cc16] to-[#10b981]',
-    highlights: [
-      'Real-time behavioral & performance telemetry',
-      'Distinguish high-impact signal from superficial noise',
-      'Evidence-backed product iteration cycles',
-    ],
-    telemetryCode: 'NODE_02 // TELEMETRY_STREAM_ACTIVE',
-  },
-  {
-    number: '03',
-    category: 'Momentum',
-    tagline: 'Compounding Velocity',
-    title: 'Improve with intent.',
-    description: 'Use what you learn to make every deployment compounding, predictable, and exponentially faster release after release.',
-    metricNum: 3.5,
-    metricSuffix: 'x Execution Speed',
-    decimals: 1,
-    statLabel: 'Velocity Factor',
-    statValue: '3.5x',
-    statusTone: 'border-emerald-200/80 bg-emerald-50 text-emerald-800',
-    topBarGradient: 'from-[#10b981] via-[#84cc16] to-[#059669]',
-    highlights: [
-      'Continuous deployment & telemetry feedback loops',
-      'Iterative architectural refinement without downtime',
-      'Compounding returns on every release cycle',
-    ],
-    telemetryCode: 'NODE_03 // PIPELINE_VELOCITY_3.5X',
-  },
-  {
-    number: '04',
-    category: 'Mastery',
-    tagline: 'Talent Incubation',
-    title: 'Engineered by experts.',
-    description: 'Through XentroX Labs, we bridge academic education with production-grade engineering, training developers who ship real client systems.',
-    metricNum: 100,
-    metricSuffix: '% Production Ready',
-    decimals: 0,
-    statLabel: 'Project Immersion',
-    statValue: '100%',
-    statusTone: 'border-teal-200/80 bg-teal-50 text-teal-800',
-    topBarGradient: 'from-[#059669] via-[#10b981] to-[#84cc16]',
-    highlights: [
-      'Hands-on immersion with production codebases',
-      'Modern full-stack, cloud & AI acceleration stacks',
-      'Direct mentorship from senior software engineers',
-    ],
-    telemetryCode: 'NODE_04 // TALENT_SYSTEMS_VERIFIED',
-  },
-];
+import FlexCarousel from '../../bits/FlexCarousel.jsx';
+import GhostFibers from '../../bits/GhostFibers.jsx';
+import VariableProximity from '../../bits/VariableProximity.jsx';
 
 const heroStatistics = [
   { value: 120, suffix: '+', label: 'Projects delivered' },
   { value: 98, suffix: '%', label: 'Client satisfaction' },
   { value: 10, suffix: '+', label: 'Industries served' },
+];
+
+const approachGallery = [
+  {
+    src: '/heroimage.png',
+    alt: 'People learning and collaborating around digital technology',
+    title: 'Technology for people',
+    subtitle: 'Practical skills. Meaningful outcomes.',
+  },
+  {
+    src: '/hero section.png',
+    alt: 'A team of learners working together on software',
+    title: 'Build the next generation',
+    subtitle: 'Learning through real engineering work.',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format&fit=crop',
+    alt: 'Laptop displaying a software development workspace',
+    title: 'Engineering with clarity',
+    subtitle: 'Purposeful products, designed to scale.',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80&auto=format&fit=crop',
+    alt: 'A team collaborating around a table',
+    title: 'Better work, together',
+    subtitle: 'Strategy and delivery in sync.',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80&auto=format&fit=crop',
+    alt: 'A digital view of global networks and technology',
+    title: 'Ready for what’s next',
+    subtitle: 'Connected systems. Lasting progress.',
+  },
 ];
 
 function MagneticLink({ to, variant, children, onClick }) {
@@ -148,21 +101,7 @@ function MagneticLink({ to, variant, children, onClick }) {
 function Dashboard() {
   const heroStatsRef = useRef(null);
   const section2Ref = useRef(null);
-  const carouselTrackRef = useRef(null);
-  const counterNumberRef = useRef(null);
-  const animatedMetricRef = useRef(null);
-  const bgRingRef = useRef(null);
-  const bgHexRef = useRef(null);
 
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [slideProgress, setSlideProgress] = useState(0);
-
-  // Touch swipe handling for mobile
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-
-  // Start the hero metric count-up after the logo intro reaches the navbar.
   useEffect(() => {
     let hasStarted = false;
     let animations = [];
@@ -183,29 +122,21 @@ function Dashboard() {
       animations = Array.from(nodes, (node, index) => {
         const counter = { value: 0 };
         const target = Number(node.dataset.statCount);
-
         return animate(counter, {
           value: target,
           delay: index * 110,
           duration: 1200,
           ease: 'outExpo',
-          onUpdate: () => {
-            node.textContent = String(Math.floor(counter.value));
-          },
-          onComplete: () => {
-            node.textContent = String(target);
-          },
+          onUpdate: () => { node.textContent = String(Math.floor(counter.value)); },
+          onComplete: () => { node.textContent = String(target); },
         });
       });
     };
 
     const introAlreadyFinished = document.querySelector('[data-logo-intro-complete="true"]');
     const introIsRunning = document.querySelector('[data-logo-intro-active="true"]');
-    if (introAlreadyFinished || !introIsRunning) {
-      startCounters();
-    } else {
-      window.addEventListener('xentrox:logo-intro-complete', startCounters);
-    }
+    if (introAlreadyFinished || !introIsRunning) startCounters();
+    else window.addEventListener('xentrox:logo-intro-complete', startCounters);
 
     return () => {
       window.removeEventListener('xentrox:logo-intro-complete', startCounters);
@@ -213,200 +144,13 @@ function Dashboard() {
     };
   }, []);
 
-  // Animate ambient background shapes using animejs
-  useEffect(() => {
-    if (bgRingRef.current) {
-      animate(bgRingRef.current, {
-        rotate: 360,
-        duration: 40000,
-        loop: true,
-        ease: 'linear',
-      });
-    }
-
-    if (bgHexRef.current) {
-      animate(bgHexRef.current, {
-        rotate: -360,
-        duration: 55000,
-        loop: true,
-        ease: 'linear',
-      });
-    }
-  }, []);
-
-  // Carousel navigation handlers
-  const handlePrev = useCallback(() => {
-    setActiveSlide((prev) => (prev === 0 ? carouselCards.length - 1 : prev - 1));
-    setSlideProgress(0);
-  }, []);
-
-  const handleNext = useCallback(() => {
-    setActiveSlide((prev) => (prev === carouselCards.length - 1 ? 0 : prev + 1));
-    setSlideProgress(0);
-  }, []);
-
-  // Anime.js powered smooth transition on activeSlide change
-  useEffect(() => {
-    // 1. Smoothly slide the track with Anime.js
-    if (carouselTrackRef.current) {
-      animate(carouselTrackRef.current, {
-        translateX: `-${activeSlide * 100}%`,
-        duration: 650,
-        ease: 'outCubic',
-      });
-    }
-
-    // 2. Animate the counter on the left side
-    if (counterNumberRef.current) {
-      animate(counterNumberRef.current, {
-        translateY: [-14, 0],
-        opacity: [0.1, 1],
-        scale: [0.8, 1],
-        duration: 450,
-        ease: 'outBack',
-      });
-    }
-
-    // 3. Stagger-animate active card content (badge, title, checklist items)
-    if (carouselTrackRef.current) {
-      const activeCardEl = carouselTrackRef.current.querySelector(
-        `[data-card-index="${activeSlide}"]`
-      );
-
-      if (activeCardEl) {
-        // Animate badge
-        const badge = activeCardEl.querySelector('.card-badge');
-        if (badge) {
-          animate(badge, {
-            scale: [0.82, 1],
-            rotate: [-8, 0],
-            opacity: [0, 1],
-            duration: 500,
-            ease: 'outBack',
-          });
-        }
-
-        // Animate title
-        const title = activeCardEl.querySelector('.card-title');
-        if (title) {
-          animate(title, {
-            translateY: [16, 0],
-            opacity: [0, 1],
-            duration: 480,
-            ease: 'outCubic',
-          });
-        }
-
-        // Animate checklist items with stagger
-        const highlightItems = activeCardEl.querySelectorAll('.card-highlight-item');
-        if (highlightItems.length > 0) {
-          animate(highlightItems, {
-            translateY: [18, 0],
-            opacity: [0, 1],
-            delay: stagger(70, { start: 90 }),
-            duration: 450,
-            ease: 'outCubic',
-          });
-        }
-
-        // 4. Animate Metric Counter dial up with Anime.js
-        const cardData = carouselCards[activeSlide];
-        const counterTarget = { val: 0 };
-        animate(counterTarget, {
-          val: cardData.metricNum,
-          duration: 900,
-          ease: 'outExpo',
-          onUpdate: () => {
-            if (animatedMetricRef.current) {
-              const formatted = cardData.decimals === 1
-                ? counterTarget.val.toFixed(1)
-                : Math.round(counterTarget.val);
-              animatedMetricRef.current.textContent = `${formatted} ${cardData.metricSuffix}`;
-            }
-          },
-        });
-      }
-    }
-  }, [activeSlide]);
-
-  // Smooth slide progress timer and auto-play
-  useEffect(() => {
-    if (isPaused) return undefined;
-
-    const intervalTime = 6000;
-    const stepTime = 50;
-    const increment = (stepTime / intervalTime) * 100;
-
-    const timer = window.setInterval(() => {
-      setSlideProgress((prev) => {
-        if (prev >= 100) {
-          handleNext();
-          return 0;
-        }
-        return prev + increment;
-      });
-    }, stepTime);
-
-    return () => window.clearInterval(timer);
-  }, [isPaused, activeSlide, handleNext]);
-
-  // Touch swipe support for mobile
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const distance = touchStartX.current - touchEndX.current;
-    if (distance > 45) {
-      handleNext();
-    } else if (distance < -45) {
-      handlePrev();
-    }
-    touchStartX.current = 0;
-    touchEndX.current = 0;
-  };
-
-  // Interactive Card 3D Tilt on Mouse Move
-  const handleCardMouseMove = (e) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-    animate(card, {
-      rotateY: x * 6,
-      rotateX: -y * 6,
-      duration: 200,
-      ease: 'outQuad',
-    });
-  };
-
-  const handleCardMouseLeave = (e) => {
-    const card = e.currentTarget;
-    animate(card, {
-      rotateY: 0,
-      rotateX: 0,
-      duration: 500,
-      ease: 'outCubic',
-    });
-  };
-
-  // Smooth scroll handler for anchor buttons
-  const handleScrollToWhy = (e) => {
-    e.preventDefault();
+  const handleScrollToWhy = (event) => {
+    event.preventDefault();
     const section = section2Ref.current;
-    if (section) {
-      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-      section.scrollIntoView({ behavior });
-    }
+    if (!section) return;
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    section.scrollIntoView({ behavior });
   };
-
   return (
     <>
       {/* ========================================================================= */}
@@ -415,13 +159,61 @@ function Dashboard() {
       <section
         className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex min-h-[100svh] w-screen flex-col overflow-hidden bg-[#062c23] px-4 pt-28 pb-7 text-white max-sm:-mt-20 sm:px-6 sm:pt-32 sm:pb-8 lg:pt-36"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[#062c23]/35 sm:bg-transparent" aria-hidden="true" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#062c23]/95 via-[#062c23]/85 to-[#062c23]/45" aria-hidden="true" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#062c23]/85 via-transparent to-[#062c23]/20" aria-hidden="true" />
+        {/* Previous photo background, retained for reference.
         <div
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'radial-gradient(ellipse 45% 42% at 76% 38%, rgba(163, 230, 53, 0.18), transparent 72%), radial-gradient(ellipse 36% 30% at 20% 82%, rgba(34, 197, 94, 0.12), transparent 74%)',
+            backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/021/368/937/large_2x/green-background-designs-and-premium-high-res-pictures-download-free-photo.jpg")',
+          }}
+          aria-hidden="true"
+        />
+        */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'radial-gradient(ellipse 64% 70% at 55% 50%, rgba(132, 204, 22, 0.2), transparent 72%), radial-gradient(ellipse 36% 42% at 18% 72%, rgba(34, 197, 94, 0.16), transparent 70%)',
+          }}
+          aria-hidden="true"
+        >
+          <GhostFibers
+            className="h-full w-full"
+            glowColor="#c7ff5e"
+            lineColor="#a3e635"
+            secondaryColor="#22c55e"
+            gradient="along"
+            speed={0.2}
+            scale={1.15}
+            rotation={-18}
+            layers={3}
+            waves={1.1}
+            twist={1.2}
+            threads={72}
+            volume={0.65}
+            spread={1.2}
+            density={0.9}
+            thickness={1.05}
+            flow={0.35}
+            fiberStyle="lines"
+            tips={0.35}
+            foldGlow={0.7}
+            depthOfField={0.55}
+            particles={0.6}
+            sparkle={0.8}
+            glow={1.4}
+            brightness={1.2}
+            vignette={0.2}
+            grain={0.025}
+            mouseInteraction
+            mouseStrength={0.6}
+            hoverEffect="focus"
+            pulseOnClick={false}
+            intro
+          />
+        </div>
+        <div
+          className="pointer-events-none absolute inset-0 z-[1]"
+          style={{
+            backgroundImage: 'radial-gradient(ellipse 45% 42% at 76% 38%, rgba(163, 230, 53, 0.22), transparent 72%), radial-gradient(ellipse 36% 30% at 20% 82%, rgba(34, 197, 94, 0.16), transparent 74%)',
           }}
           aria-hidden="true"
         />
@@ -431,10 +223,34 @@ function Dashboard() {
             <h1
               id="home-hero-title"
               aria-label="Digital marketing & Custom Software Solutions"
-              className="m-0 max-w-full text-[clamp(1.1rem,4.0vw,3.75rem)] font-semibold leading-[1.02] tracking-[-.055em] text-white"
+              className="m-0 max-w-full font-semibold leading-[1.02] tracking-[-.055em] text-white"
             >
-              <span className="block whitespace-nowrap">Digital marketing &amp; </span>
-              <span className="block mt-3">Custom Software Solutions</span>
+              <VariableProximity
+                label="Digital marketing &"
+                className="whitespace-nowrap"
+                style={{ display: 'block', fontSize: 'clamp(1.1rem, 4vw, 3.75rem)', lineHeight: 1.02 }}
+                fromFontVariationSettings="'wght' 600, 'opsz' 32"
+                toFontVariationSettings="'wght' 900, 'opsz' 72"
+                fromColor="#ffffff"
+                toColor="#a3e635"
+                radius={130}
+                smoothing={0.15}
+                scale={1.035}
+                lift={0.035}
+              />
+              <VariableProximity
+                label="Custom Software Solutions"
+                className="mt-3 whitespace-nowrap"
+                style={{ display: 'block', fontSize: 'clamp(1.1rem, 4vw, 3.75rem)', lineHeight: 1.02 }}
+                fromFontVariationSettings="'wght' 600, 'opsz' 32"
+                toFontVariationSettings="'wght' 900, 'opsz' 72"
+                fromColor="#ffffff"
+                toColor="#a3e635"
+                radius={130}
+                smoothing={0.15}
+                scale={1.035}
+                lift={0.035}
+              />
             </h1>
             {/* <p className="mx-auto mb-0 mt-5 max-w-[610px] text-[20px] leading-relaxed text-white/80">
               Digital Growth. Intelligent Technology. Real Results.
@@ -475,318 +291,55 @@ function Dashboard() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 2: WHY XENTROX (WHITE LUXURY CANVAS + BIDIRECTIONAL SCROLL REVEAL) */}
-      {/* ========================================================================= */}
+      {/* SECTION 2: FLEXIBLE CAPABILITY SHOWCASE */}
       <section
         ref={section2Ref}
         id="why-xentrox"
-        className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-y border-slate-100 bg-white px-4 py-20 text-[#0d2a1a] sm:px-6 sm:py-24 lg:px-8 lg:py-28"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden bg-[#f7faf8] px-4 py-20 text-[#0d2a1a] sm:px-6 sm:py-24 lg:px-8 lg:py-28"
       >
-        {/* Anime.js animated rotating ambient geometric rings */}
-        <div
-          ref={bgRingRef}
-          className="pointer-events-none absolute -right-24 -top-24 size-[28rem] rounded-full border border-emerald-500/10 opacity-60"
-          aria-hidden="true"
-        >
-          <div className="absolute inset-4 rounded-full border border-dashed border-lime-500/15" />
-          <div className="absolute inset-10 rounded-full border border-emerald-500/10" />
-        </div>
-
-        <div
-          ref={bgHexRef}
-          className="pointer-events-none absolute -left-24 -bottom-24 size-[28rem] rounded-full border border-lime-500/10 opacity-60"
-          aria-hidden="true"
-        >
-          <div className="absolute inset-6 rounded-full border border-dashed border-emerald-500/15" />
-        </div>
-
-        {/* Soft atmospheric emerald ambient glow */}
-        <div
-          className="pointer-events-none absolute -right-32 top-10 size-[32rem] rounded-full bg-[#a3e635]/15 blur-[120px]"
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute -left-32 bottom-10 size-[32rem] rounded-full bg-[#10b981]/10 blur-[130px]"
-          aria-hidden="true"
-        />
+        <div className="pointer-events-none absolute -right-32 top-0 size-[34rem] rounded-full bg-[#a3e635]/15 blur-[130px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -left-32 bottom-0 size-[30rem] rounded-full bg-[#10b981]/10 blur-[130px]" aria-hidden="true" />
 
         <div className="relative mx-auto w-full max-w-[1240px]">
-          {/* Main 2-Column Responsive Layout: Left Text | Right Carousel */}
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14 xl:gap-16">
-            
-            {/* ------------------------------------------------------------- */}
-            {/* LEFT SIDE: Strategic Narrative & Anime.js Controls            */}
-            {/* ------------------------------------------------------------- */}
-            <div className="flex flex-col items-start lg:col-span-5">
-             
-              {/* Headline with Staggered Scroll Reveal */}
-              <h2
-                data-scroll-reveal
-                style={{ '--reveal-delay': '80ms' }}
-                className="mt-5 text-[clamp(2.1rem,4.2vw,3.6rem)] font-extrabold leading-[1.12] tracking-tight text-[#07241a]"
-              >
-                Built for{' '}
-                <span className="bg-gradient-to-r from-[#2e7d32] via-[#4d8b18] to-[#84cc16] bg-clip-text text-transparent">
-                  measurable growth
-                </span>
-                , not vanity metrics.
-              </h2>
+          <div className="mx-auto max-w-3xl text-center" data-scroll-reveal>
+            <h2 className="text-[clamp(2.1rem,4.2vw,3.6rem)] font-extrabold leading-[1.08] tracking-tight text-[#07241a]">
+              Built for <span className="bg-gradient-to-r from-[#2e7d32] via-[#4d8b18] to-[#84cc16] bg-clip-text text-transparent">measurable growth</span>.
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
+              Explore how strategy, engineering, and people come together to turn ambitious ideas into useful digital products.
+            </p>
+          </div>
 
-              {/* Subtext with Staggered Scroll Reveal */}
-              <p
-                data-scroll-reveal
-                style={{ '--reveal-delay': '140ms' }}
-                className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base"
-              >
-                Every decision has a quantifiable reason. We eliminate guesswork, subjective scope creep, and bloated timelines by anchoring all architecture to verifiable, compounding commercial value.
-              </p>
+          <div className="mt-10 overflow-hidden rounded-[2rem] border border-[#dce8dc] bg-[#062c23] p-3 shadow-[0_30px_90px_-45px_rgba(7,36,26,.5)] sm:mt-14 sm:p-5" data-scroll-reveal>
+            <FlexCarousel
+              items={approachGallery}
+              preset="ribbon"
+              intro="rise"
+              cardHeight={0.62}
+              gap={16}
+              radius={18}
+              fit="landscape"
+              captions
+              autoplay={false}
+              focusOnClick
+              className="h-[280px] w-full sm:h-[390px] lg:h-[480px]"
+            />
+          </div>
 
-              {/* Value Bullet Highlights with Staggered Scroll Reveal */}
-              <div
-                data-scroll-reveal
-                style={{ '--reveal-delay': '200ms' }}
-                className="mt-6 flex flex-col gap-2.5 sm:mt-7"
-              >
-                {[
-                  'Outcome-first architecture tied directly to commercial ROI',
-                  'High-fidelity telemetry across every layer of the product',
-                  'Compounding velocity with zero technical debt accumulation',
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 text-xs sm:text-sm font-medium text-slate-800">
-                    <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#eaf8d8] font-bold text-[#366318] shadow-xs">
-                      ✓
-                    </span>
-                    <span>{item}</span>
-                  </div>
-                ))}
+          <div className="mt-8 grid gap-4 text-center sm:grid-cols-3 sm:gap-6" data-scroll-reveal>
+            {[
+              ['01', 'Start with outcomes'],
+              ['02', 'Build with clarity'],
+              ['03', 'Improve continuously'],
+            ].map(([number, label]) => (
+              <div key={number} className="border-t border-[#dce8dc] px-3 py-4">
+                <span className="text-xs font-bold tracking-[.16em] text-[#6b9b36]">{number}</span>
+                <p className="mb-0 mt-1 text-sm font-semibold text-[#173c2e]">{label}</p>
               </div>
-
-              {/* Interactive Quick-Jump Tabs with Scroll Reveal */}
-              <div
-                data-scroll-reveal
-                style={{ '--reveal-delay': '240ms' }}
-                className="mt-7 flex flex-wrap gap-2"
-              >
-                {carouselCards.map((card, idx) => {
-                  const isActive = activeSlide === idx;
-                  return (
-                    <button
-                      key={card.number}
-                      type="button"
-                      onClick={() => {
-                        setActiveSlide(idx);
-                        setSlideProgress(0);
-                      }}
-                      className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 font-mono text-xs font-bold transition-all duration-200 cursor-pointer ${
-                        isActive
-                          ? 'border border-[#84cc16] bg-[#84cc16] text-[#07241a] shadow-sm scale-105'
-                          : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-                      }`}
-                    >
-                      <span>{card.number}</span>
-                      <span className="font-sans font-semibold">{card.category}</span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Carousel Controls with Scroll Reveal */}
-              <div
-                data-scroll-reveal
-                style={{ '--reveal-delay': '280ms' }}
-                className="mt-8 flex w-full flex-col gap-4 border-t border-slate-100 pt-6 sm:mt-9"
-              >
-                {/* Visual Auto-Play Progress Bar */}
-                <div className="h-1 w-full overflow-hidden rounded-full bg-slate-100">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#84cc16] to-[#2e7d32] transition-all duration-75 ease-linear"
-                    style={{ width: `${slideProgress}%` }}
-                  />
-                </div>
-
-                <div className="flex w-full items-center justify-between gap-4">
-                  {/* Anime.js Animated Slide Counter */}
-                  <div className="flex items-center gap-3">
-                    <span
-                      ref={counterNumberRef}
-                      className="font-mono text-sm font-extrabold text-slate-900 inline-block"
-                    >
-                      <span className="text-[#366318]">0{activeSlide + 1}</span>
-                      <span className="text-slate-400"> / 0{carouselCards.length}</span>
-                    </span>
-
-                    {/* Dot indicators */}
-                    <div className="flex items-center gap-1.5">
-                      {carouselCards.map((_, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          aria-label={`Go to slide ${idx + 1}`}
-                          onClick={() => {
-                            setActiveSlide(idx);
-                            setSlideProgress(0);
-                          }}
-                          className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                            activeSlide === idx
-                              ? 'w-7 bg-[#84cc16]'
-                              : 'w-2 bg-slate-200 hover:bg-slate-300'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Arrow Navigation Buttons */}
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={handlePrev}
-                      aria-label="Previous slide"
-                      className="flex size-11 cursor-pointer items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-xs transition-all duration-200 hover:border-[#84cc16] hover:bg-[#f7fcf2] hover:text-[#2f5e13] active:scale-95"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m15 18-6-6 6-6" />
-                      </svg>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handleNext}
-                      aria-label="Next slide"
-                      className="flex size-11 cursor-pointer items-center justify-center rounded-xl border border-[#84cc16] bg-[#84cc16] text-[#07241a] shadow-sm shadow-[#84cc16]/30 transition-all duration-200 hover:bg-[#94dc22] hover:shadow-md hover:shadow-[#84cc16]/40 active:scale-95"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m9 18 6-6-6-6" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ------------------------------------------------------------- */}
-            {/* RIGHT SIDE: Anime.js Powered Carousel Track & 3D Cards        */}
-            {/* ------------------------------------------------------------- */}
-            <div
-              data-scroll-reveal
-              data-reveal-from="right"
-              style={{ '--reveal-delay': '160ms' }}
-              className="relative overflow-hidden lg:col-span-7"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              {/* Sliding Carousel Track driven by Anime.js */}
-              <div
-                ref={carouselTrackRef}
-                className="flex will-change-transform"
-                style={{
-                  transform: `translateX(-${activeSlide * 100}%)`,
-                }}
-              >
-                {carouselCards.map((card, idx) => {
-                  const isActive = activeSlide === idx;
-
-                  return (
-                    <div
-                      key={card.number}
-                      data-card-index={idx}
-                      className="w-full shrink-0 px-1 sm:px-2"
-                      style={{ perspective: '1000px' }}
-                    >
-                      <article
-                        onMouseMove={handleCardMouseMove}
-                        onMouseLeave={handleCardMouseLeave}
-                        className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border bg-gradient-to-br from-white via-[#fafdf9] to-[#f4faf4] p-6 sm:p-8 transition-all duration-500 will-change-transform ${
-                          isActive
-                            ? 'border-[#84cc16]/70 shadow-[0_25px_60px_-15px_rgba(7,36,26,0.14),0_0_0_1px_rgba(132,204,22,0.35)] ring-1 ring-[#84cc16]/20'
-                            : 'border-slate-200/80 shadow-md opacity-60 scale-[0.98]'
-                        }`}
-                      >
-                        {/* Top Accent Gradient Line */}
-                        <div
-                          className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${card.topBarGradient}`}
-                        />
-
-                        {/* Top Card Header */}
-                        <div className="relative z-10 flex items-center justify-between border-b border-slate-100 pb-5 pt-1">
-                          <div className="flex items-center gap-3.5">
-                            <span className="card-badge flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#84cc16] to-[#4d7f0f] font-mono text-base font-black text-white shadow-md shadow-[#84cc16]/25">
-                              {card.number}
-                            </span>
-                            <div>
-                              <span className="block font-mono text-[11px] font-bold uppercase tracking-wider text-[#366318]">
-                                {card.tagline}
-                              </span>
-                              <span className="block text-xs font-bold text-slate-500">
-                                Pillar // {card.category}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Anime.js live dialing metric chip */}
-                          <div
-                            className={`inline-flex items-center gap-2 rounded-xl border px-3.5 py-1.5 font-mono text-xs font-bold shadow-2xs ${card.statusTone}`}
-                          >
-                            <span className="size-2 rounded-full bg-emerald-500 animate-ping" />
-                            <span ref={isActive ? animatedMetricRef : null}>
-                              {card.metricNum}{card.metricSuffix}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Center Card Content */}
-                        <div className="relative z-10 my-6">
-                          <h3 className="card-title text-xl font-extrabold tracking-tight text-[#07241a] sm:text-2xl lg:text-3xl">
-                            {card.title}
-                          </h3>
-
-                          <p className="mt-3 text-xs leading-relaxed text-slate-600 sm:text-sm">
-                            {card.description}
-                          </p>
-
-                          {/* Highlights Checklist with Anime.js Stagger Support */}
-                          <div className="mt-6 space-y-2.5">
-                            {card.highlights.map((highlight, hIdx) => (
-                              <div
-                                key={hIdx}
-                                className="card-highlight-item flex items-start gap-3 rounded-xl border border-slate-100 bg-white p-3.5 text-xs text-slate-800 shadow-2xs transition-colors hover:border-[#84cc16]/40 hover:bg-[#fbfef9] sm:text-sm"
-                              >
-                                <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-md bg-[#eaf8d8] font-mono text-[10px] font-bold text-[#366318]">
-                                  {hIdx + 1}
-                                </span>
-                                <span className="font-medium">{highlight}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Bottom Metric & Telemetry Band */}
-                        <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4 text-xs">
-                          <div className="flex items-center gap-2 font-mono text-slate-500">
-                            <span className="text-[11px] uppercase tracking-wider text-slate-400">TELEMETRY:</span>
-                            <span className="font-bold text-slate-700">{card.telemetryCode}</span>
-                          </div>
-
-                          <div className="inline-flex items-center gap-2 rounded-lg bg-[#f4faee] border border-[#84cc16]/30 px-3 py-1 font-mono text-xs font-bold text-[#2f5e13]">
-                            <span>{card.statLabel}:</span>
-                            <span className="text-[#15803d]">{card.statValue}</span>
-                          </div>
-                        </div>
-                      </article>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>
-
-      {/* ========================================================================= */}
       {/* SECTION 3: NEXT SECTION (WHAT'S NEXT / CTA - BIDIRECTIONAL SCROLL REVEAL) */}
       {/* ========================================================================= */}
       <section
