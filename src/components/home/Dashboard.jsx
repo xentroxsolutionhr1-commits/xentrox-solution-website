@@ -64,11 +64,7 @@ function Dashboard() {
   return (
     <section className="relative isolate left-1/2 -ml-[50vw] -mt-24 -mb-8 flex min-h-svh w-screen flex-col justify-center overflow-hidden bg-[#062c23] px-[max(1.25rem,calc((100vw-1200px)/2))] pt-32 pb-8 text-white max-[900px]:pt-32 max-[640px]:-mt-[5.5rem] max-[640px]:-mb-6 max-[640px]:px-[1.1rem] max-[640px]:pt-28 max-[640px]:pb-6">
 
-      {/* Background image with natural blending */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-20 bg-[url('/hero%20section.png')] bg-cover bg-center bg-no-repeat opacity-80 max-[640px]:bg-[position:65%_center]"
-        aria-hidden="true"
-      />
+    
 
       {/* Dark green gradient overlay for readability */}
       <div
@@ -76,12 +72,7 @@ function Dashboard() {
         aria-hidden="true"
       />
 
-      {/* Subtle grid texture */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgb(255_255_255_/_3%)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255_/_3%)_1px,transparent_1px)] bg-size-[64px_64px] [mask-image:linear-gradient(90deg,transparent,#000_55%,#000)]"
-        aria-hidden="true"
-      />
-
+   
       {/* Green ambient glow */}
       <div
         className="pointer-events-none absolute -right-[10%] top-[8%] -z-10 aspect-square w-[clamp(16rem,34vw,32rem)] rounded-full bg-[#75c943] opacity-[0.12] blur-[130px]"

@@ -1,395 +1,83 @@
-import { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 
+const links = [
+  ['Home', '/'], ['About us', '/about'], ['Services', '/services'],
+  ['Portfolio', '/portfolio'], ['Courses', '/courses'], ['Careers', '/careers', '06'], ['Contact', '/contact', '07'],
+];
+
 export default function Navbar({ onOpenEnroll }) {
-  const [scrolled, setScrolled] = useState(() => window.scrollY > 15);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [isEnrolling, setIsEnrolling] = useState(false);
-  const enrollTimerRef = useRef(null);
-  const servicesRef = useRef(null);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const isServiceRoute = pathname.startsWith('/services');
-
-  const closeMobileMenu = () => {
-    setMobileOpen(false);
-    setMobileServicesOpen(false);
-  };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 15);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Lock body scroll when mobile drawer is open to prevent overlapping scroll bugs
-  useEffect(() => {
-    if (!mobileOpen) return undefined;
-
+    if (!open) return undefined;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    const onKeyDown = (event) => { if (event.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
     };
-  }, [mobileOpen]);
+  }, [open]);
 
-  useEffect(() => () => window.clearTimeout(enrollTimerRef.current), []);
-
-  useEffect(() => {
-    if (!servicesOpen) return undefined;
-
-    const handleOutsideClick = (event) => {
-      if (servicesRef.current && !servicesRef.current.contains(event.target)) {
-        setServicesOpen(false);
-      }
-    };
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') setServicesOpen(false);
-    };
-
-    document.addEventListener('mousedown', handleOutsideClick);
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [servicesOpen]);
-
-  const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'About', path: '/about' },
-    { label: 'Portfolio', path: '/portfolio' },
-    { label: 'Pricing', path: '/pricing' },
-    { label: 'Blog', path: '/blog' },
-    { label: 'Careers', path: '/careers' },
-    { label: 'Contact', path: '/contact' },
-  ];
-  const navLinksBeforeServices = navLinks.slice(0, 2);
-  const navLinksAfterServices = navLinks.slice(2);
-
-  const serviceLinks = [
-    { label: 'SEO & Content', path: '/services#seo', detail: 'Grow organic visibility' },
-    { label: 'Social Media Marketing', path: '/services#smm', detail: 'Build your community' },
-    { label: 'Web & App Development', path: '/services#webdev', detail: 'Build digital products' },
-    { label: 'Branding & Design', path: '/services#branding', detail: 'Create a memorable brand' },
-  ];
-
-  const handleEnrollClick = () => {
-    setIsEnrolling(true);
-    window.clearTimeout(enrollTimerRef.current);
-    enrollTimerRef.current = window.setTimeout(() => {
-      setIsEnrolling(false);
-      closeMobileMenu();
-      if (onOpenEnroll) {
-        onOpenEnroll();
-      } else {
-        navigate('/contact');
-      }
-    }, 150);
+  const getStarted = () => {
+    setOpen(false);
+    if (onOpenEnroll) onOpenEnroll();
+    else navigate('/contact');
   };
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-white/10 text-white shadow-[0_8px_32px_rgb(0_0_0_/_10%)] backdrop-blur-xl transition-colors duration-300 ${
-          scrolled ? 'bg-[#062c23]/75' : 'bg-[#062c23]/45'
-        }`}
-      >
-        <div
-          className="mx-auto flex min-h-[4.5rem] w-full max-w-[1440px] items-center justify-between gap-4 px-5 py-2 sm:px-8 lg:px-12 xl:px-16"
-        >
-
-          {/* Logo with official Dark Teal + Lime theme */}
-          <NavLink
-            to="/"
-            aria-label="XentroX Solutions home"
-            className="group inline-flex shrink-0 items-center gap-2.5 text-white no-underline"
-          >
-            <span className="grid size-9 place-items-center">
-              <img src="/favicon.png" alt="" className="size-full object-contain drop-shadow-[0_0_12px_rgb(163_230_53_/_25%)]" />
-            </span>
+      <header className="fixed inset-x-0 top-0 z-50  bg-transparent text-white shadow-[0_-12px_50px_rgba(0,0,0,0.34),0_-2px_14px_rgba(0,0,0,0.2)]">
+        <div className="mx-auto flex h-[76px] w-full max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
+          <NavLink to="/" aria-label="XentroX Solutions home" className="inline-flex items-center gap-3 no-underline">
+            <img src="/favicon.png" alt="" className="size-10 object-contain" />
             <span className="flex flex-col leading-none">
-              <span className="text-sm font-black tracking-tight sm:text-base">
-                XENTRO<span className="text-[#a3e635]">X</span>
-              </span>
-              <span className="mt-1 text-[8px] font-bold tracking-[0.28em] text-white/55">
-                SOLUTIONS
-              </span>
+              <span className="text-[15px] font-bold tracking-[.08em] text-white">XENTRO<span className="text-[#a3e635]">X</span></span>
+              <span className="mt-1.5 text-[9px] font-semibold tracking-[.24em] text-white/65">SOLUTIONS</span>
             </span>
           </NavLink>
 
-          {/* Desktop Nav */}
-          <nav
-            className="hidden items-center gap-7 xl:flex"
-            aria-label="Main Navigation"
-          >
-            {navLinksBeforeServices.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                end={link.path === '/'}
-                className={({ isActive }) =>
-                  `group relative py-1 text-sm tracking-normal no-underline transition-colors ${
-                    isActive ? 'font-semibold text-white' : 'font-normal text-white/85 hover:text-[#a3e635]'
-                  }`
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    <span>{link.label}</span>
-                    <span
-                      className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0'
-                      }`}
-                    />
-                  </>
-                )}
-              </NavLink>
-            ))}
-            <div
-              className="relative"
-              ref={servicesRef}
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-              onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false);
-              }}
-            >
-              <button
-                type="button"
-                aria-expanded={servicesOpen}
-                aria-controls="desktop-services-menu"
-                onClick={() => setServicesOpen((open) => !open)}
-                className={`group relative inline-flex items-center gap-1 py-1 text-sm tracking-normal transition-colors ${
-                  servicesOpen || isServiceRoute
-                    ? 'font-semibold text-white'
-                    : 'font-normal text-white/85 hover:text-[#a3e635]'
-                }`}
-              >
-                Services
-                <Icon name="chevronDown" size={14} className={`transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
-                <span
-                  className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
-                    isServiceRoute ? 'w-full' : 'w-0'
-                  }`}
-                />
-              </button>
-              {servicesOpen && (
-                <div
-                  id="desktop-services-menu"
-                  className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3"
-                >
-                  <div className="overflow-hidden rounded-2xl border border-white/15 bg-[#062c23]/95 p-2 shadow-xl backdrop-blur-xl">
-                    {serviceLinks.map((service) => (
-                      <NavLink
-                        key={service.path}
-                        to={service.path}
-                        onClick={() => setServicesOpen(false)}
-                        className="block rounded-xl px-3 py-2.5 no-underline transition-colors hover:bg-white/10"
-                      >
-                        <span className="block text-sm font-semibold text-white">{service.label}</span>
-                        <span className="mt-0.5 block text-xs font-normal text-white/55">{service.detail}</span>
-                      </NavLink>
-                    ))}
-                    <NavLink
-                      to="/services"
-                      onClick={() => setServicesOpen(false)}
-                      className="mt-1 flex items-center justify-between border-t border-white/10 px-3 py-3 text-xs font-semibold text-[#a3e635] no-underline"
-                    >
-                      Explore all services
-                      <Icon name="arrowRight" size={14} />
-                    </NavLink>
-                  </div>
-                </div>
-              )}
-            </div>
-            {navLinksAfterServices.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                className={({ isActive }) =>
-                  `group relative py-1 text-sm tracking-normal no-underline transition-colors ${
-                    isActive ? 'font-semibold text-white' : 'font-normal text-white/85 hover:text-[#a3e635]'
-                  }`
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    <span>{link.label}</span>
-                    <span
-                      className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[#a3e635] transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0'
-                      }`}
-                    />
-                  </>
-                )}
-              </NavLink>
-            ))}
-          </nav>
-
-          {/* Desktop contact and primary action */}
-          <div className="hidden shrink-0 items-center gap-2.5 xl:flex">
-            <button
-              type="button"
-              onClick={handleEnrollClick}
-              className={`inline-flex h-9 cursor-pointer select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-[#72b513]/30 bg-[#84CC16] px-3.5 text-xs font-bold text-[#003831] shadow-xs transition-all duration-200 hover:bg-[#92dc1d] hover:shadow-sm active:scale-95 active:bg-[#78ba14] ${
-                isEnrolling ? 'scale-95' : ''
-              }`}
-            >
-              <span>Get Started</span>
-              <Icon name="arrowRight" size={13} className="stroke-[2.5]" />
+          <div className="flex items-center gap-4 sm:gap-5">
+            <button type="button" onClick={getStarted} className="inline-flex h-11 items-center gap-2 bg-[#84CC16] px-4 text-sm font-semibold text-[#003831] transition-colors hover:bg-[#a3e635] sm:px-5">
+              Get started <Icon name="arrowRight" size={15} />
             </button>
-          </div>
-
-          {/* Compact navigation for tablet and mobile */}
-          <div className="z-50 flex shrink-0 items-center gap-2 xl:hidden">
-            <button
-              type="button"
-              onClick={handleEnrollClick}
-              className="h-8 cursor-pointer rounded-lg bg-[#84CC16] px-3 text-[11px] font-bold text-[#003831] shadow-xs transition-transform active:scale-95"
-            >
-              Get Started
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                if (mobileOpen) setMobileServicesOpen(false);
-                setMobileOpen((open) => !open);
-              }}
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-navigation"
-              className={`flex size-9 cursor-pointer items-center justify-center rounded-full border transition-all ${
-                mobileOpen
-                  ? 'border-lime-500 bg-[#84CC16] text-[#003831]'
-                  : 'border-white/15 bg-white/5 text-white'
-              } active:scale-90`}
-            >
-              {mobileOpen ? <Icon name="close" size={18} className="animate-scale-in" /> : <Icon name="menu" size={18} />}
+            <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={open} aria-controls="site-drawer" className={`grid size-11 place-items-center border border-white/35 bg-transparent transition-colors hover:border-[#a3e635] ${open ? 'border-[#a3e635]' : ''}`}>
+              <span className="flex w-[19px] flex-col gap-[6px]">
+                <span className={`h-[2px] w-full bg-white transition-transform ${open ? 'translate-y-[4px] rotate-45' : ''}`} />
+                <span className={`h-[2px] w-full bg-white transition-transform ${open ? '-translate-y-[4px] -rotate-45' : ''}`} />
+              </span>
             </button>
           </div>
         </div>
-
-        {/* Mobile navigation drawer */}
-        {mobileOpen && (
-          <div
-            id="mobile-navigation"
-            className="absolute top-full left-0 right-0 z-50 max-h-[calc(100vh-70px)] overflow-y-auto border-b border-white/10 bg-[#062c23]/95 px-5 py-6 text-white shadow-2xl backdrop-blur-xl animate-drawer xl:hidden"
-          >
-            <div className="flex flex-col space-y-1.5 mb-5">
-              {navLinksBeforeServices.map((link) => (
-                <NavLink
-                  key={link.path}
-                  to={link.path}
-                  end={link.path === '/'}
-                  onClick={closeMobileMenu}
-                  className={({ isActive }) =>
-                    `px-3.5 py-3 rounded-xl text-base font-semibold transition-colors flex items-center justify-between ${
-                      isActive
-                        ? 'border border-[#a3e635]/30 bg-[#a3e635]/10 font-bold text-[#c8f589]'
-                        : 'text-white/85 hover:bg-white/10'
-                    }`
-                  }
-                >
-                  <span>{link.label}</span>
-                  <Icon name="arrowRight" size={14} className="opacity-40" />
-                </NavLink>
-              ))}
-              <div>
-                <button
-                  type="button"
-                  aria-expanded={mobileServicesOpen}
-                  aria-controls="mobile-services-menu"
-                  onClick={() => setMobileServicesOpen((open) => !open)}
-                  className={`flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-base font-semibold transition-colors hover:bg-slate-50 ${
-                    isServiceRoute ? 'bg-[#a3e635]/10 text-[#c8f589]' : 'text-white/85'
-                  }`}
-                >
-                  <span>Services</span>
-                  <Icon
-                    name="chevronDown"
-                    size={16}
-                    className={`transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {mobileServicesOpen && (
-                  <div id="mobile-services-menu" className="ml-3 border-l border-white/15 pl-3">
-                    {serviceLinks.map((service) => (
-                      <NavLink
-                        key={service.path}
-                        to={service.path}
-                        onClick={closeMobileMenu}
-                        className="block rounded-lg px-3 py-2.5 text-sm font-medium text-white/70 no-underline hover:bg-white/10 hover:text-white"
-                      >
-                        {service.label}
-                      </NavLink>
-                    ))}
-                    <NavLink
-                      to="/services"
-                      onClick={closeMobileMenu}
-                      className="block rounded-lg px-3 py-2.5 text-sm font-bold text-[#a3e635] no-underline hover:bg-white/10"
-                    >
-                      Explore all services
-                    </NavLink>
-                  </div>
-                )}
-              </div>
-              {navLinksAfterServices.filter((link) => link.path !== '/contact').map((link) => (
-                <NavLink
-                  key={link.path}
-                  to={link.path}
-                  onClick={closeMobileMenu}
-                  className={({ isActive }) =>
-                    `px-3.5 py-3 rounded-xl text-base font-semibold transition-colors flex items-center justify-between ${
-                      isActive
-                        ? 'border border-[#a3e635]/30 bg-[#a3e635]/10 font-bold text-[#c8f589]'
-                        : 'text-white/85 hover:bg-white/10'
-                    }`
-                  }
-                >
-                  <span>{link.label}</span>
-                  <Icon name="arrowRight" size={14} className="opacity-40" />
-                </NavLink>
-              ))}
-              <NavLink
-                to="/contact"
-                onClick={closeMobileMenu}
-                className="flex items-center justify-between rounded-xl px-3.5 py-3 text-base font-semibold text-white/85 no-underline transition-colors hover:bg-white/10"
-              >
-                <span>Contact</span>
-                <Icon name="arrowRight" size={14} className="opacity-40" />
-              </NavLink>
-            </div>
-
-            <div className="border-t border-white/15 pt-3">
-              <button
-                type="button"
-                onClick={handleEnrollClick}
-                className="w-full btn-primary py-3.5 text-sm justify-center font-black shadow-md cursor-pointer"
-              >
-                <span>GET STARTED</span>
-                <Icon name="arrowRight" size={16} />
-              </button>
-              <p className="mt-3 text-center text-xs font-medium text-white/50">
-                XentroX Solutions • Digital growth, engineered.
-              </p>
-            </div>
-          </div>
-        )}
       </header>
 
-      {/* Backdrop overlay on phone view */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-slate-950/40 backdrop-blur-xs xl:hidden animate-fade-in"
-          onClick={closeMobileMenu}
-          aria-hidden="true"
-        />
-      )}
+      <div className={`fixed inset-0 z-[60] bg-[#062c23]/45 transition-opacity duration-300 ${open ? 'visible opacity-100' : 'invisible opacity-0'}`} onClick={() => setOpen(false)} aria-hidden="true" />
+      <aside id="site-drawer" aria-label="Site navigation" aria-hidden={!open} inert={!open} className={`fixed right-0 top-0 z-[70] flex h-dvh w-full max-w-[480px] flex-col bg-white text-[#173c2e] shadow-[-24px_0_70px_rgba(6,44,35,.22)] transition-transform duration-500 ease-[cubic-bezier(.22,.8,.22,1)] ${open ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="flex h-[76px] shrink-0 items-center justify-between border-b border-[#e2ebe5] px-6 sm:px-9">
+          <span className="text-xs font-semibold uppercase tracking-[.2em] text-[#718078]">Explore XentroX</span>
+          <button type="button" onClick={() => setOpen(false)} aria-label="Close navigation menu" className="grid size-10 place-items-center border border-[#dce4eb] text-[#003831] transition hover:border-[#84CC16] hover:text-[#416d3b]"><Icon name="close" size={18} /></button>
+        </div>
+        <nav className="flex-1 overflow-y-auto px-6 py-8 sm:px-9" aria-label="Main navigation">
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[.18em] text-[#4d7f0f]">Navigation</p>
+          <div className="divide-y divide-[#e8eee9] border-y border-[#e8eee9]">
+            {links.map(([label, path, number]) => (
+              <NavLink key={path} to={path} end={path === '/'} onClick={() => setOpen(false)} className={({ isActive }) => `group flex items-center gap-5 py-[17px] no-underline transition-colors ${isActive ? 'text-[#416d3b]' : 'text-[#233b31] hover:text-[#416d3b]'}`}>
+                <span className="w-6 text-[10px] font-medium tracking-wider text-[#91a096]">{number}</span>
+                <span className="flex-1 text-[21px] font-medium tracking-[-.025em]">{label}</span>
+                <Icon name="arrowRight" size={17} className="-translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+              </NavLink>
+            ))}
+          </div>
+        </nav>
+        <div className="border-t border-[#e2ebe5] bg-[#f5f8f4] px-6 py-7 sm:px-9">
+          <p className="mb-4 text-sm leading-6 text-[#64766c]">Have a project in mind? Let’s make it happen.</p>
+          <button type="button" onClick={getStarted} className="flex w-full items-center justify-between bg-[#84CC16] px-5 py-4 text-left text-sm font-semibold text-[#003831] transition-colors hover:bg-[#a3e635]">Start a conversation <Icon name="arrowRight" size={17} /></button>
+        </div>
+      </aside>
     </>
   );
 }
