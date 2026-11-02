@@ -17,8 +17,13 @@ const ProjectsPage = lazy(() => import('../components/projects/ProjectsPage.jsx'
 const CareerAssistancePage = lazy(() => import('../components/career/CareerAssistancePage.jsx'));
 const BlogPage = lazy(() => import('../components/blog/BlogPage.jsx'));
 const EnrollPage = lazy(() => import('../components/enroll/EnrollPage.jsx'));
+const AdminPage = lazy(() => import('../components/admin/AdminPage.jsx'));
 
 const Routes = [
+  {
+    path: 'admin/*',
+    element: <AdminPage />,
+  },
   {
     element: <FullLayout />,
     children: [
