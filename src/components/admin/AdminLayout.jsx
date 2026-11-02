@@ -1,6 +1,7 @@
+import { useEffect, useRef, useState } from 'react';
 import { Boxes, BriefcaseBusiness, ChevronDown, ChevronRight, LayoutDashboard, Menu, Plus, Users } from 'lucide-react';
 import AdminSidebar from './AdminSidebar.jsx';
-import { adminInitials } from './adminApi.js';
+import { adminAssetUrl, adminInitials } from './adminApi.js';
 
 const pageDetails = {
   overview: { label: 'Overview', description: 'Here’s what’s happening across your workspace.', icon: LayoutDashboard },
@@ -28,6 +29,27 @@ function AdminLayout({
   const page = pageDetails[activePage] ?? pageDetails.overview;
   const PageIcon = page.icon;
   const CreateIcon = page.createIcon;
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileMenuRef = useRef(null);
+  const profileImage = user.avatarUrl || user.imageUrl;
+
+  useEffect(() => {
+    if (!profileOpen) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (!profileMenuRef.current?.contains(event.target)) setProfileOpen(false);
+    };
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setProfileOpen(false);
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [profileOpen]);
 
   return (
     <div className="admin-shell">
@@ -45,25 +67,47 @@ function AdminLayout({
           <button className="admin-mobile-menu admin-icon-button" aria-label="Open navigation" onClick={onOpenNavigation}><Menu size={19} /></button>
           <div className="admin-breadcrumb"><span>Workspace</span><ChevronRight size={14} /><strong>{page.label}</strong></div>
           <div className="admin-topbar__right">
-            <span className="admin-topbar__status"><i /> All systems operational</span>
             <span className="admin-topbar__divider" />
-            <button className="admin-user-chip" onClick={onLogout} title="Sign out">
-              <span className="admin-avatar">{adminInitials(user.name)}</span>
-              <span className="admin-user-chip__copy"><strong>{user.name}</strong><small>Super admin</small></span>
-              <ChevronDown size={14} />
-            </button>
+            <div className="admin-profile-menu" ref={profileMenuRef}>
+              <button
+                className="admin-user-chip"
+                type="button"
+                onClick={() => setProfileOpen((open) => !open)}
+                aria-expanded={profileOpen}
+                aria-haspopup="dialog"
+                aria-label="Open profile menu"
+              >
+                <span className="admin-avatar">
+                  {profileImage ? <img src={adminAssetUrl(profileImage)} alt="" /> : adminInitials(user.name)}
+                </span>
+                <span className="admin-user-chip__copy"><strong>{user.name}</strong><small>Super admin</small></span>
+                <ChevronDown size={14} />
+              </button>
+              {profileOpen && (
+                <div className="admin-profile-popover" role="dialog" aria-label="User profile">
+                  <div className="admin-profile-popover__identity">
+                    <span className="admin-avatar admin-profile-popover__avatar">
+                      {profileImage ? <img src={adminAssetUrl(profileImage)} alt="" /> : adminInitials(user.name)}
+                    </span>
+                    <span className="admin-profile-popover__details">
+                      <strong>{user.name}</strong>
+                      <span>{user.email}</span>
+                    </span>
+                  </div>
+                  <button className="admin-profile-popover__logout" type="button" onClick={onLogout}>Sign out</button>
+                </div>
+              )}
+            </div>
           </div>
         </header>
 
         <div className="admin-content">
           <div className="admin-page-heading">
             <div>
-              <div className="admin-eyebrow admin-eyebrow--dark"><PageIcon size={13} /> ADMINISTRATION</div>
               <h1>{activePage === 'overview' ? `Good to see you, ${user.name.split(' ')[0]}` : page.label}<span className="admin-heading-period">{activePage === 'overview' ? '.' : ''}</span></h1>
               <p>{page.description}</p>
             </div>
             <div className="admin-heading-actions">
-              <span className="admin-date-pill"><span /> {new Intl.DateTimeFormat('en', { weekday: 'short', month: 'short', day: 'numeric' }).format(new Date())}</span>
               {activePage !== 'overview' && (
                 <button className="admin-button admin-button--primary admin-create-button" onClick={onCreate}>
                   <CreateIcon size={17} /> Add {activePage === 'users' ? 'user' : activePage === 'categories' ? 'category' : 'project'}

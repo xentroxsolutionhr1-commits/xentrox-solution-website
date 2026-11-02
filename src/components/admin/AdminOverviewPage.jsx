@@ -26,7 +26,7 @@ function AdminOverviewPage({ users, categories, loading, onNavigate, onCreate, o
     <section className="admin-dashboard">
       <div className="admin-welcome-banner">
         <div className="admin-welcome-banner__copy">
-          <span className="admin-welcome-banner__eyebrow"><Sparkles size={14} /> YOUR WORKSPACE, AT A GLANCE</span>
+          <span className="admin-welcome-banner__eyebrow"></span>
           <h2>Make room for<br />great things.</h2>
           <p>Your workspace is looking good. Here’s the latest across your team.</p>
           <button onClick={() => onNavigate('users')}>Explore your team <ArrowRight size={16} /></button>
@@ -34,7 +34,7 @@ function AdminOverviewPage({ users, categories, loading, onNavigate, onCreate, o
         <div className="admin-welcome-banner__art" aria-hidden="true">
           <div className="admin-banner-orbit admin-banner-orbit--outer" />
           <div className="admin-banner-orbit admin-banner-orbit--inner" />
-          <div className="admin-banner-sun"><span>X</span></div>
+          <div className="admin-banner-sun"><img src="/Logo.svg" alt="" /></div>
           <div className="admin-banner-card admin-banner-card--top"><span className="admin-banner-card__icon"><Users size={15} /></span><span><b>{users.length}</b><small>people</small></span><i /></div>
           <div className="admin-banner-card admin-banner-card--bottom"><span className="admin-banner-card__icon admin-banner-card__icon--light"><BookOpen size={15} /></span><span><b>{categories.length}</b><small>categories</small></span><ArrowUpRight size={14} /></div>
           <div className="admin-banner-spark admin-banner-spark--one">✳</div>

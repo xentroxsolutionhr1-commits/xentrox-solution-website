@@ -25,12 +25,12 @@ function AdminSidebar({ user, userCount, portfolioCount, mobileOpen, onNavigate,
       {mobileOpen && <button className="admin-sidebar-scrim" aria-label="Close navigation" onClick={onClose} />}
       <aside className={`admin-sidebar ${mobileOpen ? 'admin-sidebar--open' : ''}`}>
         <a className="admin-sidebar__brand" href="/" aria-label="XentroX home">
-          <span className="admin-brand-mark">X</span>
+          <img className="admin-brand-logo" src="/Logo.svg" alt="" />
           <span><strong>XENTRO<span>X</span></strong><small>SOLUTIONS</small></span>
         </a>
         <div className="admin-sidebar__workspace">
           <span className="admin-sidebar__workspace-icon"><Command size={17} /></span>
-          <span><strong>Workspace</strong><small>Administration</small></span>
+          <span><strong>Workspace</strong></span>
           <ChevronDown size={15} className="admin-sidebar__chevron" />
         </div>
         <span className="admin-sidebar__label">WORKSPACE</span>

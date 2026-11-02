@@ -53,22 +53,12 @@
   text-decoration: none;
 }
 
-.admin-brand-mark {
-  display: grid;
+.admin-brand-logo {
+  display: block;
   width: 43px;
   height: 43px;
   flex: none;
-  place-items: center;
-  border: 1px solid rgb(185 231 127 / 38%);
-  border-radius: 14px;
-  background: linear-gradient(145deg, #b5e46c, #84bc39);
-  box-shadow: 0 8px 26px rgb(137 195 67 / 24%), inset 0 1px 0 rgb(255 255 255 / 50%);
-  color: #173c2c;
-  font-family: Georgia, serif;
-  font-size: 26px;
-  font-weight: 700;
-  font-style: italic;
-  line-height: 1;
+  object-fit: contain;
 }
 
 .admin-brand-name {
@@ -357,7 +347,7 @@
 .admin-login-submit {
   width: 100%;
   min-height: 49px;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 6px;
   padding: 0 17px;
   font-size: 13px;
@@ -455,11 +445,9 @@
   padding: 0 8px 24px;
 }
 
-.admin-sidebar__brand .admin-brand-mark {
+.admin-sidebar__brand .admin-brand-logo {
   width: 36px;
   height: 36px;
-  border-radius: 11px;
-  font-size: 22px;
 }
 
 .admin-sidebar__brand > span:last-child {
@@ -693,12 +681,15 @@
   min-width: 0;
   min-height: 100vh;
   margin-left: 250px;
+  padding-top: 62px;
 }
 
 .admin-topbar {
-  position: sticky;
-  z-index: 10;
+  position: fixed;
+  z-index: 30;
   top: 0;
+  right: 0;
+  left: 250px;
   display: flex;
   height: 62px;
   align-items: center;
@@ -755,6 +746,10 @@
   background: #e9ede9;
 }
 
+.admin-profile-menu {
+  position: relative;
+}
+
 .admin-user-chip {
   display: flex;
   align-items: center;
@@ -764,6 +759,13 @@
   padding: 0;
   color: #8b9690;
   cursor: pointer;
+}
+
+.admin-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
 }
 
 .admin-user-chip__copy {
@@ -782,6 +784,77 @@
 .admin-user-chip__copy small {
   color: #89948d;
   font-size: 9px;
+}
+
+.admin-profile-popover {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 13px);
+  right: 0;
+  width: min(300px, calc(100vw - 32px));
+  border: 1px solid #e8ede8;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 42px rgb(23 45 34 / 15%);
+  padding: 16px;
+}
+
+.admin-profile-popover__identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.admin-profile-popover__avatar {
+  width: 44px;
+  height: 44px;
+  font-size: 13px;
+}
+
+.admin-profile-popover__details {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-profile-popover__details strong,
+.admin-profile-popover__details span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-profile-popover__details strong {
+  color: #293a31;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-profile-popover__details span {
+  color: #77847c;
+  font-size: 11px;
+}
+
+.admin-profile-popover__logout {
+  width: 100%;
+  margin-top: 15px;
+  border: 1px solid #e8ede8;
+  border-radius: 9px;
+  background: #fff;
+  padding: 10px 12px;
+  color: #37463e;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  text-align: center;
+  cursor: pointer;
+}
+
+.admin-profile-popover__logout:hover {
+  border-color: #d7e2d4;
+  background: #f7faf6;
 }
 
 .admin-content {
@@ -972,11 +1045,10 @@
   rotate: -9deg;
 }
 
-.admin-banner-sun span {
-  font-family: Georgia, serif;
-  font-size: 60px;
-  font-style: italic;
-  line-height: 1;
+.admin-banner-sun img {
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
 }
 
 .admin-banner-card {
@@ -2339,6 +2411,10 @@
     margin-left: 225px;
   }
 
+  .admin-topbar {
+    left: 225px;
+  }
+
   .admin-content {
     padding-right: 26px;
     padding-left: 26px;
@@ -2384,11 +2460,9 @@
     margin-bottom: 47px;
   }
 
-  .admin-login__mobile-brand .admin-brand-mark {
+  .admin-login__mobile-brand .admin-brand-logo {
     width: 36px;
     height: 36px;
-    border-radius: 11px;
-    font-size: 22px;
   }
 
   .admin-login__mobile-brand .admin-brand-name {
@@ -2431,9 +2505,11 @@
   .admin-main {
     width: 100%;
     margin-left: 0;
+    padding-top: 56px;
   }
 
   .admin-topbar {
+    left: 0;
     height: 56px;
     padding: 0 17px;
   }
@@ -2526,10 +2602,6 @@
     width: 75px;
     height: 75px;
     border-radius: 22px;
-  }
-
-  .admin-banner-sun span {
-    font-size: 43px;
   }
 
   .admin-banner-card--top {
