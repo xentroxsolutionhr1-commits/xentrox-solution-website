@@ -120,6 +120,16 @@ export default function About() {
             </div>
           </div>
         </div>
+
+        {/* Curved bottom edge wave like pricing */}
+        <div className="about-hero-wave" aria-hidden="true">
+          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="none">
+            <path
+              d="M0,45 C360,85 740,15 1100,55 C1260,72 1380,65 1440,45 L1440,80 L0,80 Z"
+              fill="#FFFFFF"
+            />
+          </svg>
+        </div>
       </section>
 
       {/* ====================================================================

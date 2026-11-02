@@ -92,7 +92,7 @@ export default function Navbar({ onOpenEnroll }) {
       if (onOpenEnroll) {
         onOpenEnroll();
       } else {
-        navigate('/contact');
+        navigate('/enroll');
       }
     }, 150);
   };

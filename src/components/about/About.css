@@ -31,7 +31,7 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  margin-top: -1.5rem;
+  margin-top: -6rem; /* Starts at margin 0 from very top */
   margin-bottom: -2rem;
   overflow-x: hidden;
   background-color: var(--c-light-bg);
@@ -41,7 +41,7 @@
 
 @media (max-width: 640px) {
   .about-page {
-    margin-top: -1.25rem;
+    margin-top: -5rem; /* Starts at margin 0 on mobile */
     margin-bottom: -1.5rem;
   }
 }
@@ -55,7 +55,7 @@
 /* Container Utility */
 .about-container {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1080px; /* Occupies the exact width of navbar */
   margin-left: auto;
   margin-right: auto;
   padding-left: clamp(1rem, 3.5vw, 2rem);
@@ -124,8 +124,8 @@
    ========================================================================== */
 .about-story-hero {
   position: relative;
-  padding-top: clamp(3rem, 4.5vw, 4.25rem);
-  padding-bottom: clamp(3.25rem, 5vw, 4.5rem);
+  padding-top: clamp(6.5rem, 9.5vw, 8.5rem);
+  padding-bottom: clamp(6.5rem, 9.5vw, 9rem);
   background-color: #064B38;
   color: #FFFFFF;
   overflow: hidden;
@@ -187,7 +187,7 @@
 }
 
 .about-hero-headline-wrap {
-  max-width: 860px;
+  max-width: 1080px; width: 100%;
   margin-bottom: clamp(3rem, 5vw, 4.5rem);
 }
 
@@ -314,9 +314,9 @@
    ========================================================================== */
 .about-philosophy-section {
   position: relative;
-  background-color: var(--c-light-bg);
+  background-color: #FFFFFF;
   padding: clamp(4rem, 6.5vw, 6rem) 0;
-  border-top: 1px solid var(--c-border-light);
+  border-top: none;
 }
 
 .about-philosophy-grid {
@@ -859,4 +859,22 @@
   .about-roadmap-inner-dot {
     animation: none !important;
   }
+}
+
+/* Curved bottom wave on hero like pricing */
+.about-hero-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: clamp(50px, 6vw, 75px);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.about-hero-wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
