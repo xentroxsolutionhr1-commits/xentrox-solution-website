@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="flowBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#063F32" />
+      <stop offset="100%" stop-color="#04261E" />
+    </linearGradient>
+    <filter id="flowShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" rx="16" fill="#F4F8F5" />
+
+  <!-- Main Dark Dashboard App Frame -->
+  <g transform="translate(60, 40)" filter="url(#flowShadow)">
+    <rect width="680" height="420" rx="12" fill="url(#flowBg)" stroke="#0E5E4B" stroke-width="1.5" />
+    
+    <!-- Top Bar -->
+    <rect width="680" height="46" rx="12" fill="#04271F" />
+    <path d="M0 46 h680" stroke="#0E5E4B" stroke-width="1" />
+    
+    <!-- Logo & Title -->
+    <circle cx="30" cy="23" r="10" fill="#168B46" />
+    <path d="M26 23 L29 26 L35 20" stroke="#FFFFFF" stroke-width="2" fill="none" />
+    <text x="48" y="27" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="0.5">FLOWLINE LOGISTICS</text>
+    <text x="200" y="27" font-family="sans-serif" font-size="11" fill="#6EE7B7">/ Real-Time Fleet Control Pod</text>
+
+    <!-- Top Right Status -->
+    <rect x="525" y="12" width="135" height="22" rx="11" fill="#063F32" stroke="#168B46" />
+    <circle cx="538" cy="23" r="4" fill="#34D399">
+      <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <text x="548" y="27" font-family="sans-serif" font-size="10" font-weight="700" fill="#A7F3D0">1,248 ACTIVE TRUCKS</text>
+
+    <!-- Sidebar Mini -->
+    <g transform="translate(0, 46)">
+      <rect width="56" height="374" fill="#031E18" />
+      <!-- Icons in sidebar -->
+      <circle cx="28" cy="30" r="12" fill="#168B46" opacity="0.3" />
+      <rect x="22" y="24" width="12" height="12" rx="2" fill="#34D399" />
+      <rect x="22" y="65" width="12" height="12" rx="2" fill="#4B6B62" />
+      <rect x="22" y="105" width="12" height="12" rx="2" fill="#4B6B62" />
+      <rect x="22" y="145" width="12" height="12" rx="2" fill="#4B6B62" />
+    </g>
+
+    <!-- Map & Fleet Tracking Core (Right of sidebar) -->
+    <g transform="translate(70, 60)">
+      <!-- Map Background Grid -->
+      <rect width="400" height="340" rx="8" fill="#052F25" stroke="#0E5E4B" />
+      <g stroke="#094A3B" stroke-width="1" stroke-dasharray="3 3">
+        <line x1="0" y1="70" x2="400" y2="70" />
+        <line x1="0" y1="140" x2="400" y2="140" />
+        <line x1="0" y1="210" x2="400" y2="210" />
+        <line x1="0" y1="280" x2="400" y2="280" />
+        <line x1="80" y1="0" x2="80" y2="340" />
+        <line x1="160" y1="0" x2="160" y2="340" />
+        <line x1="240" y1="0" x2="240" y2="340" />
+        <line x1="320" y1="0" x2="320" y2="340" />
+      </g>
+
+      <!-- Highway Route Line -->
+      <path d="M 40 280 Q 120 220 180 180 T 290 120 T 360 50" fill="none" stroke="#168B46" stroke-width="4" stroke-linecap="round" />
+      <path d="M 40 280 Q 120 220 180 180 T 290 120 T 360 50" fill="none" stroke="#34D399" stroke-width="1.5" stroke-dasharray="6 4" />
+      
+      <!-- Waypoint Pins -->
+      <circle cx="40" cy="280" r="5" fill="#34D399" />
+      <circle cx="180" cy="180" r="5" fill="#34D399" />
+      <circle cx="290" cy="120" r="5" fill="#34D399" />
+      
+      <!-- Current Truck Location with Pulse -->
+      <circle cx="290" cy="120" r="14" fill="#168B46" opacity="0.35">
+        <animate attributeName="r" values="8;18;8" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.6;0.1;0.6" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="290" cy="120" r="7" fill="#FBBF24" stroke="#FFFFFF" stroke-width="2" />
+
+      <!-- Map Tooltip -->
+      <g transform="translate(190, 60)">
+        <rect width="180" height="50" rx="6" fill="#04231B" stroke="#168B46" />
+        <text x="12" y="20" font-family="sans-serif" font-size="11" font-weight="800" fill="#FFFFFF">TRUCK #FL-9042</text>
+        <text x="12" y="36" font-family="sans-serif" font-size="10" fill="#93C5FD">ETA: 42 mins • 68 km/h</text>
+        <circle cx="160" cy="25" r="4" fill="#10B981" />
+      </g>
+    </g>
+
+    <!-- Right Side Info Cards -->
+    <g transform="translate(485, 60)">
+      <!-- Card 1 -->
+      <rect width="180" height="100" rx="8" fill="#052F25" stroke="#0E5E4B" />
+      <text x="14" y="24" font-family="sans-serif" font-size="10" font-weight="700" fill="#94A3B8">DISPATCH EFFICIENCY</text>
+      <text x="14" y="55" font-family="sans-serif" font-size="24" font-weight="900" fill="#34D399">99.4%</text>
+      <text x="14" y="78" font-family="sans-serif" font-size="10" fill="#A7F3D0">▲ +12.3% this quarter</text>
+
+      <!-- Card 2 -->
+      <g transform="translate(0, 115)">
+        <rect width="180" height="100" rx="8" fill="#052F25" stroke="#0E5E4B" />
+        <text x="14" y="24" font-family="sans-serif" font-size="10" font-weight="700" fill="#94A3B8">AVG TRANSIT DELAY</text>
+        <text x="14" y="55" font-family="sans-serif" font-size="24" font-weight="900" fill="#FBBF24">4.2 min</text>
+        <text x="14" y="78" font-family="sans-serif" font-size="10" fill="#FDE68A">▼ Down from 28.5 min</text>
+      </g>
+
+      <!-- Card 3 -->
+      <g transform="translate(0, 230)">
+        <rect width="180" height="110" rx="8" fill="#052F25" stroke="#0E5E4B" />
+        <text x="14" y="24" font-family="sans-serif" font-size="10" font-weight="700" fill="#94A3B8">TECH STACK ENGINE</text>
+        <rect x="14" y="38" width="65" height="22" rx="4" fill="#0E5E4B" />
+        <text x="23" y="52" font-family="sans-serif" font-size="10" font-weight="700" fill="#34D399">React 18</text>
+        <rect x="85" y="38" width="70" height="22" rx="4" fill="#0E5E4B" />
+        <text x="96" y="52" font-family="sans-serif" font-size="10" font-weight="700" fill="#34D399">Node.js</text>
+        <text x="14" y="90" font-family="sans-serif" font-size="10" fill="#6EE7B7">WebSockets Live Sync</text>
+      </g>
+    </g>
+  </g>
+</svg>
+

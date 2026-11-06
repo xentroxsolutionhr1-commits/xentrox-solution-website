@@ -66,7 +66,7 @@ function StaticPage() {
 
   if (pathname === '/services') {
     return (
-      <section className="grid gap-4 px-4 py-[clamp(2rem,6vw,5rem)] sm:px-6 lg:px-8">
+      <section className="grid gap-4 py-[clamp(2rem,6vw,5rem)]">
         <p className="m-0 text-xs font-extrabold uppercase tracking-[0.15em] text-[#4d7f0f]" data-scroll-reveal>
           From strategy to launch
         </p>
@@ -76,10 +76,11 @@ function StaticPage() {
         <p className="m-0 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg" data-scroll-reveal style={{ '--reveal-delay': '180ms' }}>
           Connected marketing, design and technology to move your business forward.
         </p>
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {/* Services grid: 1 col mobile → 2 col tablet+ */}
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-5">
           {services.map((service, index) => (
             <article
-              className="min-h-52 scroll-mt-28 rounded-2xl border border-[#e2ebe5] bg-white p-[clamp(1.25rem,3vw,2rem)] transition duration-200 hover:-translate-y-1 hover:border-[#b7d09a] hover:shadow-lg hover:shadow-[#093226]/5"
+              className="min-h-48 scroll-mt-28 rounded-2xl border border-[#e2ebe5] bg-white p-[clamp(1.1rem,3vw,2rem)] transition duration-200 hover:-translate-y-1 hover:border-[#b7d09a] hover:shadow-lg hover:shadow-[#093226]/5"
               id={service.id}
               key={service.id}
               data-scroll-reveal
@@ -88,10 +89,10 @@ function StaticPage() {
               <span className="text-xs font-extrabold tracking-[0.1em] text-[#6b9b36]">
                 0{index + 1}
               </span>
-              <h2 className="mt-6 mb-2 text-[clamp(1.15rem,2.4vw,1.6rem)] font-semibold text-[#093226]">
+              <h2 className="mt-5 mb-2 text-[clamp(1.1rem,2.4vw,1.6rem)] font-semibold text-[#093226]">
                 {service.title}
               </h2>
-              <p className="m-0 leading-[1.7] text-[#53645c]">{service.description}</p>
+              <p className="m-0 leading-[1.7] text-[#53645c] text-sm sm:text-base">{service.description}</p>
             </article>
           ))}
         </div>
@@ -101,7 +102,7 @@ function StaticPage() {
 
   if (pathname === '/courses') {
     return (
-      <section className="grid gap-4 px-4 py-[clamp(2rem,8vw,6rem)] sm:px-6 lg:px-8">
+      <section className="grid gap-4 py-[clamp(2rem,8vw,6rem)]">
         <p className="m-0 text-xs font-bold uppercase tracking-[0.15em] text-[#4d7f0f]" data-scroll-reveal>
           Learn with XentroX
         </p>
@@ -110,7 +111,7 @@ function StaticPage() {
         </h1>
         {query && (
           <p className="m-0 max-w-2xl break-words leading-7 text-slate-600">
-            Results for “{query}”
+            Results for "{query}"
           </p>
         )}
         {matchingCourses.length > 0 ? (
@@ -141,7 +142,7 @@ function StaticPage() {
   }
 
   return (
-    <section className="grid gap-4 px-4 py-[clamp(2rem,8vw,6rem)] sm:px-6 lg:px-8">
+    <section className="grid gap-4 py-[clamp(2rem,8vw,6rem)]">
       <p className="m-0 text-xs font-bold uppercase tracking-[0.15em] text-[#4d7f0f]" data-scroll-reveal>
         XentroX Solutions
       </p>

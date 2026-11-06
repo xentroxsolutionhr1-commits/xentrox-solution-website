@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="auraBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBFBF9" />
+      <stop offset="100%" stop-color="#F0F4EF" />
+    </linearGradient>
+    <linearGradient id="bottleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EAEFE7" />
+      <stop offset="100%" stop-color="#D5DFCF" />
+    </linearGradient>
+    <filter id="auraShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#063F32" flood-opacity="0.1" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" rx="16" fill="url(#auraBg)" />
+
+  <!-- Composition of Branding Editorial Elements -->
+  <!-- Left: Luxury Skincare Packaging Mockup -->
+  <g transform="translate(100, 60)" filter="url(#auraShadow)">
+    <rect width="280" height="380" rx="16" fill="#FFFFFF" stroke="#E2EBE5" stroke-width="1.5" />
+    
+    <!-- Minimalist Bottle Illustration -->
+    <g transform="translate(85, 50)">
+      <!-- Bottle Cap -->
+      <rect x="35" y="10" width="40" height="35" rx="4" fill="#063F32" />
+      <!-- Bottle Neck -->
+      <rect x="42" y="45" width="26" height="15" fill="#C8D6C4" />
+      <!-- Bottle Body -->
+      <rect x="15" y="60" width="80" height="150" rx="12" fill="url(#bottleGrad)" stroke="#B8CBB4" stroke-width="1" />
+      <!-- Label on Bottle -->
+      <rect x="25" y="95" width="60" height="80" rx="4" fill="#FFFFFF" />
+      <text x="55" y="125" font-family="'Times New Roman', serif" font-size="11" font-weight="700" letter-spacing="2" fill="#063F32" text-anchor="middle">AURA</text>
+      <text x="55" y="137" font-family="sans-serif" font-size="5" letter-spacing="1" fill="#168B46" text-anchor="middle">BOTANICAL SERUM</text>
+      <line x1="38" y1="145" x2="72" y2="145" stroke="#E2EBE5" stroke-width="0.7" />
+      <text x="55" y="156" font-family="sans-serif" font-size="5" fill="#64748B" text-anchor="middle">50ml / 1.7 fl.oz</text>
+    </g>
+
+    <!-- Card Brand Details -->
+    <g transform="translate(25, 290)">
+      <text x="0" y="15" font-family="serif" font-size="18" font-weight="700" fill="#063F32">Aura Skincare</text>
+      <text x="0" y="35" font-family="sans-serif" font-size="11" fill="#64748B">Pure Botanical Formulations</text>
+      <rect x="0" y="48" width="80" height="22" rx="11" fill="#E8F5EA" />
+      <text x="40" y="62" font-family="sans-serif" font-size="10" font-weight="700" fill="#168B46" text-anchor="middle">ECO-LUXURY</text>
+    </g>
+  </g>
+
+  <!-- Right: Instagram-First Campaign & Palette Mockups -->
+  <g transform="translate(420, 60)">
+    <!-- Instagram Story / Mobile Preview -->
+    <g filter="url(#auraShadow)">
+      <rect width="280" height="230" rx="14" fill="#FFFFFF" stroke="#E2EBE5" stroke-width="1.5" />
+      <!-- Instagram Header -->
+      <circle cx="28" cy="28" r="12" fill="#E8F5EA" stroke="#168B46" stroke-width="1.5" />
+      <text x="28" y="32" font-family="serif" font-size="9" font-weight="800" fill="#168B46" text-anchor="middle">A</text>
+      <text x="48" y="27" font-family="sans-serif" font-size="11" font-weight="700" fill="#063F32">auraskincare.official</text>
+      <text x="48" y="38" font-family="sans-serif" font-size="9" fill="#94A3B8">Sponsored • Verified Campaign</text>
+      <text x="250" y="28" font-family="sans-serif" font-size="14" fill="#94A3B8">•••</text>
+
+      <!-- Post Graphic -->
+      <rect x="18" y="52" width="244" height="120" rx="8" fill="#F4F8F4" stroke="#E8F5EA" />
+      <circle cx="140" cy="100" r="40" fill="#E8F5EA" opacity="0.6" />
+      <text x="140" y="105" font-family="'Times New Roman', serif" font-size="20" font-style="italic" fill="#063F32" text-anchor="middle">Radical Radiance</text>
+      <text x="140" y="125" font-family="sans-serif" font-size="8" font-weight="800" letter-spacing="1.5" fill="#168B46" text-anchor="middle">100% COLD-PRESSED CLEAN BEAUTY</text>
+
+      <!-- Engagement Metrics -->
+      <text x="18" y="195" font-family="sans-serif" font-size="10" font-weight="700" fill="#063F32">14,290 likes</text>
+      <text x="18" y="210" font-family="sans-serif" font-size="9" fill="#64748B">Shop the drop at the link in bio.</text>
+    </g>
+
+    <!-- Color Palette Chips -->
+    <g transform="translate(0, 260)" filter="url(#auraShadow)">
+      <rect width="280" height="120" rx="14" fill="#FFFFFF" stroke="#E2EBE5" stroke-width="1.5" />
+      <text x="20" y="26" font-family="sans-serif" font-size="11" font-weight="800" fill="#063F32" letter-spacing="0.5">BRAND COLOR IDENTITY</text>
+      
+      <!-- Swatches -->
+      <g transform="translate(20, 42)">
+        <!-- Swatch 1 -->
+        <rect width="48" height="42" rx="6" fill="#063F32" />
+        <text x="24" y="58" font-family="sans-serif" font-size="8" fill="#64748B" text-anchor="middle">#063F32</text>
+        <!-- Swatch 2 -->
+        <g transform="translate(60, 0)">
+          <rect width="48" height="42" rx="6" fill="#168B46" />
+          <text x="24" y="58" font-family="sans-serif" font-size="8" fill="#64748B" text-anchor="middle">#168B46</text>
+        </g>
+        <!-- Swatch 3 -->
+        <g transform="translate(120, 0)">
+          <rect width="48" height="42" rx="6" fill="#E8F5EA" />
+          <text x="24" y="58" font-family="sans-serif" font-size="8" fill="#64748B" text-anchor="middle">#E8F5EA</text>
+        </g>
+        <!-- Swatch 4 -->
+        <g transform="translate(180, 0)">
+          <rect width="48" height="42" rx="6" fill="#FBFBF9" stroke="#E2EBE5" stroke-width="1" />
+          <text x="24" y="58" font-family="sans-serif" font-size="8" fill="#64748B" text-anchor="middle">#FBFBF9</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
+

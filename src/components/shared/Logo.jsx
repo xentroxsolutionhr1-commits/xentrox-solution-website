@@ -1,17 +1,9 @@
 import { Link } from 'react-router-dom';
+import AnimatedLogo from './AnimatedLogo.jsx';
 
 // Standalone Logo Symbol component for navbar, sidebar, login, etc.
 export function LogoSymbol({ size = 38, className = '' }) {
-  return (
-    <img
-      src="/favicon.png"
-      alt="XentroX symbol"
-      width={size}
-      height={size}
-      className={`shrink-0 object-contain drop-shadow-sm transition-transform duration-300 hover:scale-105 ${className}`}
-      loading="eager"
-    />
-  );
+  return <AnimatedLogo size={size} className={className} alt="XentroX symbol" />;
 }
 
 export default function Logo({ size = 'md', className = '', href = '/' }) {
@@ -28,15 +20,8 @@ export default function Logo({ size = 'md', className = '', href = '/' }) {
   const logoContent = (
     <div className={`group inline-flex items-center gap-2.5 sm:gap-3 shrink-0 select-none cursor-pointer ${className}`}>
       {/* LEFT: Exact XentroX Logo Symbol */}
-      <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0">
-        <img
-          src="/favicon.png"
-          alt=""
-          width={currentSize.symbol}
-          height={currentSize.symbol}
-          className="shrink-0 object-contain drop-shadow-md select-none pointer-events-none"
-          loading="eager"
-        />
+      <div className="relative flex shrink-0 items-center justify-center">
+        <AnimatedLogo size={currentSize.symbol} />
       </div>
 
       {/* RIGHT: XENTROX LABS Brand Text with Dark Green + Vibrant Lime */}

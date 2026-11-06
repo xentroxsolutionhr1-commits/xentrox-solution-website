@@ -1,53 +1,138 @@
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUp,
+  ArrowUpRight,
+  Award,
+  BookOpen,
+  Briefcase,
+  Check,
+  ChevronDown,
+  Clock,
+  Cloud,
+  Code,
+  Cpu,
+  FileText,
+  Globe,
+  Heart,
+  Layers,
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  Rocket,
+  Search,
+  Shield,
+  Sparkles,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  X,
+  Zap,
+} from 'lucide-react';
+
+const icons = {
+  search: Search,
+  arrowRight: ArrowRight,
+  arrowUpRight: ArrowUpRight,
+  briefcase: Briefcase,
+  heart: Heart,
+  bookOpen: BookOpen,
+  arrowDown: ArrowDown,
+  chevronDown: ChevronDown,
+  menu: Menu,
+  close: X,
+  x: X,
+  globe: Globe,
+  arrowUp: ArrowUp,
+  mapPin: MapPin,
+  check: Check,
+  target: Target,
+  rocket: Rocket,
+  code: Code,
+  cpu: Cpu,
+  trending: TrendingUp,
+  layers: Layers,
+  sparkles: Sparkles,
+  users: Users,
+  shield: Shield,
+  mail: Mail,
+  phone: Phone,
+  zap: Zap,
+  star: Star,
+  clock: Clock,
+  award: Award,
+  cloud: Cloud,
+  fileText: FileText,
+};
+
+const brandShapes = {
+  linkedin: (
+    <>
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </>
+  ),
+  twitter: (
+    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+  ),
+  github: (
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4M9 18c-4.51 2-5-2-7-2" />
+  ),
+  instagram: (
+    <>
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </>
+  ),
+  facebook: (
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  ),
+  whatsapp: (
+    <>
+      <path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20l1.2-5.3A8.4 8.4 0 1 1 21 11.5Z" />
+      <path d="M9 9a.8.8 0 0 0-1.2.4c-.3.7-.2 1.5.2 2.2a8.5 8.5 0 0 0 3.8 3.8c.7.4 1.5.5 2.2.2a.8.8 0 0 0 .4-1.2l-.6-.9a.8.8 0 0 0-1-.3l-.7.3a6 6 0 0 1-2.2-2.2l.3-.7a.8.8 0 0 0-.3-1z" />
+    </>
+  ),
+};
+
 function Icon({ name, size = 16, className = '' }) {
-  const commonProps = {
-    fill: 'none',
-    stroke: 'currentColor',
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round',
-    strokeWidth: 2,
-  };
+  const LucideIcon = icons[name];
 
-  const shapes = {
-    search: (
-      <>
-        <circle cx="11" cy="11" r="7" />
-        <path d="m20 20-4-4" />
-      </>
-    ),
-    arrowRight: <path d="M5 12h14m-7-7 7 7-7 7" />,
-    chevronDown: <path d="m6 9 6 6 6-6" />,
-    menu: <path d="M4 6h16M4 12h16M4 18h16" />,
-    close: <path d="m18 6-12 12M6 6l12 12" />,
-    globe: (
-      <>
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z" />
-      </>
-    ),
-    arrowUp: <path d="m18 15-6-6-6 6M12 9v12" />,
-    mapPin: (
-      <>
-        <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-        <circle cx="12" cy="10" r="2.5" />
-      </>
-    ),
-  };
-
-  if (!Object.hasOwn(shapes, name)) {
-    throw new Error(`Unknown icon: ${name}`);
+  if (LucideIcon) {
+    return <LucideIcon aria-hidden="true" size={size} strokeWidth={2} className={className} />;
   }
 
+  if (Object.hasOwn(brandShapes, name)) {
+    return (
+      <svg
+        aria-hidden="true"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+      >
+        {brandShapes[name]}
+      </svg>
+    );
+  }
+
+  // Graceful fallback for any missing or undefined icon names - never crash the app
+  console.warn(`Icon "${name}" not found. Falling back gracefully.`);
   return (
-    <svg
+    <span
       aria-hidden="true"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      className={className}
-      {...commonProps}
-    >
-      {shapes[name]}
-    </svg>
+      style={{ width: size, height: size }}
+      className={`inline-block shrink-0 rounded-full bg-current opacity-40 ${className}`}
+    />
   );
 }
 
