@@ -33,7 +33,7 @@
 @media (max-width: 640px) {
   .careers-page {
     margin-top: -5rem; /* Starts from margin 0 on mobile */
-    margin-bottom: -1.5rem;
+    margin-bottom: 0;
   }
 }
 
@@ -46,27 +46,24 @@
 /* Container */
 .careers-container {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1080px; /* Occupies the exact width of navbar and other pages */
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(1rem, 3.5vw, 2.25rem);
-  padding-right: clamp(1rem, 3.5vw, 2.25rem);
+  padding-left: clamp(1rem, 3.5vw, 2rem);
+  padding-right: clamp(1rem, 3.5vw, 2rem);
 }
 
 /* ==========================================================================
-   SECTION 1 — HERO SECTION (DARK FOREST GREEN #064B38)
+   SECTION 1 — HERO SECTION
    Full-width canvas with photograph filling and blending right side
    ========================================================================== */
 .careers-hero {
   position: relative;
-  min-height: clamp(520px, 60vh, 640px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   padding-top: clamp(6.5rem, 9.5vw, 8.5rem);
   padding-bottom: clamp(6.5rem, 9.5vw, 9rem);
-  background-color: var(--c-forest-green);
-  color: var(--c-white);
+  background-color: #E8F6EC;
+  background-image: radial-gradient(ellipse at 20% 20%, #DDF3E4 0%, #E8F6EC 48%, #F4FAF6 100%);
+  color: var(--c-dark-text);
   overflow: hidden;
   isolation: isolate;
 }
@@ -89,18 +86,16 @@
   object-fit: cover;
   object-position: center 25%;
   display: block;
-  opacity: 0.94;
-  filter: contrast(1.06) brightness(0.96);
+  opacity: 0.96;
 }
 
 .careers-hero-bg-gradient-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to right, #064B38 0%, rgba(6, 75, 56, 0.96) 18%, rgba(6, 75, 56, 0.5) 45%, transparent 80%),
-    linear-gradient(to top, #064B38 0%, rgba(6, 75, 56, 0.8) 22%, transparent 50%),
-    linear-gradient(to bottom, rgba(6, 75, 56, 0.65) 0%, transparent 30%),
-    linear-gradient(135deg, rgba(6, 75, 56, 0.25) 0%, rgba(2, 60, 45, 0.35) 100%);
+    linear-gradient(to right, #E8F6EC 0%, rgba(232, 246, 236, 0.94) 18%, rgba(221, 243, 228, 0.72) 45%, transparent 80%),
+    linear-gradient(to top, #E8F6EC 0%, rgba(221, 243, 228, 0.78) 22%, transparent 50%),
+    linear-gradient(to bottom, rgba(221, 243, 228, 0.62) 0%, transparent 35%);
 }
 
 /* Subtle organic curved lines in background */
@@ -125,47 +120,64 @@
 
 /* Hero Content Column (Left Side) */
 .careers-hero-content-wrap {
-  max-width: 600px;
+  max-width: 640px;
 }
 
-/* Small uppercase plain label: CAREERS (no badge, no pill, no border, no background) */
-.careers-hero-eyebrow {
-  display: inline-block;
-  font-size: 0.88rem;
+.careers-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.38rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--c-lime-green);
-  margin-bottom: 1rem;
+  background: rgba(22, 139, 70, 0.1);
+  border: 1px solid rgba(22, 139, 70, 0.24);
+  color: var(--c-primary-green);
+  margin-bottom: 1.25rem;
 }
 
-/* Main heading: Turn Your Ideas / Into Impact. */
+.careers-pulsing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--c-primary-green);
+  box-shadow: 0 0 8px rgba(22, 139, 70, 0.45);
+}
+
+/* Main heading: proportional font size matching other pages */
 .careers-hero-heading {
-  margin: 0 0 1.5rem;
-  font-size: clamp(3rem, 5.2vw, 4.85rem);
+  margin: 0 0 1.25rem;
+  font-size: clamp(2.15rem, 3.4vw, 3.25rem);
   font-weight: 900;
-  line-height: 1.08;
-  letter-spacing: -0.035em;
-  color: var(--c-white);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--c-dark-text);
+  max-width: 620px;
 }
 
 .careers-hero-heading-line1 {
   display: block;
-  color: var(--c-white);
+  color: var(--c-dark-text);
 }
 
 .careers-lime-highlight {
-  display: block;
-  color: var(--c-lime-green);
+  color: #059669;
+  display: inline-block;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.careers-hero-desc {
+.careers-hero-subheading {
   margin: 0;
-  font-size: clamp(1.05rem, 1.3vw, 1.22rem);
-  line-height: 1.68;
-  color: rgba(255, 255, 255, 0.88);
-  font-weight: 400;
-  max-width: 520px;
+  font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+  line-height: 1.65;
+  color: var(--c-body-text);
+  max-width: 540px;
 }
 
 /* Hero Wave Transition into White Section */
@@ -175,7 +187,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  height: 65px;
+  height: clamp(50px, 6vw, 75px);
   pointer-events: none;
   z-index: 4;
 }
@@ -189,38 +201,55 @@
 /* ==========================================================================
    SECTION 2 — CURRENT OPENINGS (WHITE BACKGROUND #FFFFFF)
    ========================================================================== */
+.careers-positions-section,
 .careers-openings-section {
   position: relative;
-  padding-top: clamp(3.5rem, 5.5vw, 5rem);
+  padding-top: clamp(3rem, 5vw, 4.5rem);
   padding-bottom: clamp(4rem, 6vw, 6rem);
   background-color: var(--c-white);
 }
 
+.careers-section-top-header,
 .careers-openings-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  text-align: left;
 }
 
 .careers-section-eyebrow {
-  display: block;
-  font-size: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.74rem;
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--c-forest-green);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.65rem;
 }
 
+.careers-eyebrow-line {
+  width: 16px;
+  height: 2px;
+  background-color: var(--c-forest-green);
+  border-radius: 2px;
+}
+
+.careers-section-title,
 .careers-openings-heading {
-  margin: 0;
-  font-size: clamp(2rem, 3.5vw, 2.85rem);
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem);
   font-weight: 850;
   letter-spacing: -0.03em;
   color: var(--c-forest-green);
-  line-height: 1.18;
+  line-height: 1.2;
+}
+
+.careers-section-desc {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--c-body-text);
+  max-width: 620px;
 }
 
 .careers-lime-text,
@@ -251,25 +280,28 @@
   transform: translateX(3px);
 }
 
-/* Filter & Search Bar */
+/* Filter & Search Toolbar */
+.careers-filter-toolbar,
 .careers-filter-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1.25rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: clamp(2rem, 3.5vw, 2.75rem);
   padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--c-border-light);
 }
 
+.careers-category-pill-group,
 .careers-category-pills {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   flex-wrap: wrap;
 }
 
+.careers-category-pill-btn,
 .careers-category-btn {
   padding: 0.48rem 1.15rem;
   border-radius: 9999px;
@@ -280,13 +312,16 @@
   color: var(--c-body-text);
   cursor: pointer;
   transition: all 0.2s ease;
+  outline: none;
 }
 
+.careers-category-pill-btn:hover,
 .careers-category-btn:hover {
   border-color: var(--c-forest-green);
   color: var(--c-forest-green);
 }
 
+.careers-category-pill-btn.active,
 .careers-category-btn.is-active {
   background: var(--c-forest-green);
   border-color: var(--c-forest-green);
@@ -294,16 +329,17 @@
   box-shadow: 0 4px 12px rgba(6, 75, 56, 0.18);
 }
 
+.careers-search-input-wrap,
 .careers-search-wrap {
   position: relative;
   min-width: 260px;
-  max-width: 340px;
+  max-width: 360px;
   flex: 1;
 }
 
 .careers-search-icon {
   position: absolute;
-  left: 1rem;
+  left: 1.1rem;
   top: 50%;
   transform: translateY(-50%);
   color: #94A3B8;
@@ -312,11 +348,11 @@
 
 .careers-search-input {
   width: 100%;
-  height: 42px;
+  height: 44px;
   border-radius: 9999px;
   border: 1px solid var(--c-border-light);
   background: var(--c-soft-grey);
-  padding: 0 2.25rem 0 2.5rem;
+  padding: 0 2.25rem 0 2.65rem;
   font-size: 0.88rem;
   color: var(--c-dark-text);
   outline: none;
@@ -329,6 +365,7 @@
   box-shadow: 0 0 0 3px rgba(6, 75, 56, 0.1);
 }
 
+.careers-search-clear-btn,
 .careers-search-clear {
   position: absolute;
   right: 0.75rem;
@@ -342,8 +379,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.2s ease;
 }
 
+.careers-search-clear-btn:hover,
 .careers-search-clear:hover {
   color: var(--c-dark-text);
 }
@@ -351,11 +390,13 @@
 /* ==========================================================================
    Horizontal Full-Width Job Cards List
    ========================================================================== */
+.careers-jobs-stack,
 .careers-horizontal-jobs-list {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   width: 100%;
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
 }
 
 /* Horizontal Job Card */
@@ -681,9 +722,9 @@
 
   .careers-hero-bg-gradient-overlay {
     background:
-      linear-gradient(to right, #064B38 0%, rgba(6, 75, 56, 0.96) 35%, rgba(6, 75, 56, 0.6) 65%, transparent 100%),
-      linear-gradient(to top, #064B38 0%, rgba(6, 75, 56, 0.8) 25%, transparent 50%),
-      linear-gradient(to bottom, rgba(6, 75, 56, 0.65) 0%, transparent 30%);
+      linear-gradient(to right, #E8F6EC 0%, rgba(232, 246, 236, 0.94) 35%, rgba(221, 243, 228, 0.72) 65%, transparent 100%),
+      linear-gradient(to top, #E8F6EC 0%, rgba(221, 243, 228, 0.78) 25%, transparent 55%),
+      linear-gradient(to bottom, rgba(221, 243, 228, 0.62) 0%, transparent 35%);
   }
 
   .careers-hero-content-wrap {
@@ -720,8 +761,8 @@
 
 @media (max-width: 640px) {
   .careers-hero {
-    padding-top: 3.25rem;
-    padding-bottom: 5.25rem;
+    padding-top: 6rem;
+    padding-bottom: 4.5rem;
   }
 
   .careers-hero-bg-photo-wrap {
@@ -731,11 +772,12 @@
 
   .careers-hero-bg-gradient-overlay {
     background:
-      linear-gradient(to top, #064B38 10%, rgba(6, 75, 56, 0.9) 60%, rgba(6, 75, 56, 0.75) 100%);
+      linear-gradient(to right, rgba(232, 246, 236, 0.94) 0%, rgba(232, 246, 236, 0.84) 65%, rgba(221, 243, 228, 0.58) 100%),
+      linear-gradient(to top, #E8F6EC 0%, rgba(221, 243, 228, 0.84) 35%, transparent 70%);
   }
 
   .careers-hero-heading {
-    font-size: clamp(2.35rem, 8.5vw, 3.15rem);
+    font-size: clamp(2rem, 7.8vw, 2.75rem);
   }
 
   .careers-hero-desc {
@@ -773,17 +815,29 @@
     gap: 0.35rem;
   }
 
-  .careers-filter-bar {
+  .careers-filter-bar,
+  .careers-filter-toolbar {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .careers-search-wrap {
+  .careers-search-wrap,
+  .careers-search-input-wrap {
     max-width: 100%;
+    min-width: 0;
   }
 
   .careers-invite-box {
     padding: 2rem 1.25rem;
     border-radius: 1.25rem;
+  }
+
+  .careers-invite-action {
+    width: 100%;
+  }
+
+  .careers-invite-btn {
+    width: 100%;
+    justify-content: center;
   }
 }

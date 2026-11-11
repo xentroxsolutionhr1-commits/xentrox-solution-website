@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { posterCategories } from '../../data/courseCategories.js';
+import { useLocation } from 'react-router-dom';
 
 const pageTitles = {
-  '/courses': 'Courses',
   '/projects': 'Projects',
   '/career-assistance': 'Career Assistance',
   '/blogs': 'Blogs',
@@ -41,15 +39,7 @@ const services = [
 
 function StaticPage() {
   const { pathname, hash } = useLocation();
-  const [searchParams] = useSearchParams();
   const title = pageTitles[pathname] ?? 'XentroX';
-  const query = searchParams.get('search')?.trim() ?? '';
-  const courses = posterCategories.flatMap((category) =>
-    category.courses.map((course) => ({ course, category: category.title })),
-  );
-  const matchingCourses = courses.filter(({ course }) =>
-    course.toLowerCase().includes(query.toLowerCase()),
-  );
 
   useEffect(() => {
     if (pathname !== '/services' || !hash) return undefined;
@@ -96,47 +86,6 @@ function StaticPage() {
             </article>
           ))}
         </div>
-      </section>
-    );
-  }
-
-  if (pathname === '/courses') {
-    return (
-      <section className="grid gap-4 py-[clamp(2rem,8vw,6rem)]">
-        <p className="m-0 text-xs font-bold uppercase tracking-[0.15em] text-[#4d7f0f]" data-scroll-reveal>
-          Learn with XentroX
-        </p>
-        <h1 className="m-0 text-[clamp(2rem,6vw,3.5rem)] font-semibold tracking-tight text-[#093226]" data-scroll-reveal style={{ '--reveal-delay': '90ms' }}>
-          {query ? 'Course search results' : 'Courses'}
-        </h1>
-        {query && (
-          <p className="m-0 max-w-2xl break-words leading-7 text-slate-600">
-            Results for "{query}"
-          </p>
-        )}
-        {matchingCourses.length > 0 ? (
-          <ul className="m-0 grid max-w-2xl list-none gap-3 p-0">
-            {matchingCourses.map(({ course, category }) => (
-              <li
-                className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[#e2ebe5] bg-white p-4"
-                key={course}
-                data-scroll-reveal
-              >
-                <Link
-                  className="font-bold text-[#093226] no-underline transition-colors hover:text-[#4d7f0f]"
-                  to={`/courses?search=${encodeURIComponent(course)}`}
-                >
-                  {course}
-                </Link>
-                <span className="text-sm text-slate-500">{category}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="m-0 leading-7 text-slate-600">
-            No courses match your search. Try another term.
-          </p>
-        )}
       </section>
     );
   }

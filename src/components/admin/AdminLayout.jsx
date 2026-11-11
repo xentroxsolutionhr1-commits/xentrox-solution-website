@@ -1,30 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
-import { Boxes, BriefcaseBusiness, ChevronDown, ChevronRight, LayoutDashboard, Menu, Plus, Users } from 'lucide-react';
+import {
+  Boxes, Briefcase, BriefcaseBusiness, ChevronDown, ChevronRight,
+  CircleDollarSign, LayoutDashboard, Mail, Menu, Newspaper, Plus, Users,
+} from 'lucide-react';
 import AdminSidebar from './AdminSidebar.jsx';
 import { adminAssetUrl, adminInitials } from './adminApi.js';
 
 const pageDetails = {
-  overview: { label: 'Overview', description: 'Here’s what’s happening across your workspace.', icon: LayoutDashboard },
-  users: { label: 'Users', description: 'Manage workspace access, roles, and people.', icon: Users, createIcon: Plus },
-  categories: { label: 'Categories', description: 'Organize the programs and areas your team works with.', icon: Boxes, createIcon: Plus },
-  portfolio: { label: 'Portfolio', description: 'Manage your featured work, project imagery, and technology stack.', icon: BriefcaseBusiness, createIcon: Plus },
+  overview:   { label: 'Overview',    description: "Here's what's happening across your workspace.", icon: LayoutDashboard },
+  users:      { label: 'Users',       description: 'Manage workspace access, roles, and people.',    icon: Users,           createIcon: Plus },
+  categories: { label: 'Categories',  description: 'Organize the programs and areas your team works with.', icon: Boxes, createIcon: Plus },
+  portfolio:  { label: 'Portfolio',   description: 'Manage your featured work and project imagery.', icon: BriefcaseBusiness, createIcon: Plus },
+  careers:    { label: 'Careers',     description: 'Manage open positions, recruitment, and job listings.', icon: Briefcase, createIcon: Plus },
+  enquiries:  { label: 'Enquiries',   description: 'View and manage incoming enquiries from visitors.', icon: Mail },
+  blogs:      { label: 'Blogs',       description: 'Write, edit, and manage your blog posts.',       icon: Newspaper,       createIcon: Plus },
+  pricing:    { label: 'Pricing',     description: 'Update the prices shown on the public pricing page.', icon: CircleDollarSign },
 };
 
 function AdminLayout({
-  activePage,
-  user,
-  userCount,
-  portfolioCount,
-  mobileOpen,
-  error,
-  notice,
-  onNavigate,
-  onOpenNavigation,
-  onCloseNavigation,
-  onLogout,
-  onDismissError,
-  onCreate,
-  children,
+  activePage, user, counts, mobileOpen, error, notice,
+  onNavigate, onOpenNavigation, onCloseNavigation,
+  onLogout, onDismissError, onCreate, children,
 }) {
   const page = pageDetails[activePage] ?? pageDetails.overview;
   const PageIcon = page.icon;
@@ -35,14 +31,8 @@ function AdminLayout({
 
   useEffect(() => {
     if (!profileOpen) return undefined;
-
-    const handlePointerDown = (event) => {
-      if (!profileMenuRef.current?.contains(event.target)) setProfileOpen(false);
-    };
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') setProfileOpen(false);
-    };
-
+    const handlePointerDown = (e) => { if (!profileMenuRef.current?.contains(e.target)) setProfileOpen(false); };
+    const handleKeyDown = (e) => { if (e.key === 'Escape') setProfileOpen(false); };
     document.addEventListener('pointerdown', handlePointerDown);
     document.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -55,8 +45,7 @@ function AdminLayout({
     <div className="admin-shell">
       <AdminSidebar
         user={user}
-        userCount={userCount}
-        portfolioCount={portfolioCount}
+        counts={counts}
         mobileOpen={mobileOpen}
         onNavigate={onNavigate}
         onClose={onCloseNavigation}
@@ -104,13 +93,16 @@ function AdminLayout({
         <div className="admin-content">
           <div className="admin-page-heading">
             <div>
-              <h1>{activePage === 'overview' ? `Good to see you, ${user.name.split(' ')[0]}` : page.label}<span className="admin-heading-period">{activePage === 'overview' ? '.' : ''}</span></h1>
+              <h1>
+                {activePage === 'overview' ? `Good to see you, ${user.name.split(' ')[0]}` : page.label}
+                <span className="admin-heading-period">{activePage === 'overview' ? '.' : ''}</span>
+              </h1>
               <p>{page.description}</p>
             </div>
             <div className="admin-heading-actions">
-              {activePage !== 'overview' && (
+              {CreateIcon && activePage !== 'overview' && (
                 <button className="admin-button admin-button--primary admin-create-button" onClick={onCreate}>
-                  <CreateIcon size={17} /> Add {activePage === 'users' ? 'user' : activePage === 'categories' ? 'category' : 'project'}
+                  <CreateIcon size={17} /> Add {activePage === 'users' ? 'user' : activePage === 'categories' ? 'category' : activePage === 'blogs' ? 'blog' : activePage === 'careers' ? 'position' : 'project'}
                 </button>
               )}
             </div>
@@ -123,7 +115,10 @@ function AdminLayout({
           )}
           {notice && <div className="admin-alert admin-alert--success admin-inline-alert" role="status">{notice}</div>}
           {children}
-          <footer className="admin-content-footer"><span>Made for people who make things better.</span><span>© {new Date().getFullYear()} XentroX Solutions</span></footer>
+          <footer className="admin-content-footer">
+            <span>Made for people who make things better.</span>
+            <span>© {new Date().getFullYear()} XentroX Solutions</span>
+          </footer>
         </div>
       </main>
     </div>

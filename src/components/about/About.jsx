@@ -21,12 +21,7 @@ const founders = [
     bio: 'Oversees engineering standards across every web and app build.',
     image: '/team/sherin.jpg',
   },
-  {
-    name: 'Subin S',
-    role: 'FOUNDER & CEO',
-    bio: 'Drives company vision, partnerships and long-term growth strategy.',
-    image: '/team/subin.jpg',
-  },
+
 ];
 
 export default function About() {
@@ -46,8 +41,7 @@ export default function About() {
     <div className="about-page">
 
       {/* ====================================================================
-          SECTION 1 – HERO & MISSION/VISION (DARK FOREST GREEN #064B38 ONLY)
-          Unified canvas matching exact visual composition
+          SECTION 1 – HERO & MISSION/VISION
           ==================================================================== */}
       <section className="about-story-hero" aria-label="About XentroX Solutions">
         {/* Right-Side Integrated Realistic Digital Studio Photograph */}
@@ -133,34 +127,218 @@ export default function About() {
       </section>
 
       {/* ====================================================================
-          SECTION 2 – THE PHILOSOPHY (WHITE / LIGHT BACKGROUND)
-          Strict boundary: dark green ends, crisp light background begins
+          SECTION 2 – THE PHILOSOPHY (EDITORIAL SPLIT & HIGHLIGHT BANNER)
           ==================================================================== */}
       <section className="about-philosophy-section" aria-label="Our Philosophy">
-        <div className="about-container">
-          <div className="about-philosophy-grid" data-scroll-reveal>
-            <div className="about-philosophy-headline">
-              <div className="about-philosophy-tag-wrap">
-                <span className="about-philosophy-dash" aria-hidden="true" />
-                <span className="about-philosophy-mini-tag">THE PHILOSOPHY</span>
-              </div>
-              <h2>
-                One studio, two <br />
-                disciplines, endless <br />
-                possibilities.
+        {/* Decorative Subtle Geometric Line Art Left & Right */}
+        <svg
+          className="about-philosophy-geo about-philosophy-geo--left"
+          viewBox="0 0 260 420"
+          fill="none"
+          aria-hidden="true"
+        >
+          <line x1="-20" y1="140" x2="145" y2="-10" stroke="currentColor" strokeWidth="1" />
+          <rect
+            x="-45"
+            y="105"
+            width="160"
+            height="220"
+            rx="26"
+            transform="rotate(-28 -45 105)"
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+          <rect
+            x="-28"
+            y="128"
+            width="140"
+            height="195"
+            rx="22"
+            transform="rotate(-28 -28 128)"
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+        </svg>
+
+        <svg
+          className="about-philosophy-geo about-philosophy-geo--right"
+          viewBox="0 0 260 420"
+          fill="none"
+          aria-hidden="true"
+        >
+          <rect
+            x="95"
+            y="35"
+            width="190"
+            height="270"
+            rx="32"
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+          <line x1="125" y1="45" x2="270" y2="195" stroke="currentColor" strokeWidth="1" />
+          <line x1="155" y1="20" x2="280" y2="150" stroke="currentColor" strokeWidth="1" />
+        </svg>
+
+        <div className="about-container about-philosophy-container">
+          <div className="about-philosophy-wrap" data-scroll-reveal>
+            {/* Top Centered Eyebrow & Headline */}
+            <div className="about-philosophy-header">
+              <span className="about-philosophy-eyebrow">THE PHILOSOPHY</span>
+              <h2 className="about-philosophy-title">
+                One <span className="about-philosophy-title-accent">studio</span>, two{' '}
+                <span className="about-philosophy-title-accent">disciplines</span>,
+                <br />
+                endless possibilities.
               </h2>
             </div>
 
-            <div className="about-philosophy-body">
-              <p>
-                XentroX Solutions began with a simple observation: most businesses hire one agency for marketing and another for their website, and the two rarely talk to each other. Campaigns point to slow pages; sites launch with no plan to drive traffic to them.
-              </p>
-              <p>
-                We started XentroX to close that gap — a single studio where strategists, designers and developers work from the same brief, so every campaign and every product decision serves the same growth goal.
-              </p>
-              <p className="about-philosophy-highlight-p">
+            {/* Middle Two-Column Comparison with Step-Arrow Connector */}
+            <div className="about-philosophy-columns">
+              {/* Left Column: The Observational Gap */}
+              <div className="about-philosophy-col about-philosophy-col--left">
+                <div className="about-philosophy-col-head">
+                  <span className="about-philosophy-col-label">THE OBSERVATIONAL GAP</span>
+                  <span className="about-philosophy-connector-line" aria-hidden="true">
+                    <svg
+                      className="about-philosophy-connector-elbow"
+                      viewBox="0 0 36 44"
+                      fill="none"
+                    >
+                      <path
+                        d="M0 1H14C17.3137 1 20 3.68629 20 7V33C20 36.3137 22.6863 39 26 39H34"
+                        stroke="#6E8078"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M30 35L34.5 39L30 43"
+                        stroke="#6E8078"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <p className="about-philosophy-col-text">
+                  XentroX Solutions began with a simple observation: most businesses hire one agency for marketing and another for their website, and the two rarely talk to each other. Campaigns point to slow pages; sites launch with no plan to drive traffic to them.
+                </p>
+              </div>
+
+              {/* Right Column: Our Unified Approach */}
+              <div className="about-philosophy-col about-philosophy-col--right">
+                <div className="about-philosophy-col-head">
+                  <span className="about-philosophy-col-label">OUR UNIFIED APPROACH</span>
+                </div>
+                <p className="about-philosophy-col-text">
+                  We started XentroX to close that gap — a single studio where strategists, designers and developers work from the same brief, so every campaign and every product decision serves the same growth goal.
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom Mint-Green Highlight Banner Card */}
+            <div className="about-philosophy-banner">
+              {/* Left: India Map with Marthandam & Trivandrum Pins */}
+              <div className="about-philosophy-banner-map">
+                <img
+                  src="/about/india-locations-map.png"
+                  alt="India map highlighting Marthandam and Trivandrum studios"
+                  className="about-philosophy-map-img"
+                />
+              </div>
+
+              {/* Center: Studio Statement */}
+              <p className="about-philosophy-banner-text">
                 Headquartered across Marthandam, Tamil Nadu and Trivandrum, Kerala, we work with founders and marketing teams across India who want a partner that ships both the strategy and the code.
               </p>
+
+              {/* Right: Strategy Clipboard + Code Window Icon */}
+              <div className="about-philosophy-banner-icon" aria-hidden="true">
+                <svg viewBox="0 0 56 56" fill="none" className="about-philosophy-strategy-svg">
+                  {/* Strategy Clipboard */}
+                  <path
+                    d="M16 10H11C9.34315 10 8 11.3431 8 13V42C8 43.6569 9.34315 45 11 45H27"
+                    stroke="#0A291D"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M27 10H32C33.6569 10 35 11.3431 35 13V26"
+                    stroke="#0A291D"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
+                  {/* Clipboard Top Clip */}
+                  <rect
+                    x="16"
+                    y="7"
+                    width="11"
+                    height="5"
+                    rx="1.5"
+                    fill="#E7F4EA"
+                    stroke="#0A291D"
+                    strokeWidth="1.8"
+                  />
+                  {/* Tactical 'X' top-left of board */}
+                  <path
+                    d="M13 18L16.5 21.5M16.5 18L13 21.5"
+                    stroke="#0A291D"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                  {/* Strategy Curved Arrow & Target Circle */}
+                  <circle cx="14.5" cy="35.5" r="2.2" stroke="#0A291D" strokeWidth="1.6" />
+                  <path
+                    d="M16.5 34C20 31.5 21 25 27.5 20"
+                    stroke="#0A291D"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M24 19.5H28V23.5"
+                    stroke="#0A291D"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  {/* Overlapping Code Window (Bottom-Right) */}
+                  <rect
+                    x="26"
+                    y="28"
+                    width="22"
+                    height="18"
+                    rx="2.5"
+                    fill="#E7F4EA"
+                    stroke="#0A291D"
+                    strokeWidth="1.8"
+                  />
+                  <line x1="26" y1="33" x2="48" y2="33" stroke="#0A291D" strokeWidth="1.6" />
+                  <circle cx="29.5" cy="30.5" r="0.8" fill="#0A291D" />
+                  <circle cx="32" cy="30.5" r="0.8" fill="#0A291D" />
+                  <circle cx="34.5" cy="30.5" r="0.8" fill="#0A291D" />
+                  {/* Code Brackets </> */}
+                  <path
+                    d="M33.5 37.5L31 39.5L33.5 41.5"
+                    stroke="#0A291D"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M40.5 37.5L43 39.5L40.5 41.5"
+                    stroke="#0A291D"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M38 36.8L36 42.2"
+                    stroke="#0A291D"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>

@@ -1,0 +1,529 @@
+/* ==========================================================================
+   XENTROX SOLUTIONS - DEDICATED SERVICES PAGE
+   Interactive Trigger System Matching Reference Screenshots
+   ========================================================================== */
+
+.services-page {
+  --svc-forest: #064B38;
+  --svc-forest-dark: #033628;
+  --svc-forest-deep: #02261C;
+  --svc-emerald: #16A34A;
+  --svc-mint-accent: #10B981;
+  --svc-mint-light: #F0FDF4;
+  --svc-mint-border: #DCFCE7;
+  --svc-bg-soft: #F4FAF6;
+  --svc-card-bg: #FFFFFF;
+  --svc-border-card: rgba(6, 75, 56, 0.09);
+  --svc-border-hover: rgba(22, 163, 74, 0.45);
+  --svc-text-head: #062C23;
+  --svc-text-body: #334E44;
+  --svc-text-muted: #526E62;
+
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: -6rem;
+  margin-bottom: -2rem;
+  overflow-x: hidden;
+  background-color: var(--svc-bg-soft);
+  background:
+    radial-gradient(ellipse at 50% -4%, rgba(209, 250, 229, 0.65) 0%, rgba(244, 250, 246, 0.45) 40%, #FFFFFF 85%),
+    var(--svc-bg-soft);
+  color: var(--svc-text-body);
+  font-family: inherit;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .services-page {
+    margin-top: -5rem;
+    margin-bottom: 0;
+  }
+}
+
+.services-page *,
+.services-page *::before,
+.services-page *::after {
+  box-sizing: border-box;
+}
+
+.services-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.25rem, 4vw, 2.5rem);
+  padding-right: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* ==========================================================================
+   TOP HERO & SELECTOR CARDS
+   ========================================================================== */
+.services-hero-section {
+  padding-bottom: 0;
+  text-align: center;
+}
+
+.services-hero-intro {
+  position: relative;
+  width: 100vw;
+  height: clamp(440px, 58vh, 540px);
+  margin-left: calc(50% - 50vw);
+  background-color: var(--svc-bg-soft);
+  background-image: url('/services-target-hero.png');
+  background-repeat: no-repeat;
+  background-position: center right;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+.services-hero-intro::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg,
+      rgba(226, 247, 235, 0.82) 0%,
+      rgba(226, 247, 235, 0.56) 34%,
+      rgba(226, 247, 235, 0.16) 58%,
+      transparent 76%
+    ),
+    linear-gradient(180deg,
+      rgba(210, 244, 224, 0) 50%,
+      rgba(198, 241, 216, 0.42) 82%,
+      rgba(210, 244, 224, 0.68) 100%
+    );
+  content: '';
+  pointer-events: none;
+}
+
+/* Curved bottom wave on Services hero banner that fades into the section below */
+.services-hero-wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: clamp(54px, 6.5vw, 80px);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.services-hero-wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.services-hero-copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  text-align: left;
+}
+
+.services-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--svc-forest);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.services-tag-dash {
+  width: 16px;
+  height: 2px;
+  background-color: var(--svc-emerald);
+  border-radius: 9999px;
+}
+
+.services-hero-title {
+  max-width: min(58%, 620px);
+  margin: 0 0 clamp(0.6rem, 1.2vw, 0.95rem);
+  font-size: clamp(2.1rem, 3.8vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--svc-text-head);
+}
+
+.services-title-highlight {
+  color: var(--svc-forest);
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.services-hero-subtext {
+  margin: 0;
+  max-width: 540px;
+  font-size: clamp(0.95rem, 1.12vw, 1.04rem);
+  line-height: 1.62;
+  color: var(--svc-text-muted);
+}
+
+/* Top 4 Interactive Selector Cards */
+.services-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.85rem, 1.5vw, 1.25rem);
+  margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+@media (max-width: 1024px) {
+  .services-selector-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .services-selector-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-hero-intro {
+    height: auto;
+    min-height: 410px;
+    padding-top: 6rem;
+    padding-bottom: 4.5rem;
+    align-items: center;
+    background-position: 72% center;
+    background-size: cover;
+  }
+
+  .services-hero-intro::after {
+    background:
+      linear-gradient(90deg,
+        rgba(226, 247, 235, 0.92) 0%,
+        rgba(226, 247, 235, 0.78) 58%,
+        rgba(226, 247, 235, 0.42) 100%
+      ),
+      linear-gradient(180deg,
+        rgba(210, 244, 224, 0.15) 0%,
+        rgba(198, 241, 216, 0.55) 82%,
+        rgba(210, 244, 224, 0.78) 100%
+      );
+  }
+
+  .services-hero-copy {
+    padding-top: 0;
+  }
+
+  .services-hero-title {
+    max-width: 100%;
+    font-size: clamp(1.95rem, 7.6vw, 2.55rem);
+  }
+}
+
+/* ==========================================================================
+   EDITORIAL INTERACTIVE SERVICES SECTION BELOW BANNER
+   (SEAMLESS CURVED WAVE + MINT-GREEN FADE FROM BANNER IMAGE)
+   ========================================================================== */
+.services-editorial-section {
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: -2px;
+  padding: clamp(2.5rem, 4.5vw, 4.25rem) 0 clamp(4.75rem, 7.5vw, 6.75rem);
+  background:
+    radial-gradient(ellipse 58% 55% at 15% 78%, rgba(182, 224, 196, 0.36) 0%, transparent 72%),
+    radial-gradient(ellipse 56% 46% at 86% 48%, rgba(176, 222, 192, 0.32) 0%, transparent 70%),
+    linear-gradient(180deg, #DCF6E6 0%, #E5F8EC 15%, #EFFAF3 36%, #F3F8F5 68%, #EEF6F1 100%);
+  overflow: hidden;
+  flex: 1;
+}
+
+/* Soft Out-of-Focus Botanical Palm Leaf Shadows */
+.services-botanical-shadow {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  color: rgba(84, 126, 98, 0.22);
+  filter: blur(7px);
+}
+
+.services-botanical-shadow--top-right {
+  top: 1.5rem;
+  right: -3rem;
+  width: min(560px, 52vw);
+  height: auto;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 18%, #000 38%);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 18%, #000 38%);
+}
+
+.services-botanical-shadow--bottom-left {
+  bottom: -3rem;
+  left: -3.5rem;
+  width: min(500px, 48vw);
+  height: auto;
+}
+
+.services-editorial-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1220px;
+}
+
+.services-editorial-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 460px) 1fr;
+  gap: clamp(2.5rem, 5.5vw, 5.25rem);
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .services-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+  }
+}
+
+/* Left Column: Eyebrow, Heading, Subtitle & Vertical Pill Tabs */
+.services-editorial-left {
+  text-align: left;
+  padding-top: 0.35rem;
+}
+
+@media (min-width: 981px) {
+  .services-editorial-left {
+    position: sticky;
+    top: 6.5rem;
+  }
+}
+
+.services-editorial-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #162E21;
+  margin-bottom: 1.1rem;
+}
+
+.services-editorial-eyebrow-line {
+  width: 15px;
+  height: 1.25px;
+  background-color: #162E21;
+}
+
+.services-editorial-heading {
+  margin: 0 0 1.25rem;
+  font-size: clamp(2.35rem, 3.8vw, 3.35rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #0C281A;
+}
+
+.services-editorial-subtitle {
+  margin: 0;
+  max-width: 440px;
+  font-size: clamp(0.94rem, 1.08vw, 1.02rem);
+  line-height: 1.62;
+  font-weight: 450;
+  color: #23352B;
+}
+
+/* Vertical Navigation Tabs with Left Timeline & Active Dark-Green Pill */
+.services-vertical-tabs {
+  position: relative;
+  margin-top: clamp(2rem, 3.5vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  max-width: 410px;
+}
+
+.services-vertical-tabs-line {
+  position: absolute;
+  top: 1.35rem;
+  bottom: 1.25rem;
+  left: 6px;
+  width: 1px;
+  background-color: #C2CEC6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.services-vertical-tab {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0.72rem 1rem 0.72rem 1.75rem;
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 450;
+  color: #1D3127;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.services-vertical-tab:hover {
+  color: #092618;
+}
+
+.services-vertical-tab.is-active {
+  margin: 0.2rem 0 0.45rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 9999px;
+  background-color: #123321;
+  color: #FFFFFF;
+  font-weight: 500;
+  box-shadow: 0 10px 24px -8px rgba(12, 40, 26, 0.35);
+}
+
+.services-vertical-tab-dot {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #B2C0B7;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.services-vertical-tab:hover .services-vertical-tab-dot {
+  background-color: #123321;
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+/* Right Column: 2x2 Grid of Service Items */
+.services-editorial-right {
+  width: 100%;
+}
+
+.services-editorial-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  row-gap: clamp(1.5rem, 2.8vw, 2.4rem);
+  align-items: stretch;
+}
+
+@media (max-width: 620px) {
+  .services-editorial-section {
+    padding: 2rem 0 3.75rem;
+  }
+
+  .services-editorial-heading {
+    font-size: clamp(1.95rem, 7.4vw, 2.5rem);
+  }
+
+  .services-vertical-tabs {
+    margin-top: 1.5rem;
+    max-width: 100%;
+  }
+
+  .services-vertical-tab {
+    padding: 0.6rem 0.9rem 0.6rem 1.6rem;
+    font-size: 0.93rem;
+  }
+
+  .services-vertical-tab.is-active {
+    padding: 0.75rem 1.35rem;
+  }
+
+  .services-editorial-cards-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1.15rem;
+  }
+
+  .services-editorial-card {
+    background-color: rgba(255, 255, 255, 0.72);
+    border-color: rgba(18, 51, 33, 0.12);
+    padding: 1.35rem;
+  }
+}
+
+.services-editorial-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  text-decoration: none;
+  padding: clamp(1.45rem, 2.2vw, 1.85rem);
+  border-radius: 1rem;
+  border: 1.5px solid transparent;
+  background: transparent;
+  transition:
+    background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.services-editorial-card:hover,
+.services-editorial-card.is-active {
+  background-color: #F7FCF9;
+  border-color: #469263;
+  box-shadow:
+    0 20px 44px -14px rgba(24, 104, 58, 0.18),
+    0 4px 14px -4px rgba(12, 40, 26, 0.06);
+}
+
+/* Soft Rounded-Square Icon Box at Top-Left */
+.services-editorial-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.65rem;
+  background-color: #DCEDE2;
+  color: #123321;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.35rem;
+  transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
+}
+
+.services-editorial-card:hover .services-editorial-icon-box,
+.services-editorial-card.is-active .services-editorial-icon-box {
+  background-color: #D2E8DA;
+  color: #0B2617;
+}
+
+.services-editorial-card-title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.1rem, 1.35vw, 1.24rem);
+  font-weight: 750;
+  line-height: 1.24;
+  letter-spacing: -0.015em;
+  color: #0D2318;
+}
+
+.services-editorial-card-desc {
+  margin: 0;
+  max-width: 245px;
+  font-size: 0.83rem;
+  line-height: 1.58;
+  font-weight: 450;
+  color: #293B32;
+}

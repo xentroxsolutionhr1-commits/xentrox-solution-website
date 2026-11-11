@@ -1,14 +1,14 @@
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
 const SESSION_TOKEN_KEY = 'xentrox-admin-token';
-const SESSION_USER_KEYS = ['xentrox-admin-id', 'xentrox-admin-name', 'xentrox-admin-email'];
+const SESSION_USER_KEYS = ['xentrox-admin-id', 'xentrox-admin-name', 'xentrox-admin-email', 'xentrox-admin-role'];
 const SESSION_AVATAR_KEY = 'xentrox-admin-avatar-url';
 
 export function readAdminSession() {
   const token = sessionStorage.getItem(SESSION_TOKEN_KEY);
-  const [id, name, email] = SESSION_USER_KEYS.map((key) => sessionStorage.getItem(key));
+  const [id, name, email, role] = SESSION_USER_KEYS.map((key) => sessionStorage.getItem(key));
   const avatarUrl = sessionStorage.getItem(SESSION_AVATAR_KEY);
   if (!token || !id || !name || !email) return null;
-  return { token, user: { id, name, email, role: 'SUPER_ADMIN', ...(avatarUrl ? { avatarUrl } : {}) } };
+  return { token, user: { id, name, email, role: role || 'SUPER_ADMIN', ...(avatarUrl ? { avatarUrl } : {}) } };
 }
 
 export function clearAdminSession() {
@@ -22,6 +22,7 @@ export function storeAdminSession(result) {
   sessionStorage.setItem(SESSION_USER_KEYS[0], String(result.user.id));
   sessionStorage.setItem(SESSION_USER_KEYS[1], result.user.name);
   sessionStorage.setItem(SESSION_USER_KEYS[2], result.user.email);
+  sessionStorage.setItem(SESSION_USER_KEYS[3], result.user.role || 'SUPER_ADMIN');
   const avatarUrl = result.user.avatarUrl || result.user.imageUrl;
   if (avatarUrl) sessionStorage.setItem(SESSION_AVATAR_KEY, avatarUrl);
   else sessionStorage.removeItem(SESSION_AVATAR_KEY);

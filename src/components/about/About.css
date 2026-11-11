@@ -31,7 +31,8 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  margin-top: -6rem; /* Starts at margin 0 from very top */
+  margin-top: -6rem;
+  /* Starts at margin 0 from very top */
   margin-bottom: -2rem;
   overflow-x: hidden;
   background-color: var(--c-light-bg);
@@ -41,8 +42,9 @@
 
 @media (max-width: 640px) {
   .about-page {
-    margin-top: -5rem; /* Starts at margin 0 on mobile */
-    margin-bottom: -1.5rem;
+    margin-top: -5rem;
+    /* Starts at margin 0 on mobile */
+    margin-bottom: 0;
   }
 }
 
@@ -55,7 +57,8 @@
 /* Container Utility */
 .about-container {
   width: 100%;
-  max-width: 1080px; /* Occupies the exact width of navbar */
+  max-width: 1080px;
+  /* Occupies the exact width of navbar */
   margin-left: auto;
   margin-right: auto;
   padding-left: clamp(1rem, 3.5vw, 2rem);
@@ -119,15 +122,15 @@
 }
 
 /* ==========================================================================
-   1. HERO & MISSION/VISION SECTION (DARK FOREST GREEN #064B38 ONLY)
-   Unified dark green canvas matching reference composition
+   1. HERO & MISSION/VISION SECTION
    ========================================================================== */
 .about-story-hero {
   position: relative;
   padding-top: clamp(6.5rem, 9.5vw, 8.5rem);
   padding-bottom: clamp(6.5rem, 9.5vw, 9rem);
-  background-color: #064B38;
-  color: #FFFFFF;
+  background-color: #E8F6EC;
+  background-image: radial-gradient(ellipse at 20% 20%, #DDF3E4 0%, #E8F6EC 48%, #F4FAF6 100%);
+  color: var(--c-heading-text);
   overflow: hidden;
   isolation: isolate;
 }
@@ -150,18 +153,16 @@
   object-fit: cover;
   object-position: center 8%;
   display: block;
-  opacity: 0.92;
-  filter: contrast(1.05) brightness(0.95);
+  opacity: 0.96;
 }
 
 .about-hero-bg-gradient-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to right, #064B38 0%, rgba(6, 75, 56, 0.85) 20%, rgba(6, 75, 56, 0.35) 50%, transparent 80%),
-    linear-gradient(to top, #064B38 0%, rgba(6, 75, 56, 0.65) 20%, transparent 45%),
-    linear-gradient(to bottom, rgba(6, 75, 56, 0.65) 0%, transparent 30%),
-    linear-gradient(135deg, rgba(6, 75, 56, 0.2) 0%, rgba(2, 41, 31, 0.35) 100%);
+    linear-gradient(to right, #E8F6EC 0%, rgba(232, 246, 236, 0.94) 20%, rgba(221, 243, 228, 0.72) 50%, transparent 85%),
+    linear-gradient(to top, #E8F6EC 0%, rgba(221, 243, 228, 0.78) 20%, transparent 52%),
+    linear-gradient(to bottom, rgba(221, 243, 228, 0.62) 0%, transparent 35%);
 }
 
 .about-hero-curves-bg {
@@ -187,7 +188,8 @@
 }
 
 .about-hero-headline-wrap {
-  max-width: 1080px; width: 100%;
+  max-width: 1080px;
+  width: 100%;
   margin-bottom: clamp(3rem, 5vw, 4.5rem);
 }
 
@@ -197,21 +199,26 @@
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: -0.03em;
-  color: #FFFFFF;
+  color: var(--c-heading-text);
 }
 
 .about-hero-title-line1 {
   display: block;
-  color: #FFFFFF;
+  color: var(--c-heading-text);
 }
 
 .about-hero-title-line2 {
   display: block;
-  color: #A3E635;
+  color: #059669;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   white-space: nowrap;
 }
 
 @media (min-width: 768px) {
+
   .about-hero-title-line1,
   .about-hero-title-line2 {
     white-space: nowrap;
@@ -246,13 +253,13 @@
   width: 52px;
   height: 52px;
   border-radius: 0.85rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid rgba(163, 230, 53, 0.35);
+  background: #E8F5EA;
+  border: 1.5px solid rgba(22, 139, 70, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #A3E635;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  color: var(--c-primary-green);
+  box-shadow: var(--c-shadow-sm);
 }
 
 .about-vm-content {
@@ -264,14 +271,14 @@
   font-size: 1.2rem;
   font-weight: 850;
   letter-spacing: 0.04em;
-  color: #FFFFFF;
+  color: var(--c-heading-text);
 }
 
 .about-vm-text {
   margin: 0;
   font-size: 0.94rem;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--c-body-text);
   font-weight: 400;
 }
 
@@ -279,7 +286,7 @@
   width: 1.5px;
   align-self: stretch;
   min-height: 90px;
-  background: rgba(163, 230, 53, 0.28);
+  background: rgba(22, 139, 70, 0.2);
 }
 
 @media (max-width: 991px) {
@@ -289,6 +296,7 @@
     height: 260px;
     margin-top: 1.5rem;
     margin-bottom: 2rem;
+    border-radius: 1.15rem;
   }
 
   .about-hero-headline-wrap {
@@ -304,95 +312,277 @@
     width: 100%;
     height: 1px;
     min-height: 1px;
-    background: rgba(163, 230, 53, 0.2);
+    background: rgba(22, 139, 70, 0.2);
+  }
+}
+
+@media (max-width: 640px) {
+  .about-story-hero {
+    padding-top: 6rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .about-hero-bg-photo-wrap {
+    height: 205px;
+    margin-top: 1.15rem;
+    margin-bottom: 1.5rem;
+    border-radius: 1rem;
+  }
+
+  .about-hero-main-title {
+    font-size: clamp(1.95rem, 7.8vw, 2.55rem);
+  }
+
+  .about-vm-item {
+    gap: 1rem;
+  }
+
+  .about-vm-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 0.75rem;
+  }
+
+  .about-vm-title {
+    font-size: 1.08rem;
   }
 }
 
 /* ==========================================================================
-   2. THE PHILOSOPHY SECTION (CLEAN LIGHT/WHITE BACKGROUND)
-   Strict boundary: dark green ends, crisp light background begins
+   2. THE PHILOSOPHY SECTION (EDITORIAL SPLIT & HIGHLIGHT BANNER)
    ========================================================================== */
 .about-philosophy-section {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(3.75rem, 6vw, 5.5rem) 0 clamp(4.25rem, 6.5vw, 6rem);
   background-color: #FFFFFF;
-  padding: clamp(4rem, 6.5vw, 6rem) 0;
+  background-image: none;
   border-top: none;
 }
 
-.about-philosophy-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.35fr;
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: start;
+/* Decorative geometric line art on left & right edges */
+.about-philosophy-geo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: auto;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.about-philosophy-headline {
-  position: sticky;
-  top: 6rem;
+.about-philosophy-geo--left {
+  left: 0;
+  color: rgba(11, 59, 43, 0.09);
 }
 
-.about-philosophy-tag-wrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+.about-philosophy-geo--right {
+  right: 0;
+  color: rgba(11, 59, 43, 0.09);
 }
 
-.about-philosophy-dash {
-  width: 16px;
-  height: 2px;
-  background-color: var(--c-primary-green);
-  border-radius: 2px;
+.about-philosophy-container {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
 }
 
-.about-philosophy-mini-tag {
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  color: var(--c-primary-green);
-  text-transform: uppercase;
-}
-
-.about-philosophy-headline h2 {
-  margin: 0;
-  font-size: clamp(2rem, 3.4vw, 2.75rem);
-  font-weight: 850;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: var(--c-heading-text);
-}
-
-.about-philosophy-body {
+.about-philosophy-wrap {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  align-items: center;
 }
 
-.about-philosophy-body p {
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--c-body-text);
+/* Centered Header */
+.about-philosophy-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto clamp(2.25rem, 4vw, 3.1rem);
 }
 
-.about-philosophy-highlight-p {
-  padding: 1.25rem 1.5rem;
-  border-radius: 1rem;
-  background: var(--c-light-card);
-  border: 1px solid rgba(22, 139, 70, 0.18);
-  border-left: 3px solid var(--c-primary-green);
-  color: var(--c-heading-text) !important;
+.about-philosophy-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  line-height: 1.7 !important;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2B6E4E;
+}
+
+.about-philosophy-title {
+  margin: 0;
+  font-size: clamp(2.15rem, 4.1vw, 3.3rem);
+  font-weight: 800;
+  line-height: 1.13;
+  letter-spacing: -0.03em;
+  color: #041D13;
+}
+
+.about-philosophy-title-accent {
+  color: #2C5540;
+}
+
+/* Middle Two-Column Comparison with Step-Arrow Connector */
+.about-philosophy-columns {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.25rem, 4.5vw, 3.75rem);
+  align-items: start;
+  margin-bottom: clamp(2rem, 3.5vw, 2.75rem);
+}
+
+.about-philosophy-col {
+  position: relative;
+}
+
+.about-philosophy-col-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.about-philosophy-col-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #70827A;
+  white-space: nowrap;
+}
+
+.about-philosophy-col--right .about-philosophy-col-label {
+  color: #5E736A;
+}
+
+/* Step-Arrow Line Connecting Left Header to Right Paragraph */
+.about-philosophy-connector-line {
+  position: relative;
+  flex: 1;
+  height: 1.2px;
+  background: linear-gradient(90deg, rgba(110, 128, 120, 0.25) 0%, #6E8078 100%);
+  margin-right: -1.15rem;
+}
+
+.about-philosophy-connector-elbow {
+  position: absolute;
+  right: -34px;
+  top: -0.5px;
+  width: 36px;
+  height: 44px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.about-philosophy-col-text {
+  margin: 0;
+  font-size: clamp(0.86rem, 1vw, 0.94rem);
+  line-height: 1.72;
+  color: #16261F;
+  font-weight: 450;
+}
+
+.about-philosophy-col--right .about-philosophy-col-text {
+  color: #0D1F17;
+}
+
+/* Bottom Mint-Green Highlight Banner Card */
+.about-philosophy-banner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  padding: clamp(1rem, 2vw, 1.35rem) clamp(1.35rem, 2.8vw, 2.25rem);
+  border-radius: 0.9rem;
+  background-color: #E7F4EA;
+  border: 1.5px solid #2A7B4C;
+  box-shadow:
+    -3px 4px 0 #186438,
+    0 14px 32px -8px rgba(5, 38, 24, 0.2);
+}
+
+.about-philosophy-banner-map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-philosophy-map-img {
+  width: 86px;
+  height: 86px;
+  object-fit: contain;
+  display: block;
+}
+
+.about-philosophy-banner-text {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(0.92rem, 1.12vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.62;
+  color: #072217;
+}
+
+.about-philosophy-banner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-philosophy-strategy-svg {
+  width: 56px;
+  height: 56px;
+  display: block;
 }
 
 @media (max-width: 860px) {
-  .about-philosophy-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .about-philosophy-section {
+    background-color: #FFFFFF;
+    background-image: none;
+    padding: 3.25rem 0 3.75rem;
   }
-  .about-philosophy-headline {
-    position: static;
+
+  .about-philosophy-geo {
+    opacity: 0.45;
+  }
+
+  .about-philosophy-columns {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-philosophy-connector-line {
+    display: none;
+  }
+
+  .about-philosophy-banner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+    gap: 1rem;
+    padding: 1.35rem 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-philosophy-title {
+    font-size: clamp(1.8rem, 7.2vw, 2.3rem);
+  }
+
+  .about-philosophy-map-img {
+    width: 72px;
+    height: 72px;
+  }
+
+  .about-philosophy-strategy-svg {
+    width: 48px;
+    height: 48px;
   }
 }
 
@@ -441,8 +631,13 @@
 }
 
 @keyframes roadmapDraw {
-  from { stroke-dashoffset: 2400; }
-  to   { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 2400;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .about-roadmap-inner-dot {
@@ -450,8 +645,17 @@
 }
 
 @keyframes roadmapDotPulse {
-  0%, 100% { r: 4; opacity: 1; }
-  50%      { r: 6; opacity: 0.6; }
+
+  0%,
+  100% {
+    r: 4;
+    opacity: 1;
+  }
+
+  50% {
+    r: 6;
+    opacity: 0.6;
+  }
 }
 
 .about-roadmap-panel {
@@ -538,19 +742,51 @@
 }
 
 /* Panel positions on desktop SVG */
-.about-rp-1 { top: 0%; left: 54%; }
-.about-rp-2 { top: 18%; left: 2%; }
-.about-rp-3 { top: 42%; left: 54%; }
-.about-rp-4 { top: 66%; left: 2%; }
+.about-rp-1 {
+  top: 0%;
+  left: 54%;
+}
+
+.about-rp-2 {
+  top: 18%;
+  left: 2%;
+}
+
+.about-rp-3 {
+  top: 42%;
+  left: 54%;
+}
+
+.about-rp-4 {
+  top: 66%;
+  left: 2%;
+}
 
 @media (max-width: 1024px) {
   .about-roadmap-panel {
     max-width: 320px;
   }
-  .about-rp-1 { top: 0%; left: 52%; }
-  .about-rp-2 { top: 18%; left: 1%; }
-  .about-rp-3 { top: 42%; left: 52%; }
-  .about-rp-4 { top: 66%; left: 1%; }
+
+  .about-rp-1 {
+    top: 0%;
+    left: 52%;
+  }
+
+  .about-rp-2 {
+    top: 18%;
+    left: 1%;
+  }
+
+  .about-rp-3 {
+    top: 42%;
+    left: 52%;
+  }
+
+  .about-rp-4 {
+    top: 66%;
+    left: 1%;
+  }
+
   .about-rp-number {
     font-size: 2.2rem;
   }
@@ -613,6 +849,37 @@
   }
 }
 
+@media (max-width: 640px) {
+  .about-roadmap {
+    padding: 3.5rem 0;
+  }
+
+  .about-roadmap-canvas {
+    padding-left: 1.65rem;
+  }
+
+  .about-roadmap-canvas::before {
+    left: 0.5rem;
+  }
+
+  .about-roadmap-panel {
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-left: 0.25rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .about-roadmap-panel::before {
+    left: -1.55rem;
+    top: 0.35rem;
+  }
+
+  .about-rp-number {
+    font-size: 1.45rem;
+    min-width: auto;
+  }
+}
+
 /* ==========================================================================
    5. FOUNDERS & LEADERSHIP TEAM (EXACT REFERENCE DESIGN)
    ========================================================================== */
@@ -643,8 +910,11 @@
 
 .about-founders-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(1.25rem, 2.5vw, 2rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 980px;
+  gap: clamp(1.35rem, 2.5vw, 2rem);
+  margin: 0 auto;
+  align-items: stretch;
 }
 
 .about-founder-card {
@@ -652,30 +922,47 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: transform 0.3s ease;
+  background: #FFFFFF;
+  border: 1px solid #DFECE4;
+  border-bottom: 3.5px solid var(--c-primary-green);
+  border-radius: 1.35rem;
+  padding: 0.85rem 0.85rem 1.6rem;
+  box-shadow: 0 12px 32px -10px rgba(6, 63, 50, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .about-founder-card:hover {
   transform: translateY(-6px);
+  border-color: rgba(22, 139, 70, 0.35);
+  border-bottom-color: var(--c-primary-green);
+  box-shadow: 0 20px 40px -12px rgba(6, 63, 50, 0.14);
 }
 
 .about-founder-photo-box {
+  position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   overflow: hidden;
-  background-color: #1e293b;
-  margin-bottom: 1.25rem;
-  box-shadow: 0 10px 25px -5px rgba(6, 63, 50, 0.15);
-  border: 1px solid rgba(22, 139, 70, 0.15);
+  background-color: #14221C;
+  margin-bottom: 1.2rem;
+}
+
+.about-founder-photo-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 68%, rgba(6, 50, 38, 0.28) 100%);
+  pointer-events: none;
 }
 
 .about-founder-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .about-founder-card:hover .about-founder-img {
@@ -684,19 +971,29 @@
 
 .about-founder-details {
   width: 100%;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
 }
 
 .about-founder-name {
-  margin: 0 0 0.35rem;
-  font-size: clamp(1.1rem, 1.4vw, 1.25rem);
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.12rem, 1.35vw, 1.25rem);
   font-weight: 850;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   color: var(--c-heading-text);
 }
 
 .about-founder-role {
-  margin: 0 0 0.75rem;
-  font-size: 0.72rem;
+  display: inline-block;
+  margin: 0 0 0.8rem;
+  padding: 0.24rem 0.78rem;
+  border-radius: 9999px;
+  background: #EAF6EE;
+  border: 1px solid rgba(22, 139, 70, 0.2);
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   color: var(--c-primary-green);
@@ -706,7 +1003,7 @@
 .about-founder-bio {
   margin: 0;
   font-size: 0.9rem;
-  line-height: 1.6;
+  line-height: 1.62;
   color: var(--c-body-text);
 }
 
@@ -715,13 +1012,28 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
+
+  .about-founder-card:last-child {
+    grid-column: 1 / -1;
+    width: calc((100% - 2rem) / 2);
+    justify-self: center;
+  }
 }
 
 @media (max-width: 580px) {
+  .about-leadership-section {
+    padding: 3.5rem 0;
+  }
+
   .about-founders-grid {
     grid-template-columns: 1fr;
-    max-width: 340px;
-    margin: 0 auto;
+    max-width: 380px;
+    gap: 1.5rem;
+  }
+
+  .about-founder-card:last-child {
+    grid-column: auto;
+    width: 100%;
   }
 }
 
@@ -839,14 +1151,39 @@
   }
 }
 
+@media (max-width: 640px) {
+  .about-locations-section {
+    padding: 3rem 0 3.75rem;
+  }
+
+  .about-locations-wrapper {
+    padding: 1.5rem 1.15rem;
+    border-radius: 1.35rem;
+  }
+
+  .about-location-card {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .about-location-icon-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: 0.75rem;
+  }
+}
+
 /* ==========================================================================
    ANIMATIONS
    ========================================================================== */
 @keyframes aboutPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.5;
     transform: scale(1.15);
@@ -854,6 +1191,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .about-pulse-dot,
   .about-roadmap-path,
   .about-roadmap-inner-dot {

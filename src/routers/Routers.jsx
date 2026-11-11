@@ -11,7 +11,6 @@ const Pricing = lazy(() => import('../components/pricing/Pricing.jsx'));
 const Contact = lazy(() => import('../components/contact/Contact.jsx'));
 
 // Dedicated custom pages
-const CoursesPage = lazy(() => import('../components/courses/CoursesPage.jsx'));
 const ServicesPage = lazy(() => import('../components/services/ServicesPage.jsx'));
 const ProjectsPage = lazy(() => import('../components/projects/ProjectsPage.jsx'));
 const CareerAssistancePage = lazy(() => import('../components/career/CareerAssistancePage.jsx'));
@@ -50,10 +49,6 @@ const Routes = [
       {
         path: 'contact',
         element: <Contact />,
-      },
-      {
-        path: 'courses',
-        element: <CoursesPage />,
       },
       {
         path: 'services',

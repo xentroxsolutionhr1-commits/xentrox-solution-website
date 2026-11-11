@@ -1,12 +1,16 @@
 import {
   ArrowUpRight,
   Boxes,
+  Briefcase,
   BriefcaseBusiness,
   ChevronDown,
   CircleHelp,
+  CircleDollarSign,
   Command,
   LayoutDashboard,
   LogOut,
+  Mail,
+  Newspaper,
   Users,
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
@@ -14,12 +18,16 @@ import { adminInitials } from './adminApi.js';
 
 const navigation = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
-  { id: 'users', label: 'Users', icon: Users },
-  { id: 'categories', label: 'Categories', icon: Boxes },
-  { id: 'portfolio', label: 'Portfolio', icon: BriefcaseBusiness },
+  { id: 'users', label: 'Users', icon: Users, countKey: 'userCount' },
+  { id: 'categories', label: 'Categories', icon: Boxes, countKey: 'categoryCount' },
+  { id: 'portfolio', label: 'Portfolio', icon: BriefcaseBusiness, countKey: 'portfolioCount' },
+  { id: 'careers', label: 'Careers', icon: Briefcase, countKey: 'careerCount' },
+  { id: 'enquiries', label: 'Enquiries', icon: Mail, countKey: 'enquiryCount' },
+  { id: 'blogs', label: 'Blogs', icon: Newspaper, countKey: 'blogCount' },
+  { id: 'pricing', label: 'Pricing', icon: CircleDollarSign },
 ];
 
-function AdminSidebar({ user, userCount, portfolioCount, mobileOpen, onNavigate, onClose, onLogout }) {
+function AdminSidebar({ user, counts = {}, mobileOpen, onNavigate, onClose, onLogout }) {
   return (
     <>
       {mobileOpen && <button className="admin-sidebar-scrim" aria-label="Close navigation" onClick={onClose} />}
@@ -35,7 +43,7 @@ function AdminSidebar({ user, userCount, portfolioCount, mobileOpen, onNavigate,
         </div>
         <span className="admin-sidebar__label">WORKSPACE</span>
         <nav className="admin-nav" aria-label="Admin navigation">
-          {navigation.map(({ id, label, icon: Icon }) => (
+          {navigation.map(({ id, label, icon: Icon, countKey }) => (
             <NavLink
               to={id === 'overview' ? '/admin' : `/admin/${id}`}
               end={id === 'overview'}
@@ -45,8 +53,8 @@ function AdminSidebar({ user, userCount, portfolioCount, mobileOpen, onNavigate,
             >
               <Icon size={18} strokeWidth={1.8} />
               <span>{label}</span>
-              {(id === 'users' || id === 'portfolio') && (
-                <span className="admin-nav__count">{id === 'users' ? userCount : portfolioCount}</span>
+              {countKey && counts[countKey] !== undefined && (
+                <span className="admin-nav__count">{counts[countKey]}</span>
               )}
             </NavLink>
           ))}

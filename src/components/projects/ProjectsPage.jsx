@@ -113,7 +113,7 @@ export default function ProjectsPage() {
   }, [activeCategory]);
 
   return (
-    <div className="relative isolate -mt-24 max-sm:-mt-20">
+    <div className="relative isolate -mt-24 -mb-8 max-sm:-mt-20 max-sm:mb-0">
       {/* Full-Bleed Dark Forest Green Hero starting at margin 0 */}
       <section
         className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden bg-[#064B38] px-4 pt-28 pb-14 text-white sm:px-6 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20"

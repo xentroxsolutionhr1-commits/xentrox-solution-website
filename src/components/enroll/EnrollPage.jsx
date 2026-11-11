@@ -33,6 +33,7 @@ export default function EnrollPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (preselectedCourse) {
@@ -50,38 +51,39 @@ export default function EnrollPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      await fetch('/api/enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: `Academy: ${formData.course}`,
+          message: formData.questions
+            ? `${formData.questions}\n\n[Candidate Info: Cohort: ${formData.batch} | Background: ${formData.background}]`
+            : `Application for ${formData.course}\n\n[Candidate Info: Cohort: ${formData.batch} | Background: ${formData.background}]`,
+        }),
+      });
+    } catch {
+      // Allow user to continue
+    } finally {
+      setSubmitting(false);
+      setSubmitted(true);
+    }
   };
 
   return (
-    <div className="relative isolate -mt-24 max-sm:-mt-20">
-      {/* Full-Bleed Dark Forest Green Hero starting at margin 0 */}
-      <section
-        className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden bg-[#064B38] px-4 pt-28 pb-14 text-white sm:px-6 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20"
-        data-scroll-reveal
-      >
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#84cc16]/40 bg-[#84cc16]/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#a3e635]">
-            <span className="h-2 w-2 rounded-full bg-[#84cc16] animate-pulse" />
-            Admissions Open for Next Cohort
-          </div>
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Apply to XentroX Professional Academy
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-200 sm:text-lg">
-            Take the first step toward a high-impact tech or digital marketing career. Submit your application below to secure your seat and speak with our admissions advisors.
-          </p>
-        </div>
-      </section>
-
+    <div>
       {/* Main Content Grid: Form + Sidebar */}
-      <div className="pt-12 sm:pt-16 pb-16">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <div className="pt-2 pb-12 sm:pt-4 sm:pb-16">
+        <div className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-12">
           {/* Left: Enrollment Form (7 Cols) */}
           <div className="lg:col-span-7" data-scroll-reveal>
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 sm:p-10 shadow-sm">
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-10 shadow-sm">
               {submitted ? (
                 <div className="text-center py-8">
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#84cc16]/20 text-[#064b38]">
@@ -256,9 +258,10 @@ export default function EnrollPage() {
                   {/* Submit button */}
                   <button
                     type="submit"
-                    className="w-full rounded-xl bg-[#062c23] py-4 text-center text-sm font-bold text-white shadow-md transition hover:bg-[#083e30]"
+                    disabled={submitting}
+                    className="w-full rounded-xl bg-[#062c23] py-4 text-center text-sm font-bold text-white shadow-md transition hover:bg-[#083e30] disabled:opacity-70 cursor-pointer"
                   >
-                    Submit Enrollment Application →
+                    {submitting ? 'Submitting Application...' : 'Submit Enrollment Application →'}
                   </button>
 
                   <p className="text-center text-[11px] text-slate-400">
@@ -330,12 +333,6 @@ export default function EnrollPage() {
                   <span className="text-slate-300">admissions@xentroxsolutions.com</span>
                 </div>
               </div>
-              <Link
-                to="/courses"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-[#84cc16] py-2.5 text-xs font-bold text-[#062c23] hover:bg-[#a3e635] transition"
-              >
-                Browse All Courses
-              </Link>
             </div>
           </div>
         </div>

@@ -2775,3 +2775,469 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* ============================================
+   NEW STYLES — Tables, Badges, Portfolio Grid,
+   Enquiry & Blog views
+   ============================================ */
+
+/* --- Stat card extra color variants --- */
+.admin-stat-card__icon--rose {
+  background: #fef1f2;
+  color: #e11d48;
+}
+.admin-stat-card__icon--teal {
+  background: #eefbf4;
+  color: #0d9488;
+}
+
+/* --- Data table --- */
+.admin-table-section {
+  margin-top: 6px;
+}
+
+.admin-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #e8ece9;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-table thead {
+  border-bottom: 1px solid #e8ece9;
+}
+
+.admin-table th {
+  padding: 11px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #8a9a90;
+  background: #f7faf8;
+  white-space: nowrap;
+}
+
+.admin-table th:first-child {
+  border-top-left-radius: 14px;
+}
+.admin-table th:last-child {
+  border-top-right-radius: 14px;
+}
+
+.admin-table td {
+  padding: 11px 14px;
+  vertical-align: middle;
+  border-top: 1px solid #f0f4f1;
+  color: #435249;
+}
+
+.admin-table tbody tr:first-child td {
+  border-top: none;
+}
+
+.admin-table tbody tr:hover {
+  background: #f7faf8;
+}
+
+.admin-table__row--unread {
+  background: #f0faf4 !important;
+}
+
+/* User cell with avatar */
+.admin-table__user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-avatar--sm {
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+/* Date cell */
+.admin-table__date {
+  white-space: nowrap;
+  color: #8a9a90;
+  font-size: 12px;
+}
+
+/* Description cell */
+.admin-table__desc-cell > span {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 320px;
+  color: #6b7e72;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Message cell (enquiries) */
+.admin-table__message-cell {
+  max-width: 260px;
+}
+.admin-table__message-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px;
+  color: #6b7e72;
+  line-height: 1.5;
+}
+
+/* Title cell with thumbnail */
+.admin-table__title-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-table__thumb {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e8ece9;
+  flex-shrink: 0;
+}
+
+/* Actions */
+.admin-table__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.admin-icon-button--success {
+  color: #0d9488;
+}
+.admin-icon-button--success:hover {
+  color: #0f766e;
+  background: #eefbf4;
+}
+
+.admin-icon-button--danger {
+  color: #b0b8b3;
+}
+.admin-icon-button--danger:hover {
+  color: #e11d48;
+  background: #fef1f2;
+}
+
+/* Links */
+.admin-link {
+  color: #2e7d5b;
+  text-decoration: none;
+}
+.admin-link:hover {
+  text-decoration: underline;
+}
+
+/* --- Badges --- */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  white-space: nowrap;
+}
+
+.admin-badge--super {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+.admin-badge--admin {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+.admin-badge--user {
+  background: #f0f4f1;
+  color: #6b7e72;
+}
+.admin-badge--published {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.admin-badge--draft {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+/* --- Tags --- */
+.admin-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.admin-tag {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 500;
+  background: #f0f4f1;
+  color: #435249;
+}
+
+.admin-tag--more {
+  background: #e8ece9;
+  color: #6b7e72;
+}
+
+/* --- Read dot (enquiries) --- */
+.admin-read-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.admin-read-dot--unread {
+  background: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+.admin-read-dot--read {
+  background: #d1d5db;
+}
+
+/* --- Portfolio card grid --- */
+.admin-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.admin-portfolio-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e8ece9;
+  border-radius: 14px;
+  background: #fff;
+  transition: box-shadow 200ms;
+}
+.admin-portfolio-card:hover {
+  box-shadow: 0 4px 18px rgba(30, 60, 40, 0.06);
+}
+
+.admin-portfolio-card__image {
+  width: 100%;
+  height: 170px;
+  overflow: hidden;
+  background: #f0f4f1;
+}
+.admin-portfolio-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-portfolio-card__body {
+  padding: 14px 16px;
+  flex: 1;
+}
+.admin-portfolio-card__body h4 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #17362d;
+}
+.admin-portfolio-card__body > p {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #6b7e72;
+  line-height: 1.55;
+}
+
+.admin-portfolio-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f4f1;
+  font-size: 10px;
+  color: #8a9a90;
+}
+
+.admin-portfolio-card__actions {
+  display: flex;
+  gap: 4px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.admin-portfolio-card:hover .admin-portfolio-card__actions {
+  opacity: 1;
+}
+
+/* --- Empty state --- */
+.admin-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 50px 20px;
+  text-align: center;
+  color: #6b7e72;
+}
+.admin-empty > span {
+  color: #c0c9c3;
+}
+.admin-empty > strong {
+  color: #17362d;
+  font-size: 15px;
+}
+.admin-empty > p {
+  font-size: 12px;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+/* --- Quick action icon variants --- */
+.admin-quick-action__icon--portfolio {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+.admin-quick-action__icon--blog {
+  background: #eefbf4;
+  color: #0d9488;
+}
+.admin-quick-action__icon--enquiry {
+  background: #fef1f2;
+  color: #e11d48;
+}
+
+/* --- Stats grid: 6 columns on wide screens --- */
+@media (min-width: 1101px) {
+  .admin-stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* --- Responsive portfolio grid --- */
+@media (max-width: 760px) {
+  .admin-portfolio-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .admin-portfolio-card__actions {
+    opacity: 1;
+  }
+}
+
+
+/* --- Prominent Customer Queries Section on Dashboard --- */
+.admin-queries-dashboard-panel {
+  margin-top: 14px;
+  background: #ffffff;
+  border: 1px solid #e8ece9;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.admin-queries-dashboard-panel .admin-panel__heading {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-queries-dashboard-panel .admin-table {
+  min-width: 550px;
+}
+
+.admin-pricing-form {
+  display: grid;
+  gap: 24px;
+}
+
+.admin-pricing-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid #e6ece8;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.admin-pricing-intro__icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 12px;
+  background: #edf7f0;
+  color: #125745;
+}
+
+.admin-pricing-intro strong {
+  color: #20302a;
+  font-size: 14px;
+}
+
+.admin-pricing-intro p {
+  margin: 5px 0 0;
+  color: #77827d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.admin-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.admin-pricing-card {
+  padding: 20px;
+  border: 1px solid #e6ece8;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.admin-pricing-card h2 {
+  margin: 0 0 18px;
+  color: #20302a;
+  font-size: 16px;
+}
+
+.admin-pricing-card .admin-field:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  .admin-pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}

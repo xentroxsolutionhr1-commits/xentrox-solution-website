@@ -1,385 +1,333 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 import './Portfolio.css';
 
+const defaultProjects = [
+  {
+    id: 'citytiffin',
+    projectName: 'CityTiffin Mobile App',
+    client: 'CityTiffin',
+    categoryName: 'MOBILE APPLICATION',
+    categorySlug: 'mobile',
+    projectDescription: 'A cross-platform food-ordering and cloud-kitchen management app connecting home chefs with local customers with real-time GPS dispatching and live status tracking.',
+    projectTechStack: ['React Native', 'Node.js', 'Mobile UI', 'Payment Gateway', 'Maps API'],
+    highlights: ['15k+ Monthly Orders', '4.9★ App Store Rating', 'Sub-second Order Sync'],
+    imageUrl: '/portfolio/photos/citytiffin-food.jpg',
+    testimonial: {
+      quote: 'XentroX engineered our food ordering platform from zero to production launch in weeks. The UX is lightning fast, and our customer retention has surged.',
+      author: 'Suhail K.',
+      role: 'Co-founder, CityTiffin',
+    },
+  },
+  {
+    id: 'greenroots',
+    projectName: 'GreenRoots Organics',
+    client: 'GreenRoots Organics',
+    categoryName: 'SEO & DIGITAL GROWTH',
+    categorySlug: 'seo',
+    projectDescription: 'Comprehensive local and technical SEO overhaul for an organic grocery chain — organic search impressions and store footfall tripled in six months.',
+    projectTechStack: ['Technical SEO', 'Local Console', 'Schema Markup', 'Speed Optimization'],
+    highlights: ['+310% Organic Traffic', '140+ Page-1 Rankings', '2.4x Store Footfall'],
+    imageUrl: '/portfolio/photos/greenroots-organic.jpg',
+  },
+  {
+    id: 'flowline',
+    projectName: 'Flowline Fleet Logistics',
+    client: 'Flowline Logistics',
+    categoryName: 'WEB APPLICATION',
+    categorySlug: 'web',
+    projectDescription: 'A real-time fleet telemetry, driver management, and route optimization dashboard engineered for regional logistics operators.',
+    projectTechStack: ['React', 'Node.js', 'PostgreSQL', 'Mapbox', 'WebSockets'],
+    highlights: ['1,200+ Active Vehicles', '99.98% Telemetry Uptime', '-22% Dispatch Latency'],
+    imageUrl: '/portfolio/photos/flowline-logistics.jpg',
+  },
+  {
+    id: 'aura',
+    projectName: 'Aura Skincare D2C',
+    client: 'Aura Skincare',
+    categoryName: 'BRANDING & UI/UX',
+    categorySlug: 'branding',
+    projectDescription: 'Full visual identity system, packaging design, and high-converting e-commerce design system for a clean-beauty skincare line.',
+    projectTechStack: ['Brand Identity', 'Packaging Design', 'Figma', 'Shopify Plus'],
+    highlights: ['+68% Checkout Rate', '50k+ Social Community', 'Featured in Vogue'],
+    imageUrl: '/portfolio/photos/aura-skincare.jpg',
+  },
+  {
+    id: 'novarealty',
+    projectName: 'Nova Realty Portals',
+    client: 'Nova Realty Group',
+    categoryName: 'PERFORMANCE ADS',
+    categorySlug: 'marketing',
+    projectDescription: 'High-converting real estate listing platform paired with targeted Meta and Google ad funnels that halved customer acquisition costs.',
+    projectTechStack: ['React', 'Google Ads', 'Meta CAPI', 'Lead Funnel Architecture'],
+    highlights: ['-48% Cost Per Lead', '350+ Verified Buyer Leads', '2.8x Ad ROI'],
+    imageUrl: '/portfolio/photos/novarealty-modern.jpg',
+  },
+  {
+    id: 'harvestroots',
+    projectName: 'Harvest Roots Artisan Cafe',
+    client: 'Harvest Roots Cafe',
+    categoryName: 'BRAND & LOCAL SEO',
+    categorySlug: 'seo',
+    projectDescription: 'Omnichannel brand design, digital QR menu, and Google Maps local dominance for a fast-growing artisan cafe chain.',
+    projectTechStack: ['Brand Identity', 'Google Maps SEO', 'Interactive Menu', 'Analytics'],
+    highlights: ['#1 on Local Search', '+180% Foot Traffic', '4.8★ with 1.2k Reviews'],
+    imageUrl: '/portfolio/photos/harvestroots-cafe.jpg',
+  },
+  {
+    id: 'carepulse',
+    projectName: 'CarePulse Telemedicine',
+    client: 'CarePulse Health',
+    categoryName: 'HEALTHCARE WEB APP',
+    categorySlug: 'web',
+    projectDescription: 'HIPAA-ready patient appointment scheduling portal and encrypted WebRTC real-time doctor tele-consultation platform.',
+    projectTechStack: ['Next.js', 'WebRTC', 'Cloud API', 'Twilio', 'PostgreSQL'],
+    highlights: ['450+ Licensed Doctors', '12k+ Monthly Consults', '-40% Patient Wait Time'],
+    imageUrl: '/about/team-collaboration.jpg',
+  },
+];
+
+const categoryTabs = [
+  { id: 'all', label: 'All Projects' },
+  { id: 'web', label: 'Web Apps' },
+  { id: 'mobile', label: 'Mobile Apps' },
+  { id: 'seo', label: 'SEO & Growth' },
+  { id: 'branding', label: 'Branding & UI/UX' },
+];
+
 export default function Portfolio() {
+  const [projectList, setProjectList] = useState(defaultProjects);
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  useEffect(() => {
+    fetch('/api/portfolio')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch portfolio');
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const formatted = data.map((item, idx) => {
+            const rawCat = (item.categoryId?.categoryName || item.categoryName || '').toLowerCase();
+            const titleLower = (item.projectName || '').toLowerCase();
+            const descLower = (item.projectDescription || '').toLowerCase();
+            const combined = `${rawCat} ${titleLower} ${descLower}`;
+
+            const catSlug = combined.includes('mobile') || combined.includes('app')
+              ? 'mobile'
+              : combined.includes('seo') || combined.includes('growth') || combined.includes('search')
+                ? 'seo'
+                : combined.includes('brand') || combined.includes('skin') || combined.includes('design') || combined.includes('ui')
+                  ? 'branding'
+                  : 'web';
+
+            return {
+              id: item.id || String(idx),
+              projectName: item.projectName,
+              client: item.projectName,
+              categoryName: rawCat.toUpperCase(),
+              categorySlug: catSlug,
+              projectDescription: item.projectDescription || '',
+              projectTechStack:
+                item.projectTechStack && item.projectTechStack.length > 0
+                  ? item.projectTechStack
+                  : ['React Native', 'Node.js', 'Cloud API'],
+              highlights: [
+                'Live in Production',
+                'Enterprise Performance',
+                'Sub-second Architecture',
+              ],
+              imageUrl: item.imageUrl || '/portfolio/photos/citytiffin-food.jpg',
+            };
+          });
+          setProjectList(formatted);
+        }
+      })
+      .catch((err) => {
+        console.warn('Using default portfolio projects:', err.message);
+      });
+  }, []);
+
+  // Filter projects by category
+  const filteredProjects =
+    activeCategory === 'all'
+      ? projectList
+      : projectList.filter((p) => p.categorySlug === activeCategory || activeCategory === 'all');
+
+  const gridProjects = filteredProjects;
+
   return (
     <div className="portfolio-page">
-
-      {/* ====================================================================
-          1. HERO SECTION – THE PROJECT JOURNAL / SELECTED WORK
-          Editorial Split Layout: Left Headline & Intro, Right Studio Photo
-          ==================================================================== */}
+      {/* 1. HERO SECTION */}
       <section className="pj-hero-section" aria-label="Portfolio Introduction">
         <div className="pj-container">
-          <div className="pj-hero-split" data-scroll-reveal>
+          <div className="pj-hero-bg-layer" aria-hidden="true">
+            <img
+              src="/portfolio-hero-friendly-robot.png"
+              alt=""
+              className="pj-hero-bg-img"
+            />
+          </div>
 
-            {/* Left Side: Headline & Editorial Intro */}
+          <div className="pj-hero-content" data-scroll-reveal>
             <div className="pj-hero-text">
-              <div className="pj-journal-badge">
-                <span className="pj-badge-dot" aria-hidden="true" />
-                <span>SELECTED WORK / 2026</span>
-              </div>
 
               <h1 className="pj-hero-title">
                 <span className="pj-title-forest">Good work.</span>
                 <span className="pj-title-lime">Real-world impact.</span>
               </h1>
 
-              <p className="pj-hero-lead">
-                Explore our creative projects where strategy, design and technology help businesses grow.
-              </p>
 
-              <div className="pj-hero-caption-wrap">
-                <span className="pj-hero-caption-line" aria-hidden="true" />
-                <span className="pj-hero-caption-text">A selection of work built with purpose.</span>
-              </div>
             </div>
-
-            {/* Right Side: Large Realistic Agency Studio Photograph */}
-            <div className="pj-hero-photo-wrap">
-              <div className="pj-hero-photo-frame">
-                <img
-                  src="/about/team-collaboration.jpg"
-                  alt="XentroX digital studio team collaborating on client strategy in a modern workspace"
-                  className="pj-hero-photo"
-                  loading="eager"
-                />
-                <div className="pj-hero-photo-overlay" aria-hidden="true" />
-              </div>
-            </div>
-
           </div>
         </div>
 
-        {/* Curved bottom edge wave like Pricing & About */}
         <div className="pj-hero-wave" aria-hidden="true">
           <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="none">
             <path
               d="M0,45 C360,85 740,15 1100,55 C1260,72 1380,65 1440,45 L1440,80 L0,80 Z"
-              fill="#F5F8F3"
+              fill="#F4FAF6"
             />
           </svg>
         </div>
       </section>
 
-      {/* ====================================================================
-          2. FEATURED PROJECT – 01 / GREENROOTS ORGANICS
-          Full-Width Visual Highlight on Deep Forest Green Canvas
-          ==================================================================== */}
-      <section className="pj-featured-section" aria-label="Featured Project: GreenRoots Organics">
-        <div className="pj-container">
-          <div className="pj-featured-card" data-scroll-reveal>
-
-            {/* Featured Left Content */}
-            <div className="pj-featured-content">
-              <div className="pj-featured-meta">
-                <span className="pj-featured-num">01</span>
-                <span className="pj-meta-sep" aria-hidden="true">/</span>
-                <span className="pj-featured-client">GREENROOTS ORGANICS</span>
-              </div>
-
-              <span className="pj-featured-tag">SEO &amp; DIGITAL GROWTH</span>
-
-              <h2 className="pj-featured-headline">
-                Turning local discovery into lasting growth.
-              </h2>
-
-              <p className="pj-featured-desc">
-                Local and technical SEO overhaul for a farm-to-table grocery chain — organic sessions tripled in six months.
-              </p>
-
-              <div className="pj-featured-tags-row">
-                <span className="pj-tech-chip">Technical SEO</span>
-                <span className="pj-tech-chip">Local Console</span>
-                <span className="pj-tech-chip">Schema Markup</span>
-                <span className="pj-tech-chip">Speed Optimization</span>
-              </div>
-
-              <div className="pj-featured-cta">
-                <Link to="/contact" className="pj-link-lime">
-                  <span>Explore case study</span>
-                  <span className="pj-arrow" aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Featured Right Realistic Organic Produce Imagery */}
-            <div className="pj-featured-visual">
-              <div className="pj-featured-img-frame">
-                <img
-                  src="/portfolio/photos/greenroots-organic.jpg"
-                  alt="Fresh farm-to-table organic produce and sustainable grocery store display"
-                  className="pj-featured-img"
-                  loading="lazy"
-                />
-                <div className="pj-featured-img-overlay" aria-hidden="true" />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
-          3. EDITORIAL PROJECT SHOWCASE (02 - 06)
-          Curated Grid: Row 1 has 2 medium showcases, Row 2 has 3 balanced showcases
-          ==================================================================== */}
+      {/* 2. INTERACTIVE CATEGORY TABS & MORE WORK GRID */}
       <section className="pj-showcase-section" aria-label="Editorial Project Showcase">
         <div className="pj-container">
-
-          {/* Section Header */}
           <div className="pj-showcase-header" data-scroll-reveal>
             <div className="pj-section-tag">
               <span className="pj-tag-dash" aria-hidden="true" />
               <span>THE PROJECT JOURNAL</span>
             </div>
             <h2>Selected Client Work</h2>
-            <p>
-              Each project represents a bespoke collaboration designed to solve complex business challenges through elegant code and measurable marketing.
-            </p>
-          </div>
+        
 
-          {/* ROW 1: Two Medium-Width Showcases (Projects 02 & 03) */}
-          <div className="pj-grid-row-two" data-scroll-reveal>
+            {/* Interactive Filter Pills */}
+            <div className="pj-filter-bar">
+              {categoryTabs.map((tab) => {
+                const count =
+                  tab.id === 'all'
+                    ? projectList.length
+                    : projectList.filter((p) => p.categorySlug === tab.id).length;
 
-            {/* PROJECT 02: Flowline Logistics */}
-            <article className="pj-card-medium" aria-label="Project 02: Flowline Logistics">
-              <div className="pj-card-img-wrap">
-                <img
-                  src="/portfolio/photos/flowline-logistics.jpg"
-                  alt="Modern commercial logistics fleet and freight operations"
-                  className="pj-card-img"
-                  loading="lazy"
-                />
-                <div className="pj-card-num-badge">02</div>
-              </div>
+                // Hide empty categories so 0-count tabs don't show
+                if (tab.id !== 'all' && count === 0) return null;
 
-              <div className="pj-card-body">
-                <div className="pj-card-meta">
-                  <span className="pj-category-badge">WEB APP</span>
-                  <span className="pj-client-name">Flowline Logistics</span>
-                </div>
-
-                <h3 className="pj-card-title">Smarter logistics. Greater efficiency.</h3>
-
-                <p className="pj-card-desc">
-                  A real-time fleet-tracking dashboard built for a regional logistics operator.
-                </p>
-
-                <div className="pj-chips-list">
-                  <span className="pj-chip">React</span>
-                  <span className="pj-chip">Node.js</span>
-                  <span className="pj-chip">Dashboard</span>
-                </div>
-
-                <Link to="/contact" className="pj-card-link">
-                  <span>View Project</span>
-                  <span className="pj-arrow" aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </article>
-
-            {/* PROJECT 03: Aura Skincare */}
-            <article className="pj-card-medium" aria-label="Project 03: Aura Skincare">
-              <div className="pj-card-img-wrap">
-                <img
-                  src="/portfolio/photos/aura-skincare.jpg"
-                  alt="Aura Skincare premium botanical cosmetic bottles and luxury packaging"
-                  className="pj-card-img"
-                  loading="lazy"
-                />
-                <div className="pj-card-num-badge">03</div>
-              </div>
-
-              <div className="pj-card-body">
-                <div className="pj-card-meta">
-                  <span className="pj-category-badge">BRANDING</span>
-                  <span className="pj-client-name">Aura Skincare</span>
-                </div>
-
-                <h3 className="pj-card-title">Pure care. Powerful brand.</h3>
-
-                <p className="pj-card-desc">
-                  Full identity system and Instagram-first launch campaign for a D2C skincare line.
-                </p>
-
-                <div className="pj-chips-list">
-                  <span className="pj-chip">Branding</span>
-                  <span className="pj-chip">Logo</span>
-                  <span className="pj-chip">Instagram</span>
-                </div>
-
-                <Link to="/contact" className="pj-card-link">
-                  <span>View Project</span>
-                  <span className="pj-arrow" aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </article>
-
-          </div>
-
-          {/* ROW 2: Three Balanced Showcases (Projects 04, 05 & 06) */}
-          <div className="pj-grid-row-three" data-scroll-reveal>
-
-            {/* PROJECT 04: CityTiffin */}
-            <article className="pj-card-compact" aria-label="Project 04: CityTiffin">
-              <div className="pj-card-img-wrap pj-aspect-compact">
-                <img
-                  src="/portfolio/photos/citytiffin-food.jpg"
-                  alt="Delicious authentic Indian home-cooked meal prepared with fresh ingredients"
-                  className="pj-card-img"
-                  loading="lazy"
-                />
-                <div className="pj-card-num-badge">04</div>
-              </div>
-
-              <div className="pj-card-body">
-                <div className="pj-card-meta">
-                  <span className="pj-category-badge">MOBILE APP</span>
-                  <span className="pj-client-name">CityTiffin</span>
-                </div>
-
-                <h3 className="pj-card-title">Homemade food. Now closer.</h3>
-
-                <p className="pj-card-desc">
-                  A cross-platform food-ordering app connecting home chefs with local customers.
-                </p>
-
-                <div className="pj-chips-list">
-                  <span className="pj-chip">React Native</span>
-                  <span className="pj-chip">Node.js</span>
-                  <span className="pj-chip">Mobile</span>
-                </div>
-
-                <Link to="/contact" className="pj-card-link">
-                  <span>View Project</span>
-                  <span className="pj-arrow" aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </article>
-
-            {/* PROJECT 05: Nova Realty */}
-            <article className="pj-card-compact" aria-label="Project 05: Nova Realty">
-              <div className="pj-card-img-wrap pj-aspect-compact">
-                <img
-                  src="/portfolio/photos/novarealty-modern.jpg"
-                  alt="Modern contemporary luxury residential architecture with sunlit glass facade"
-                  className="pj-card-img"
-                  loading="lazy"
-                />
-                <div className="pj-card-num-badge">05</div>
-              </div>
-
-              <div className="pj-card-body">
-                <div className="pj-card-meta">
-                  <span className="pj-category-badge">DIGITAL MARKETING</span>
-                  <span className="pj-client-name">Nova Realty</span>
-                </div>
-
-                <h3 className="pj-card-title">More leads. More opportunities.</h3>
-
-                <p className="pj-card-desc">
-                  Google &amp; Facebook ad funnels that cut cost-per-lead in half for a real estate developer.
-                </p>
-
-                <div className="pj-chips-list">
-                  <span className="pj-chip">Google Ads</span>
-                  <span className="pj-chip">Facebook Ads</span>
-                  <span className="pj-chip">Lead Gen</span>
-                </div>
-
-                <Link to="/contact" className="pj-card-link">
-                  <span>View Project</span>
-                  <span className="pj-arrow" aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </article>
-
-            {/* PROJECT 06: Harvest Roots Cafe */}
-            <article className="pj-card-compact" aria-label="Project 06: Harvest Roots Cafe">
-              <div className="pj-card-img-wrap pj-aspect-compact">
-                <img
-                  src="/portfolio/photos/harvestroots-cafe.jpg"
-                  alt="Warm artisan cafe interior with coffee, bakery, natural lighting and welcoming seats"
-                  className="pj-card-img"
-                  loading="lazy"
-                />
-                <div className="pj-card-num-badge">06</div>
-              </div>
-
-              <div className="pj-card-body">
-                <div className="pj-card-meta">
-                  <span className="pj-category-badge">WEBSITE DEVELOPMENT</span>
-                  <span className="pj-client-name">Harvest Roots Cafe</span>
-                </div>
-
-                <h3 className="pj-card-title">A richer cafe experience.</h3>
-
-                <p className="pj-card-desc">
-                  A conversion-focused restaurant website with online ordering and table reservations.
-                </p>
-
-                <div className="pj-chips-list">
-                  <span className="pj-chip">Website Design</span>
-                  <span className="pj-chip">React</span>
-                  <span className="pj-chip">SEO</span>
-                </div>
-
-                <Link to="/contact" className="pj-card-link">
-                  <span>View Project</span>
-                  <span className="pj-arrow" aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </article>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* ====================================================================
-          4. CLOSING SECTION – PROJECT INVITATION
-          Light Mint-Green Section: "Your Next Big Idea Starts Here."
-          ==================================================================== */}
-      <section className="pj-invitation-section" aria-label="Project Invitation">
-        <div className="pj-container">
-          <div className="pj-invitation-box" data-scroll-reveal>
-            {/* Subtle botanical accent */}
-            <div className="pj-invitation-accent" aria-hidden="true">
-              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-                <path
-                  d="M20 100 C 40 40, 80 40, 100 20 C 60 40, 40 80, 20 100 Z"
-                  fill="url(#botanicalGrad)"
-                  fillOpacity="0.12"
-                />
-                <defs>
-                  <linearGradient id="botanicalGrad" x1="20" y1="20" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#168B46" />
-                    <stop offset="1" stopColor="#A3E635" />
-                  </linearGradient>
-                </defs>
-              </svg>
+                return (
+                  <button
+                    key={tab.id}
+                    className={`pj-filter-btn ${activeCategory === tab.id ? 'active' : ''}`}
+                    onClick={() => setActiveCategory(tab.id)}
+                  >
+                    <span>{tab.label}</span>
+                    <span className="pj-filter-count">{count}</span>
+                  </button>
+                );
+              })}
             </div>
+          </div>
 
-            <div className="pj-invitation-pill">LET&apos;S BUILD SOMETHING GREAT</div>
+          {/* Grid of Projects */}
+          <div className="pj-grid-showcase" data-scroll-reveal>
+            {gridProjects.map((project) => (
+              <article
+                className="pj-card-medium"
+                aria-label={project.projectName}
+                key={project.id}
+              >
+                <div className="pj-card-img-wrap">
+                  <img
+                    src={project.imageUrl}
+                    alt={project.projectName}
+                    className="pj-card-img"
+                    loading="lazy"
+                  />
+                </div>
 
-            <h2 className="pj-invitation-heading">
-              Your Next Big Idea <span className="pj-invitation-highlight">Starts Here.</span>
-            </h2>
+                <div className="pj-card-body">
+                  <h3 className="pj-card-title">{project.projectName}</h3>
 
-            <p className="pj-invitation-subtext">
-              Have an idea or business challenge? Let&apos;s turn it into something meaningful.
-            </p>
+                  <p className="pj-card-desc">
+                    {project.projectDescription}
+                  </p>
 
-            <Link to="/contact" className="pj-invitation-btn">
-              <span>Talk to Our Team</span>
-              <span className="pj-btn-arrow" aria-hidden="true">→</span>
-            </Link>
+                  <div className="pj-card-footer">
+                    <Link to="/contact" className="pj-card-footer-link">
+                      <span className="pj-card-action-text">Explore Project</span>
+                      <span className="pj-arrow" aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* 4. CLIENT TESTIMONIAL SPOTLIGHT */}
+      <section className="pj-quote-section" aria-label="Client Review">
+        <div className="pj-container">
+          <div className="pj-quote-box" data-scroll-reveal>
+            <div className="pj-quote-stars">★★★★★</div>
+            <blockquote className="pj-quote-text">
+              &ldquo;XentroX engineered our digital platform from zero to production launch in record time. The architecture is robust, the user interface is seamless, and our customer retention has surged over 300%.&rdquo;
+            </blockquote>
+            <div className="pj-quote-author">
+              <span className="pj-author-name">Suhail K.</span>
+              <span className="pj-author-role">Founder, CityTiffin &bull; Verified Client Partner</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. METRICS SECTION */}
+      <section className="pj-metrics-section" aria-label="Portfolio Track Record and Statistics">
+        <div className="pj-container">
+          <div className="pj-metrics-grid" data-scroll-reveal>
+            <div className="pj-metric-card">
+              <span className="pj-metric-value">{projectList.length}+</span>
+              <span className="pj-metric-label">Delivered Projects</span>
+              <p className="pj-metric-detail">Custom web apps, mobile products, and brand rollouts shipped with precision.</p>
+            </div>
+            <div className="pj-metric-card">
+              <span className="pj-metric-value">98.4%</span>
+              <span className="pj-metric-label">Client Retention</span>
+              <p className="pj-metric-detail">Long-term development partnerships and recurring growth retainers.</p>
+            </div>
+            <div className="pj-metric-card">
+              <span className="pj-metric-value">3.2x</span>
+              <span className="pj-metric-label">Average Traffic Growth</span>
+              <p className="pj-metric-detail">Documented organic search rankings and high-conversion ad performance.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. CALL TO ACTION */}
+      <section className="pj-cta-section" aria-label="Start Your Next Project with XentroX">
+        <div className="pj-container">
+          <div className="pj-cta-card" data-scroll-reveal>
+            <div className="pj-cta-content">
+              <span className="pj-cta-tag">HAVE A PROJECT IN MIND?</span>
+              <h2 className="pj-cta-headline">Let’s engineer something remarkable together.</h2>
+              <p className="pj-cta-desc">
+                From technical discovery and UI/UX design to enterprise cloud architecture, our team is ready to deliver.
+              </p>
+              <div className="pj-cta-actions">
+                <Link to="/contact" className="pj-btn-primary">
+                  <span>Start a Conversation</span>
+                  <Icon name="arrowRight" size={16} />
+                </Link>
+                <Link to="/services" className="pj-btn-secondary">
+                  <span>Explore Capabilities</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

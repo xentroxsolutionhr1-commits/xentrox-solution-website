@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 import './Pricing.css';
 
-const plans = [
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
+
+const initialPlans = [
   {
+    id: 'starter',
     name: 'Starter',
     price: '₹19,999',
     period: '/month',
@@ -21,6 +24,7 @@ const plans = [
     ],
   },
   {
+    id: 'professional',
     name: 'Professional',
     price: '₹49,999',
     period: '/month',
@@ -38,6 +42,7 @@ const plans = [
     ],
   },
   {
+    id: 'enterprise',
     name: 'Enterprise',
     price: 'Custom',
     period: 'Pricing',
@@ -76,6 +81,43 @@ const faqs = [
 
 export default function Pricing() {
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
+  const [plans, setPlans] = useState(initialPlans);
+  const [pricingError, setPricingError] = useState('');
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const loadPricing = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/pricing`, { signal: controller.signal });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Unable to load current pricing.');
+        if (
+          !Array.isArray(result.plans) ||
+          !initialPlans.every((plan) =>
+            result.plans.some((savedPlan) =>
+              savedPlan.id === plan.id &&
+              typeof savedPlan.price === 'string' &&
+              typeof savedPlan.period === 'string'
+            )
+          )
+        ) {
+          throw new Error('The saved pricing data is incomplete.');
+        }
+
+        const savedPlans = new Map(result.plans.map((plan) => [plan.id, plan]));
+        setPlans((current) =>
+          current.map((plan) => ({ ...plan, ...savedPlans.get(plan.id) }))
+        );
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          setPricingError(error.message);
+        }
+      }
+    };
+
+    loadPricing();
+    return () => controller.abort();
+  }, []);
 
   const toggleFaq = (index) => {
     setOpenFaqIndex((prev) => (prev === index ? -1 : index));
@@ -84,7 +126,7 @@ export default function Pricing() {
   return (
     <div className="pricing-page">
       {/* ====================================================================
-          SECTION 1 — HERO SECTION (FULL-WIDTH DARK FOREST GREEN #064B38)
+          SECTION 1 — HERO SECTION
           ==================================================================== */}
       <section className="pricing-hero" aria-label="XentroX Pricing Plans">
         {/* Right-side Integrated Financial Growth Visual */}
@@ -144,6 +186,11 @@ export default function Pricing() {
           ==================================================================== */}
       <section className="pricing-plans-section" id="plans">
         <div className="pricing-container">
+          {pricingError && (
+            <p className="pricing-live-error" role="alert">
+              Current prices could not be loaded. Showing the default plan prices.
+            </p>
+          )}
           <div className="pricing-cards-grid">
             {plans.map((plan) => (
               <article
@@ -271,4 +318,3 @@ export default function Pricing() {
     </div>
   );
 }
-

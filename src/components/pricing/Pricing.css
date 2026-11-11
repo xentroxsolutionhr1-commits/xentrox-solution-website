@@ -32,7 +32,7 @@
 @media (max-width: 640px) {
   .pricing-page {
     margin-top: -5rem; /* Starts from margin 0 on mobile */
-    margin-bottom: -1.5rem;
+    margin-bottom: 0;
   }
 }
 
@@ -45,22 +45,23 @@
 /* Container */
 .pricing-container {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1080px; /* Occupies the exact width of navbar and other pages */
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(1rem, 3.5vw, 2.25rem);
-  padding-right: clamp(1rem, 3.5vw, 2.25rem);
+  padding-left: clamp(1rem, 3.5vw, 2rem);
+  padding-right: clamp(1rem, 3.5vw, 2rem);
 }
 
 /* ==========================================================================
-   SECTION 1 — HERO SECTION (FULL-WIDTH DARK FOREST GREEN #064B38)
+   SECTION 1 — HERO SECTION
    ========================================================================== */
 .pricing-hero {
   position: relative;
   padding-top: clamp(6.5rem, 9.5vw, 8.5rem);
   padding-bottom: clamp(6.5rem, 9.5vw, 9rem);
-  background-color: var(--p-forest-green);
-  color: var(--p-white);
+  background-color: #E8F6EC;
+  background-image: radial-gradient(ellipse at 20% 20%, #DDF3E4 0%, #E8F6EC 48%, #F4FAF6 100%);
+  color: #062C23;
   overflow: hidden;
   isolation: isolate;
 }
@@ -97,18 +98,16 @@
   object-fit: cover;
   object-position: center 25%;
   display: block;
-  opacity: 0.95;
-  filter: contrast(1.08) brightness(0.92);
+  opacity: 0.96;
 }
 
 .pricing-hero-bg-gradient-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to right, #064B38 0%, rgba(6, 75, 56, 0.92) 20%, rgba(6, 75, 56, 0.45) 55%, transparent 85%),
-    linear-gradient(to top, #064B38 0%, rgba(6, 75, 56, 0.75) 25%, transparent 50%),
-    linear-gradient(to bottom, rgba(6, 75, 56, 0.75) 0%, transparent 30%),
-    linear-gradient(135deg, rgba(6, 75, 56, 0.25) 0%, rgba(2, 60, 45, 0.35) 100%);
+    linear-gradient(to right, #E8F6EC 0%, rgba(232, 246, 236, 0.94) 20%, rgba(221, 243, 228, 0.72) 55%, transparent 85%),
+    linear-gradient(to top, #E8F6EC 0%, rgba(221, 243, 228, 0.78) 25%, transparent 55%),
+    linear-gradient(to bottom, rgba(221, 243, 228, 0.62) 0%, transparent 35%);
 }
 
 .pricing-hero-container {
@@ -120,7 +119,7 @@
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
-  min-height: clamp(280px, 34vw, 420px);
+  min-height: clamp(210px, 20vw, 250px);
 }
 
 /* Hero Content */
@@ -130,16 +129,20 @@
 
 .pricing-hero-heading {
   margin: 0;
-  font-size: clamp(2.85rem, 5vw, 4.6rem);
+  font-size: clamp(2.35rem, 3.8vw, 3.65rem);
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.035em;
-  color: var(--p-white);
+  color: #062C23;
 }
 
 .pricing-lime-highlight {
-  color: var(--p-lime-green);
+  color: #059669;
   display: inline-block;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Hero Wave Transition into White Section */
@@ -149,7 +152,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  height: 65px;
+  height: clamp(50px, 6vw, 75px);
   pointer-events: none;
   z-index: 4;
 }
@@ -168,6 +171,16 @@
   padding-top: clamp(3.5rem, 5.5vw, 5rem);
   padding-bottom: clamp(4rem, 6vw, 6rem);
   background-color: var(--p-white);
+}
+
+.pricing-live-error {
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid #f0c2b8;
+  border-radius: 0.75rem;
+  background: #fff7f5;
+  color: #8c2f20;
+  font-size: 0.9rem;
 }
 
 .pricing-cards-grid {
@@ -621,13 +634,13 @@
 @media (max-width: 1040px) {
   .pricing-hero-bg-photo-wrap {
     width: 68%;
-    opacity: 0.65;
+    opacity: 0.85;
   }
 
   .pricing-hero-bg-gradient-overlay {
     background:
-      linear-gradient(to right, #064B38 0%, rgba(6, 75, 56, 0.95) 30%, rgba(6, 75, 56, 0.6) 80%, transparent 100%),
-      linear-gradient(to top, #064B38 0%, rgba(6, 75, 56, 0.75) 25%, transparent 50%);
+      linear-gradient(to right, #E8F6EC 0%, rgba(232, 246, 236, 0.94) 30%, rgba(221, 243, 228, 0.72) 80%, transparent 100%),
+      linear-gradient(to top, #E8F6EC 0%, rgba(221, 243, 228, 0.78) 25%, transparent 55%);
   }
 
   .pricing-hero-content {
@@ -651,30 +664,53 @@
 
 @media (max-width: 640px) {
   .pricing-hero {
-    padding-top: 3.25rem;
-    padding-bottom: 5rem;
+    padding-top: 6rem;
+    padding-bottom: 4.5rem;
   }
 
-  
   .pricing-hero-bg-photo-wrap {
     width: 100%;
-    opacity: 0.38;
+    opacity: 0.72;
   }
 
   .pricing-hero-bg-gradient-overlay {
     background:
-      linear-gradient(to right, #064B38 0%, rgba(6, 75, 56, 0.96) 65%, rgba(6, 75, 56, 0.8) 100%),
-      linear-gradient(to top, #064B38 0%, rgba(6, 75, 56, 0.85) 35%, transparent 70%);
+      linear-gradient(to right, rgba(232, 246, 236, 0.95) 0%, rgba(232, 246, 236, 0.86) 65%, rgba(221, 243, 228, 0.62) 100%),
+      linear-gradient(to top, #E8F6EC 0%, rgba(221, 243, 228, 0.84) 35%, transparent 70%);
   }
 
   .pricing-hero-heading {
-    font-size: clamp(2.35rem, 8.5vw, 3.15rem);
+    font-size: clamp(2rem, 7.8vw, 2.75rem);
   }
 
+  .pricing-card {
+    padding: 1.75rem 1.35rem;
+    border-radius: 1.35rem;
+  }
+
+  .pricing-faq-trigger {
+    padding: 1.15rem 1.25rem;
+  }
+
+  .pricing-faq-question {
+    font-size: 0.98rem;
+  }
+
+  .pricing-faq-content {
+    padding: 0 1.25rem 1.25rem;
+  }
 
   .pricing-cta-banner {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.35rem;
     border-radius: 1.25rem;
   }
-}
 
+  .pricing-cta-action {
+    width: 100%;
+  }
+
+  .pricing-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

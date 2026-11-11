@@ -1,54 +1,48 @@
-import { useMemo, useState } from 'react';
-import { BriefcaseBusiness, Ellipsis, Image, LoaderCircle, Plus, Search, Trash2 } from 'lucide-react';
+import { BriefcaseBusiness, Edit2, LoaderCircle, Sparkles, Trash2 } from 'lucide-react';
 import { adminAssetUrl, formatAdminDate } from './adminApi.js';
 
 function AdminPortfolioPage({ projects, loading, onCreate, onEdit, onDelete }) {
-  const [search, setSearch] = useState('');
-  const filteredProjects = useMemo(() => {
-    const query = search.trim().toLowerCase();
-    if (!query) return projects;
-    return projects.filter((project) => [
-      project.projectName,
-      project.projectDescription,
-      project.category,
-      ...(project.projectTechStack ?? []),
-    ].join(' ').toLowerCase().includes(query));
-  }, [projects, search]);
-
   return (
-    <section className="admin-portfolio">
-      <div className="admin-category-intro">
-        <span className="admin-category-intro__icon"><BriefcaseBusiness size={20} /></span>
-        <div><strong>Showcase the work you’re proud of.</strong><p>Manage project details, imagery, technology, and categories.</p></div>
-        <span className="admin-category-intro__total"><strong>{projects.length}</strong> projects</span>
-      </div>
-      <label className="admin-search admin-category-search"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search projects, technologies, or categories…" /></label>
-      {loading ? <div className="admin-panel admin-loading"><LoaderCircle className="admin-spin" size={21} /> Loading portfolio…</div> : filteredProjects.length === 0 ? (
-        <div className="admin-panel admin-empty"><span><BriefcaseBusiness size={22} /></span><strong>{projects.length ? 'No matching projects' : 'Your portfolio is ready for its first project'}</strong><p>{projects.length ? 'Try adjusting your search.' : 'Add a project to start building your showcase.'}</p>{!projects.length && <button className="admin-button admin-button--primary" onClick={onCreate}><Plus size={16} /> Add a project</button>}</div>
+    <section className="admin-table-section">
+      {loading ? (
+        <div className="admin-loading"><LoaderCircle className="admin-spin" size={21} /> Loading portfolio…</div>
+      ) : projects.length === 0 ? (
+        <div className="admin-empty">
+          <span><Sparkles size={28} /></span>
+          <strong>No portfolio projects yet</strong>
+          <p>Add your first project to showcase your work.</p>
+          <button className="admin-button admin-button--primary" onClick={onCreate}><BriefcaseBusiness size={16} /> Add project</button>
+        </div>
       ) : (
-        <div className="admin-project-grid">{filteredProjects.map((project) => (
-          <article className="admin-project-card" key={project.id}>
-            <div className="admin-project-card__image">
-              {project.imageUrl
-                ? <img src={adminAssetUrl(project.imageUrl)} alt={project.projectName} loading="lazy" />
-                : <span><Image size={26} /></span>}
-              <span className="admin-project-card__category">{project.category}</span>
-            </div>
-            <div className="admin-project-card__body">
-              <div className="admin-project-card__heading">
-                <div><h3>{project.projectName}</h3><span>Added {formatAdminDate(project.createdAt)}</span></div>
-                <div className="admin-row-actions">
-                  <button className="admin-icon-button" aria-label={`Edit ${project.projectName}`} onClick={() => onEdit(project)}><Ellipsis size={18} /></button>
-                  <button className="admin-icon-button admin-icon-button--danger" aria-label={`Delete ${project.projectName}`} onClick={() => onDelete(project)}><Trash2 size={15} /></button>
+        <div className="admin-portfolio-grid">
+          {projects.map((project) => (
+            <article key={project.id} className="admin-portfolio-card">
+              {project.imageUrl && (
+                <div className="admin-portfolio-card__image">
+                  <img src={adminAssetUrl(project.imageUrl)} alt={project.projectName} />
+                </div>
+              )}
+              <div className="admin-portfolio-card__body">
+                <h4>{project.projectName}</h4>
+                <p>{project.projectDescription?.slice(0, 120)}{project.projectDescription?.length > 120 ? '…' : ''}</p>
+                <div className="admin-tags">
+                  {(project.projectTechStack || []).slice(0, 4).map((tech) => (
+                    <span key={tech} className="admin-tag">{tech}</span>
+                  ))}
+                  {project.projectTechStack?.length > 4 && <span className="admin-tag admin-tag--more">+{project.projectTechStack.length - 4}</span>}
+                </div>
+                <div className="admin-portfolio-card__meta">
+                  <span>{project.categoryId?.categoryName || 'Uncategorized'}</span>
+                  <span>{formatAdminDate(project.createdAt)}</span>
                 </div>
               </div>
-              <p>{project.projectDescription}</p>
-              <div className="admin-project-card__technologies">
-                {(project.projectTechStack ?? []).map((technology) => <span key={technology}>{technology}</span>)}
+              <div className="admin-portfolio-card__actions">
+                <button className="admin-icon-button" aria-label="Edit project" title="Edit" onClick={() => onEdit(project)}><Edit2 size={16} /></button>
+                <button className="admin-icon-button admin-icon-button--danger" aria-label="Delete project" title="Delete" onClick={() => onDelete(project)}><Trash2 size={16} /></button>
               </div>
-            </div>
-          </article>
-        ))}</div>
+            </article>
+          ))}
+        </div>
       )}
     </section>
   );

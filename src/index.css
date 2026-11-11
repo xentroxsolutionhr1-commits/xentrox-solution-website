@@ -408,7 +408,7 @@ a {
 }
 
 .home-nav-type {
-  font-family: "Merriweather", "Merriweather Fallback Georgia", "Merriweather Fallback Noto", "Merriweather Fallback Times", "Clash Display", serif;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* XentroX mark: trace the real silhouette before revealing its original art. */
@@ -501,3 +501,284 @@ a {
     .max-sm\:pb-6 {
         padding-bottom: calc(var(--spacing) * 0);
     }
+
+/* =====================================================================
+   FEATURE & PROCESS CARD ICON BOXES
+   Ensures pristine visibility on hover across all browsers
+   ===================================================================== */
+.feature-icon-box {
+  background: linear-gradient(135deg, #ebf9f1 0%, #dcf5e7 100%);
+  color: #16a36a;
+  border: 1px solid rgba(22, 163, 106, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-icon-box svg {
+  transition: all 0.3s ease;
+  stroke: #16a36a;
+}
+
+.group:hover .feature-icon-box {
+  background: #16a36a !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: #16a36a !important;
+  box-shadow: 0 6px 18px -2px rgba(22, 163, 106, 0.4) !important;
+  transform: scale(1.08);
+}
+
+.group:hover .feature-icon-box svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+
+/* =====================================================================
+   HOME PAGE – OUR PROCESS SECTION
+   Clean corporate styling with zero hover movement or 3D effects
+   ===================================================================== */
+.our-process-section {
+  background-color: #f9fcfa;
+}
+
+.our-process-card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  border-bottom: 5px solid #16a36a;
+  box-shadow: 0 8px 24px -6px rgba(15, 23, 42, 0.06);
+  transition: none !important;
+  transform: none !important;
+}
+
+.our-process-card:hover {
+  transform: none !important;
+  box-shadow: 0 8px 24px -6px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* =====================================================================
+   HOME PAGE – WHO WE SERVE (SECTOR IMPACT CHART ANIMATIONS)
+   Refined corporate chart transitions when switching industries
+   ===================================================================== */
+@keyframes sector-card-enter {
+  from {
+    opacity: 0.65;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sector-line-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sector-area-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sector-point-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sector-impact-card {
+  animation: sector-card-enter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.sector-chart-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sector-line-draw 720ms cubic-bezier(0.22, 1, 0.36, 1) 60ms forwards;
+}
+
+.sector-chart-area {
+  transform-origin: center bottom;
+  animation: sector-area-fade 650ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+}
+
+.sector-chart-point {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: sector-point-pop 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes sector-bar-grow {
+  from {
+    opacity: 0;
+    transform: scaleY(0.15);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes sector-hbar-grow {
+  from {
+    opacity: 0;
+    transform: scaleX(0.15);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes sector-donut-reveal {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-90deg) scale(1);
+  }
+}
+
+.sector-chart-bar {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  opacity: 0;
+  animation: sector-bar-grow 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.sector-chart-hbar {
+  transform-box: fill-box;
+  transform-origin: left center;
+  opacity: 0;
+  animation: sector-hbar-grow 560ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.sector-chart-donut {
+  transform-origin: 128px 104px;
+  opacity: 0;
+  animation: sector-donut-reveal 560ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* =====================================================================
+   SECTION 3: VISION GLASS CARDS & DIAGONAL LUMINOUS HOVER EFFECT
+   ===================================================================== */
+.vision-glass-card {
+  position: relative;
+  border-radius: 18px;
+  padding: 5px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(210, 223, 217, 0.78) 52%,
+    rgba(186, 204, 196, 0.88) 100%
+  );
+  border: 1px solid rgba(172, 190, 182, 0.9);
+  box-shadow:
+    0 18px 36px -14px rgba(15, 34, 27, 0.16),
+    0 4px 12px rgba(15, 34, 27, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms ease;
+}
+
+.vision-glass-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(138, 188, 160, 0.95);
+  box-shadow:
+    0 24px 48px -12px rgba(16, 68, 42, 0.22),
+    0 8px 20px rgba(15, 34, 27, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.vision-glass-card__inner {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  background: linear-gradient(
+    126deg,
+    rgba(245, 249, 247, 0.96) 0%,
+    rgba(232, 242, 237, 0.92) 38%,
+    rgba(196, 228, 208, 0.58) 68%,
+    rgba(216, 231, 224, 0.92) 100%
+  );
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  transition: border-color 320ms ease;
+}
+
+/* Diagonal luminous emerald/mint sheen that intensifies on hover */
+.vision-glass-card__inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    122deg,
+    rgba(242, 248, 244, 0.2) 0%,
+    rgba(198, 236, 210, 0.45) 34%,
+    rgba(126, 214, 152, 0.62) 58%,
+    rgba(176, 222, 194, 0.5) 80%,
+    rgba(214, 231, 223, 0.3) 100%
+  );
+  opacity: 0;
+  transition: opacity 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vision-glass-card:hover .vision-glass-card__inner::before {
+  opacity: 1;
+}
+
+.vision-glass-icon {
+  background: linear-gradient(145deg, #d7ecdc 0%, #bde0c6 100%);
+  border: 1px solid rgba(154, 204, 168, 0.9);
+  color: #14532d;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.88),
+    0 2px 6px rgba(15, 50, 34, 0.08);
+  transition:
+    background 280ms ease,
+    border-color 280ms ease,
+    transform 280ms ease;
+}
+
+.vision-glass-card:hover .vision-glass-icon {
+  background: linear-gradient(145deg, #cce8d3 0%, #aad8b6 100%);
+  border-color: rgba(120, 188, 140, 0.95);
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sector-impact-card,
+  .sector-chart-line,
+  .sector-chart-area,
+  .sector-chart-point,
+  .sector-chart-bar,
+  .sector-chart-hbar,
+  .sector-chart-donut {
+    animation: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+    transform: none !important;
+  }
+}

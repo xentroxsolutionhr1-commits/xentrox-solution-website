@@ -1,312 +1,358 @@
-import { useState, useMemo } from 'react';
-import Icon from '../shared/Icon.jsx';
+import { useState, useMemo, useEffect } from 'react';
+import { X } from 'lucide-react';
+import './BlogPage.css';
 
-const articles = [
+const defaultArticles = [
   {
-    id: 'react-19-actions',
-    title: 'How React 19 Actions & Server Components Change Web Architecture',
-    slug: 'react-19-actions-server-components',
+    id: 'web-architecture-speed',
+    title: 'How Modern Web Architecture Drives Conversion & Speed',
     category: 'Web Development',
-    date: 'Oct 28, 2026',
-    readTime: '6 min read',
-    author: 'Sherin Singh S R',
-    authorRole: 'Founder & Head of Engineering',
-    summary:
-      'Explore how React 19 simplifies async workflows, eliminates boilerplate state machines with Actions, and leverages optimistic UI updates for instant perceived performance.',
-    content: `React 19 represents one of the most practical leaps forward in modern frontend engineering. With native support for Server Actions, the useActionState hook, and automatic batching of async transitions, the boundary between client interactivity and backend processing has become fluid.
-
-Key architectural takeaways:
-1. Native Form Handling without Redux or heavy client state: Forms now natively handle pending states, optimistic rollbacks, and server validation responses.
-2. The compiler advantage: React Compiler reduces manual useMemo and useCallback ceremonies, allowing developers to write idiomatic JavaScript.
-3. Enhanced asset loading: Stylesheets, fonts, and scripts now support native hoist precedence to eliminate flash of unstyled content (FOUC).
-
-At XentroX Solutions, adopting these patterns in production projects has reduced client bundle sizes by up to 28% while improving Core Web Vitals across every measurable metric.`,
-  },
-  {
-    id: 'seo-2026-tactics',
-    title: 'The 2026 Technical SEO Playbook: Passing Core Web Vitals & Search Generative Experience',
-    slug: 'technical-seo-2026-playbook',
-    category: 'SEO & Growth',
-    date: 'Oct 15, 2026',
-    readTime: '8 min read',
-    author: 'Shahaban B',
-    authorRole: 'Founder & Marketing Lead',
-    summary:
-      'Search engines increasingly prioritize direct answers and real user experience. Here is how to structure your site architecture, schema data, and page speed to dominate search rankings.',
-    content: `Search engines in 2026 demand more than just keywords. With AI Overviews and Google's emphasis on Interaction to Next Paint (INP), technical precision dictates who wins Page 1.
-
-Essential pillars for 2026:
-1. Interaction to Next Paint (INP): Replacing FID, INP measures whole-session responsiveness. Long-running JavaScript tasks on the main thread will kill your organic visibility.
-2. Entity-Based Semantic Schema: Schema.org markup is no longer optional. Feeding clean JSON-LD knowledge graphs helps search models attribute authoritativeness to your brand.
-3. Topic Depth over Keyword Stuffing: AI search summaries reward pages that answer questions comprehensively with proprietary data, real quotes, and structured tables.`,
-  },
-  {
-    id: 'first-tech-job-guide',
-    title: 'Breaking Into Tech in 2026: Why Production Projects Beat Tutorial Certificates',
-    slug: 'breaking-into-tech-production-projects',
-    category: 'Career & Tech',
-    date: 'Oct 02, 2026',
+    date: 'Nov 04, 2026',
     readTime: '5 min read',
-    author: 'Subin S',
-    authorRole: 'Founder & CEO',
+    imageUrl: '/about/office-laptop-desk.jpg',
     summary:
-      'Recruiters review hundreds of resumes a week. Discover why deploying real-world applications with automated testing, CI/CD, and user metrics gets you hired faster.',
-    content: `The tech hiring landscape has evolved. Watching a 40-hour tutorial and following along to build another generic clone won't stand out to hiring managers. 
+      'Why component-driven architectures, sub-second load speeds, and intuitive UI patterns drive 3x higher user retention for modern businesses.',
+    content: `In the modern digital landscape, speed is no longer just an engineering metric — it is your most direct conversion lever. A single second of delay in page load time can reduce conversions by over 7% and increase bounce rates significantly.
 
-What engineering leads look for in 2026:
-1. Live, deployed URL with custom domains, SSL, and responsive design across all devices.
-2. Production hygiene: Clean commit history, pull request descriptions, TypeScript typing, and automated testing.
-3. Quantifiable impact: Did you optimize database queries? Did you reduce API latency? Document your architectural decisions in your GitHub README.
+At XentroX Solutions, we engineer digital platforms that pass Google Core Web Vitals on real-world mobile devices. By combining lightweight React architectures, server-rendered components, and aggressive asset optimization, we ensure sub-second interaction speeds.
 
-At XentroX Academy, every student builds at least two commercial-grade capstones with live monitoring, directly preparing them for senior-level code reviews.`,
+Key Principles We Implement:
+1. Sub-second First Contentful Paint: Eliminate blocking third-party scripts and prioritize above-the-fold render paths.
+2. Responsive Micro-interactions: Ensure tactile feedback on every button click and form interaction within 50 milliseconds.
+3. Clean State Management: Avoid bloated client-side bundles by leveraging native async transitions and scoped API hooks.
+
+Building with these fundamentals ensures your users enjoy an effortless experience from their very first visit.`,
   },
   {
-    id: 'generative-ai-business',
-    title: 'Beyond the Hype: How Small Businesses Are Using RAG & AI Agents Profitably',
-    slug: 'generative-ai-business-rag-agents',
-    category: 'AI & Automation',
-    date: 'Sep 22, 2026',
-    readTime: '7 min read',
-    author: 'Dr. S. Priya Vasanth',
-    authorRole: 'Founder & Strategy Director',
+    id: 'local-seo-playbook',
+    title: 'The 2026 Local SEO & Search Ranking Playbook',
+    category: 'SEO & Growth',
+    date: 'Oct 28, 2026',
+    readTime: '4 min read',
+    imageUrl: '/portfolio/photos/greenroots-organic.jpg',
     summary:
-      'How modern companies are using retrieval-augmented generation (RAG) and private vector databases to automate customer inquiries, document processing, and internal knowledge access.',
-    content: `Generative AI has moved from speculative experiments to everyday utility. Companies that integrate LLMs into targeted internal workflows are realizing 30-40% operational efficiency gains.
+      'How optimizing Google Business Profiles, structured schema data, and mobile core web vitals turns local search into a predictable customer acquisition channel.',
+    content: `Organic search dominance in 2026 requires hyper-targeted relevance. When high-intent local customers search for services near them, search engines prioritize verified authority, structured metadata, and authentic reviews.
 
-High-impact production use cases:
-1. Knowledge Base RAG Assistants: Ingesting company SOPs, warranty docs, and technical manuals so support staff can answer complex customer questions in seconds.
-2. Automated Invoicing & Document Extraction: Vision-enabled LLMs parsing unstructured supplier receipts directly into ERP systems without human intervention.
-3. Personalized Outbound Messaging: Drafting highly context-aware client proposals based on past project histories and client goals.`,
+Our Core Local SEO Blueprint:
+1. Google Business Profile Optimization: Maintain complete, high-resolution listings with localized service keywords and active updates.
+2. Structured JSON-LD Schema: Mark up organizational data, physical coordinates, and client reviews to feed clean knowledge graphs to search engines.
+3. Technical Crawlability: Fix broken canonicals, redirect chains, and indexing barriers that quietly waste crawl budgets.
+
+Businesses that systematically follow this framework consistently capture the local map pack and generate high-intent inquiries week after week.`,
   },
   {
-    id: 'ux-microinteractions',
-    title: 'The Psychology of Micro-Interactions: Designing High-Conversion Web Experiences',
-    slug: 'ux-microinteractions-conversion-design',
-    category: 'Design & UX',
-    date: 'Sep 10, 2026',
-    readTime: '6 min read',
-    author: 'Shahaban B',
-    authorRole: 'Founder & Marketing Lead',
+    id: 'brand-identity-converts',
+    title: 'Creating Distinctive Brand Identities That Convert',
+    category: 'Branding & Design',
+    date: 'Oct 18, 2026',
+    readTime: '5 min read',
+    imageUrl: '/portfolio/photos/aura-skincare.jpg',
     summary:
-      'Subtle animations, tactile button feedback, and intuitive progress indicators can increase e-commerce conversion rates by up to 24%. Learn the science behind interactive UX.',
-    content: `Great design is often invisible. When a user taps a button or toggles a filter, their brain expects immediate confirmation. Micro-interactions bridge the sensory gap between digital software and physical reality.
+      'A cohesive visual system and consistent design language across web, social, and print establishes instant credibility and long-term brand equity.',
+    content: `Your brand is the sum of every touchpoint a customer experiences. From your typography choices and color palette to social templates and micro-copy, consistency builds subconscious trust.
 
-Best practices for friction-free UX:
-1. Immediate visual feedback (< 100ms): A button must acknowledge user touch with a ripple or state transition before background network requests finish.
-2. Directional continuity: Modals and dropdowns should animate from their origin points, preserving spatial orientation for the user.
-3. Accessible motion: Always respect the 'prefers-reduced-motion' media query for users who experience vestibular discomfort.`,
+What Makes a Brand Scalable:
+1. Distinctive Visual Tokens: A signature color accent, accessible contrast ratios, and a clear typographic hierarchy that works from phone screens to billboards.
+2. Friction-free User Experience: Visual design should guide user attention toward value, not distract with unnecessary ornaments.
+3. Unified Brand Guidelines: Providing your marketing and development teams with a reusable component library prevents brand drift as your business expands.
+
+Investing in intentional design from day one sets premium brands apart from forgettable commodities.`,
   },
 ];
-
-const categories = ['All', 'Web Development', 'SEO & Growth', 'Career & Tech', 'AI & Automation', 'Design & UX'];
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [activeArticle, setActiveArticle] = useState(null);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [blogList, setBlogList] = useState(defaultArticles);
+
+  // Close modal on escape key and scroll to top when opening an article
+  useEffect(() => {
+    if (!activeArticle) return undefined;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setActiveArticle(null);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [activeArticle]);
+
+  // Attempt backend API fetch if available, fallback gracefully to curated default articles
+  useEffect(() => {
+    fetch('/api/blogs')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch blogs');
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          // Filter out dummy/gibberish single-word test strings like 'dfgujdfghj'
+          const validArticles = data.filter(
+            (b) => b.title && b.title.trim().length > 12 && b.title.includes(' ')
+          );
+
+          if (validArticles.length > 0) {
+            const fallbackImages = [
+              '/about/office-laptop-desk.jpg',
+              '/portfolio/photos/greenroots-organic.jpg',
+              '/portfolio/photos/aura-skincare.jpg',
+              '/about/agency-workspace.jpg',
+            ];
+            const formatted = validArticles.map((b, idx) => ({
+              id: b.id || b._id,
+              title: b.title,
+              category: (b.tags && b.tags[0]) || 'Web Development',
+              date: new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(b.createdAt)),
+              readTime: `${Math.max(1, Math.ceil((b.content || '').split(' ').length / 180))} min read`,
+              author: b.author || 'XentroX Team',
+              authorRole: 'Author & Architect',
+              authorInitials: (b.author || 'XT').slice(0, 2).toUpperCase(),
+              summary: b.content?.slice(0, 160) + (b.content?.length > 160 ? '...' : ''),
+              content: b.content,
+              imageUrl: b.imageUrl || fallbackImages[idx % fallbackImages.length],
+            }));
+            setBlogList(formatted);
+          }
+        }
+      })
+      .catch((err) => {
+        console.warn('Using default blog articles:', err.message);
+      });
+  }, []);
+
+  const categories = useMemo(() => {
+    return ['All', ...new Set(blogList.map((a) => a.category).filter(Boolean))];
+  }, [blogList]);
 
   const filteredArticles = useMemo(() => {
-    if (activeCategory === 'All') return articles;
-    return articles.filter((a) => a.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === 'All') return blogList;
+    return blogList.filter((a) => a.category === activeCategory);
+  }, [activeCategory, blogList]);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
     if (newsletterEmail.trim()) {
       setSubscribed(true);
+      try {
+        await fetch('/api/enquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'Newsletter Subscriber',
+            email: newsletterEmail.trim(),
+            service: 'Newsletter Subscription',
+            message: `User subscribed to XentroX Tech Digest: ${newsletterEmail.trim()}`,
+          }),
+        });
+      } catch {
+        // silent
+      }
       setNewsletterEmail('');
     }
   };
 
   return (
-    <div className="relative isolate -mt-24 max-sm:-mt-20">
-      {/* Full-Bleed Dark Forest Green Hero starting at margin 0 */}
-      <section
-        className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden bg-[#064B38] px-4 pt-28 pb-20 text-white sm:px-6 sm:pt-32 sm:pb-24 lg:pt-36 lg:pb-28"
-        data-scroll-reveal
-      >
-        <div className="mx-auto w-full max-w-[1080px] text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#84cc16]/40 bg-[#84cc16]/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#a3e635]">
-            <span className="h-2 w-2 rounded-full bg-[#84cc16] animate-pulse" />
-            XentroX Knowledge Hub
-          </div>
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Insights, Tech Trends &amp; Growth Strategies
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-200 sm:text-lg">
-            Practical articles written by our software engineers, digital marketing leads, and design architects.
-          </p>
-
-          {/* Categories */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setActiveCategory(cat)}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200 sm:text-sm ${
-                  activeCategory === cat
-                    ? 'bg-[#84cc16] text-[#062c23] font-bold shadow-md'
-                    : 'bg-white/10 text-white border border-white/20 hover:border-[#84cc16] hover:bg-[#84cc16] hover:text-[#062c23]'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Curved bottom edge wave like Pricing & About */}
-        <div className="pointer-events-none absolute bottom-0 inset-x-0 w-full h-[clamp(50px,6vw,75px)] z-10" aria-hidden="true">
-          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="h-full w-full block" fill="none">
-            <path
-              d="M0,45 C360,85 740,15 1100,55 C1260,72 1380,65 1440,45 L1440,80 L0,80 Z"
-              fill="#f8faf9"
-            />
-          </svg>
-        </div>
-      </section>
-
-      {/* Articles Grid & Body — Occupying the exact 1080px width of the navbar */}
-      <div className="mx-auto w-full max-w-[1080px] pt-12 sm:pt-16 pb-16">
-        <section className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredArticles.map((article, idx) => (
-            <article
-              key={article.id}
-              data-scroll-reveal
-              style={{ '--reveal-delay': `${(idx % 3) * 80}ms` }}
-              className="group flex flex-col justify-between rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#84cc16] hover:shadow-xl hover:shadow-[#062c23]/5"
-            >
-              <div>
-                {/* Category & Read Time */}
-                <div className="flex items-center justify-between text-xs text-slate-500 font-semibold">
-                  <span className="rounded-full bg-[#84cc16]/15 px-3 py-1 font-bold text-[#064b38]">
-                    {article.category}
-                  </span>
-                  <span>{article.readTime}</span>
-                </div>
-
-                {/* Title */}
-                <h2 className="mt-4 text-xl font-bold text-[#062c23] group-hover:text-[#064b38] transition-colors line-clamp-2">
-                  {article.title}
-                </h2>
-
-                {/* Excerpt */}
-                <p className="mt-3 text-sm leading-relaxed text-slate-600 line-clamp-3">
-                  {article.summary}
-                </p>
-              </div>
-
-              {/* Author & Read Action */}
-              <div className="mt-6 border-t border-slate-100 pt-4 flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-bold text-[#062c23]">{article.author}</p>
-                  <p className="text-[11px] text-slate-400">{article.date}</p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setActiveArticle(article)}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#84cc16] hover:text-[#064b38] transition-colors"
-                >
-                  Read Article
-                  <Icon name="arrowRight" size={12} />
-                </button>
-              </div>
-            </article>
-          ))}
-        </section>
-
-        {/* Article Modal */}
-        {activeArticle && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-            onClick={() => setActiveArticle(null)}
-          >
-            <div
-              className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-6 sm:p-8 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                <span className="rounded-full bg-[#84cc16]/20 px-3 py-1 text-xs font-bold text-[#064b38]">
-                  {activeArticle.category} • {activeArticle.readTime}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setActiveArticle(null)}
-                  className="rounded-full bg-slate-100 p-2 text-slate-500 hover:bg-slate-200"
-                >
-                  <Icon name="x" size={18} />
-                </button>
-              </div>
-
-              <div className="mt-6">
-                <h2 className="text-2xl font-bold text-[#062c23]">{activeArticle.title}</h2>
-                <div className="mt-3 flex items-center gap-3 text-xs text-slate-500">
-                  <span>By {activeArticle.author} ({activeArticle.authorRole})</span>
-                  <span>•</span>
-                  <span>{activeArticle.date}</span>
-                </div>
-
-                <div className="mt-6 whitespace-pre-line text-sm leading-relaxed text-slate-700">
-                  {activeArticle.content}
-                </div>
-              </div>
-
-              <div className="mt-8 border-t border-slate-100 pt-4 flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setActiveArticle(null)}
-                  className="rounded-xl bg-[#062c23] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#083e30]"
-                >
-                  Close Article
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Newsletter Signup */}
-        <section className="mt-16 rounded-3xl bg-[#062c23] p-8 text-white sm:p-12" data-scroll-reveal>
-          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
-            <div>
-              <span className="rounded-full bg-[#84cc16]/20 px-3 py-1 text-xs font-bold text-[#a3e635]">
-                Stay Ahead in Tech
-              </span>
-              <h2 className="mt-4 text-2xl font-bold sm:text-3xl">Subscribe to the XentroX Tech Digest</h2>
-              <p className="mt-2 text-sm text-slate-300">
-                Get our monthly breakdown of web architecture best practices, SEO case studies, and modern growth playbooks directly to your inbox.
-              </p>
+    <div className="blog-page">
+      {!activeArticle && (
+        <>
+          {/* 1. HERO / HEADER SECTION WITH BLENDED ILLUSTRATION */}
+          <section className="blog-hero-section" aria-label="Blog Header">
+            {/* Background Artwork Layer */}
+            <div className="blog-hero-art-layer" aria-hidden="true">
+              <img
+                src="/blog/career-growth-hero.png"
+                alt=""
+                className="blog-hero-art-img"
+                loading="eager"
+              />
+              <div className="blog-hero-art-scrim" />
             </div>
 
-            <div>
-              {subscribed ? (
-                <div className="rounded-2xl bg-white/10 p-5 text-center border border-white/20">
-                  <p className="text-sm font-bold text-[#a3e635]">✓ You're on the list!</p>
-                  <p className="mt-1 text-xs text-slate-300">Thank you for subscribing. Look out for our next issue.</p>
+            <div className="blog-container blog-hero-container">
+              <div className="blog-hero-content">
+                <div className="blog-tag" data-scroll-reveal>
+                  <span className="blog-tag-dash" aria-hidden="true" />
+                  <span>The XentroX Journal</span>
                 </div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex flex-col gap-3 sm:flex-row">
-                  <input
-                    type="email"
-                    required
-                    value={newsletterEmail}
-                    onChange={(e) => setNewsletterEmail(e.target.value)}
-                    placeholder="Enter your email address..."
-                    className="flex-1 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-[#84cc16] focus:outline-none focus:ring-2 focus:ring-[#84cc16]/30"
-                  />
-                  <button
-                    type="submit"
-                    className="rounded-xl bg-[#84cc16] px-6 py-3 text-xs sm:text-sm font-bold text-[#062c23] transition hover:bg-[#a3e635]"
+
+                <h1 className="blog-hero-title" data-scroll-reveal>
+                  Insights, Tech Trends &amp; <span className="blog-title-highlight">Growth</span>
+                </h1>
+
+                {/* Category Filter Pills */}
+                <div className="blog-filter-bar" data-scroll-reveal>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setActiveCategory(cat)}
+                      className={`blog-filter-btn ${activeCategory === cat ? 'active' : ''}`}
+                    >
+                      <span>{cat}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Soft bottom wave transition */}
+            <div className="blog-hero-wave" aria-hidden="true">
+              <svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="none">
+                <path
+                  d="M0,30 C360,60 740,10 1100,45 C1260,58 1380,50 1440,30 L1440,60 L0,60 Z"
+                  fill="#F4FAF6"
+                />
+              </svg>
+            </div>
+          </section>
+
+          {/* 2. BLOG CARDS GRID SECTION */}
+          <section className="blog-grid-section" aria-label="Articles Grid">
+            <div className="blog-container">
+              <div className="blog-cards-grid" data-scroll-reveal>
+                {filteredArticles.map((article) => (
+                  <article
+                    key={article.id}
+                    className="blog-card"
+                    onClick={() => setActiveArticle(article)}
                   >
-                    Subscribe
-                  </button>
-                </form>
-              )}
+                    {/* Blog Card Image */}
+                    <div className="blog-card-img-wrap">
+                      <img
+                        src={article.imageUrl || '/about/office-laptop-desk.jpg'}
+                        alt={article.title}
+                        className="blog-card-img"
+                        loading="lazy"
+                      />
+                      <div className="blog-card-category-overlay">
+                        <span className="blog-card-category">{article.category}</span>
+                      </div>
+                    </div>
+
+                    <div className="blog-card-body">
+                      <div className="blog-card-meta">
+                        <span className="blog-card-time">{article.readTime}</span>
+                        <span className="blog-meta-dot">•</span>
+                        <span className="blog-post-date">{article.date}</span>
+                      </div>
+
+                      <h2 className="blog-card-title">{article.title}</h2>
+
+                      <p className="blog-card-summary">{article.summary}</p>
+
+                      <div className="blog-card-footer">
+                        <span className="blog-card-read-link">
+                          <span>Read Article</span>
+                          <span className="blog-arrow" aria-hidden="true">→</span>
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              {/* 3. NEWSLETTER BANNER (MATCHING HOME THEME) */}
+              <div className="blog-newsletter-box" data-scroll-reveal>
+                <div>
+                  <span className="blog-nl-tag">Stay Ahead</span>
+                  <h2 className="blog-nl-title">Subscribe to the XentroX Digest</h2>
+                  <p className="blog-nl-desc">
+                    Get monthly breakdowns of web architecture best practices, SEO case studies, and digital growth playbooks.
+                  </p>
+                </div>
+
+                <div>
+                  {subscribed ? (
+                    <div style={{ padding: '1rem', background: '#FFFFFF', borderRadius: '0.85rem', border: '1px solid #C6E7D2' }}>
+                      <p style={{ margin: 0, fontWeight: 800, color: '#16A34A', fontSize: '0.9rem' }}>✓ You are subscribed!</p>
+                      <p style={{ margin: '0.25rem 0 0', fontSize: '0.8rem', color: '#526E62' }}>Thank you for joining our monthly digest.</p>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubscribe} className="blog-nl-form">
+                      <input
+                        type="email"
+                        required
+                        value={newsletterEmail}
+                        onChange={(e) => setNewsletterEmail(e.target.value)}
+                        placeholder="Enter your email address..."
+                        className="blog-nl-input"
+                      />
+                      <button type="submit" className="blog-nl-submit">
+                        Subscribe
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* 4. CLEAN ARTICLE READER MODAL */}
+      {activeArticle && (
+        <div
+          className="blog-modal-backdrop"
+          onClick={() => setActiveArticle(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="blog-modal-dialog"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveArticle(null)}
+              className="blog-modal-close-btn"
+              aria-label="Close article"
+            >
+              <X size={18} />
+            </button>
+
+            {activeArticle.imageUrl && (
+              <div className="blog-modal-img-wrap">
+                <img
+                  src={activeArticle.imageUrl}
+                  alt={activeArticle.title}
+                  className="blog-modal-img"
+                />
+              </div>
+            )}
+
+            <div className="blog-modal-meta">
+              <span className="blog-card-category">{activeArticle.category}</span>
+              <span className="blog-card-time">{activeArticle.readTime}</span>
+            </div>
+
+            <h2 className="blog-modal-title">{activeArticle.title}</h2>
+
+            <div className="blog-modal-author-row">
+              <span>{activeArticle.date}</span>
+              <span>•</span>
+              <span>{activeArticle.readTime}</span>
+              <span>•</span>
+              <span>XentroX Solutions</span>
+            </div>
+
+            <div className="blog-modal-content">
+              {activeArticle.content}
+            </div>
+
+            <div className="blog-modal-footer">
+              <button
+                type="button"
+                onClick={() => setActiveArticle(null)}
+                className="blog-modal-done-btn"
+              >
+                Close Article
+              </button>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
