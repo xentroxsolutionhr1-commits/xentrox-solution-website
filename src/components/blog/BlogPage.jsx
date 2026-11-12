@@ -166,6 +166,7 @@ export default function BlogPage() {
                 alt=""
                 className="blog-hero-art-img"
                 loading="eager"
+                decoding="async"
               />
               <div className="blog-hero-art-scrim" />
             </div>
@@ -225,6 +226,7 @@ export default function BlogPage() {
                         alt={article.title}
                         className="blog-card-img"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="blog-card-category-overlay">
                         <span className="blog-card-category">{article.category}</span>

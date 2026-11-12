@@ -55,6 +55,10 @@ const Routes = [
         element: <ServicesPage />,
       },
       {
+        path: 'services/:category',
+        element: <ServicesPage />,
+      },
+      {
         path: 'projects',
         element: <ProjectsPage />,
       },

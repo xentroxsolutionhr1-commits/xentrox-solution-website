@@ -1,26 +1,46 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 import { MessageCircle } from 'lucide-react';
 
 export default function FloatingActionWidgets() {
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const location = useLocation();
+  const circleRef = useRef(null);
+  const tooltipRef = useRef(null);
+
+  // SVG Circular progress constants
+  const size = 48; // px
+  const strokeWidth = 3.5;
+  const radius = (size - strokeWidth) / 2; // ~22.25
+  const circumference = 2 * Math.PI * radius; // ~139.8
 
   useEffect(() => {
     let ticking = false;
 
+    const updateProgress = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      const clamped = Math.min(100, Math.max(0, progress));
+      const offset = circumference - (clamped / 100) * circumference;
+
+      if (circleRef.current) {
+        circleRef.current.style.strokeDashoffset = `${offset}`;
+      }
+      if (tooltipRef.current) {
+        tooltipRef.current.textContent = `Back to top (${Math.round(clamped)}%)`;
+      }
+
+      // Hide on top fold, show once scrolled past 260px; only set state when value actually changes
+      const shouldShow = scrollTop > 260;
+      setShowScrollTop((prev) => (prev !== shouldShow ? shouldShow : prev));
+    };
+
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const scrollTop = window.scrollY || document.documentElement.scrollTop;
-          const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-
-          setScrollProgress(Math.min(100, Math.max(0, progress)));
-          // Hide on the first screen / top fold of each page; show once scrolled past 260px
-          setShowScrollTop(scrollTop > 260);
+          updateProgress();
           ticking = false;
         });
         ticking = true;
@@ -28,7 +48,7 @@ export default function FloatingActionWidgets() {
     };
 
     // Initialize check
-    handleScroll();
+    updateProgress();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll);
@@ -37,7 +57,7 @@ export default function FloatingActionWidgets() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, [location.pathname]);
+  }, [location.pathname, circumference]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -45,13 +65,6 @@ export default function FloatingActionWidgets() {
       behavior: 'smooth',
     });
   };
-
-  // SVG Circular progress constants
-  const size = 48; // px
-  const strokeWidth = 3.5;
-  const radius = (size - strokeWidth) / 2; // ~22.25
-  const circumference = 2 * Math.PI * radius; // ~139.8
-  const strokeDashoffset = circumference - (scrollProgress / 100) * circumference;
 
   return (
     <aside
@@ -88,6 +101,7 @@ export default function FloatingActionWidgets() {
           />
           {/* Active progress stroke ring */}
           <circle
+            ref={circleRef}
             cx={size / 2}
             cy={size / 2}
             r={radius}
@@ -95,7 +109,7 @@ export default function FloatingActionWidgets() {
             stroke="currentColor"
             strokeWidth={strokeWidth}
             strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
+            strokeDashoffset={circumference}
             strokeLinecap="round"
             className="text-[#84cc16] transition-[stroke-dashoffset] duration-150 ease-out"
           />
@@ -107,8 +121,11 @@ export default function FloatingActionWidgets() {
         </span>
 
         {/* Hover Tooltip (Desktop) */}
-        <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-slate-900/90 px-2.5 py-1 text-[11px] font-semibold text-white shadow-md opacity-0 transition-opacity duration-200 sm:group-hover:opacity-100 lg:inline-block">
-          Back to top ({Math.round(scrollProgress)}%)
+        <span
+          ref={tooltipRef}
+          className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg bg-slate-900/90 px-2.5 py-1 text-[11px] font-semibold text-white shadow-md opacity-0 transition-opacity duration-200 sm:group-hover:opacity-100 lg:inline-block"
+        >
+          Back to top (0%)
         </span>
       </button>
 

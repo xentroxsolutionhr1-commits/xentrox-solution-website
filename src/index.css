@@ -312,7 +312,6 @@ html:hover::-webkit-scrollbar-thumb:hover {
 
 [data-scroll-reveal-enabled='true'] [data-scroll-reveal] {
   opacity: 0;
-  will-change: opacity, transform;
 }
 
 [data-scroll-reveal-enabled='true'] [data-scroll-reveal].is-in-view {

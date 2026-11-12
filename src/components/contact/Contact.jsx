@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 import './Contact.css';
@@ -18,34 +18,71 @@ const contactDetails = {
   phoneHref: '+919876543210',
 };
 
+function mapServiceParamToOption(serviceParam) {
+  if (!serviceParam) return '';
+  if (serviceOptions.includes(serviceParam)) return serviceParam;
+  const normalized = serviceParam.toLowerCase();
+  if (/mobile|api integration|maintenance/.test(normalized)) return 'Mobile Product / App';
+  if (/website|react|node\.js|web app/.test(normalized)) return 'Web & App Development';
+  if (/brand|graphic|logo|video|photography/.test(normalized)) return 'Branding & UI/UX Design';
+  if (/seo|content marketing|social media|facebook|instagram|linkedin|google ads/.test(normalized)) {
+    return 'SEO & Organic Growth';
+  }
+  return 'Custom Software / Retainer';
+}
+
+function getQueryPrefill(planParam, serviceParam) {
+  if (planParam) {
+    const planName = planParam.charAt(0).toUpperCase() + planParam.slice(1);
+    return {
+      service: 'Custom Software / Retainer',
+      message: `Hi, I would like to get started with the ${planName} Plan.`,
+    };
+  }
+  if (serviceParam) {
+    return {
+      service: mapServiceParamToOption(serviceParam),
+      message: `Hi, I would like to learn more about ${serviceParam}.`,
+    };
+  }
+  return { service: '', message: '' };
+}
+
 export default function Contact() {
   const [searchParams] = useSearchParams();
   const planParam = searchParams.get('plan');
+  const serviceParam = searchParams.get('service');
+  const queryKey = `${planParam || ''}|${serviceParam || ''}`;
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    service: '',
-    message: '',
+  const [prevQueryKey, setPrevQueryKey] = useState(queryKey);
+  const [formData, setFormData] = useState(() => {
+    const prefill = getQueryPrefill(planParam, serviceParam);
+    return {
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      service: prefill.service,
+      message: prefill.message,
+    };
   });
+
+  if (prevQueryKey !== queryKey) {
+    setPrevQueryKey(queryKey);
+    const prefill = getQueryPrefill(planParam, serviceParam);
+    if (prefill.service || prefill.message) {
+      setFormData((prev) => ({
+        ...prev,
+        service: prefill.service || prev.service,
+        message: prev.message || prefill.message,
+      }));
+    }
+  }
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
-
-  useEffect(() => {
-    if (planParam) {
-      const planName = planParam.charAt(0).toUpperCase() + planParam.slice(1);
-      setFormData((prev) => ({
-        ...prev,
-        service: 'Custom Software / Retainer',
-        message: prev.message || `Hi, I would like to get started with the ${planName} Plan.`,
-      }));
-    }
-  }, [planParam]);
 
   const validate = () => {
     const errs = {};
@@ -139,6 +176,7 @@ export default function Contact() {
             alt="XentroX digital workspace"
             className="contact-hero-bg-photo"
             loading="eager"
+            decoding="async"
           />
           <div className="contact-hero-bg-gradient-overlay" />
         </div>

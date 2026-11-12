@@ -17,78 +17,70 @@ function FullLayout() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) return undefined;
 
-    // Track scroll direction for bidirectional animations
-    let lastScrollY = window.scrollY;
-    let isScrollingDown = true;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      isScrollingDown = currentScrollY >= lastScrollY;
-      lastScrollY = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
     const animations = new Map();
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const target = entry.target;
-        const wasInView = target.classList.contains('is-in-view');
-        if (entry.isIntersecting === wasInView) return;
+        if (!entry.isIntersecting) return;
 
-        target.classList.toggle('is-in-view', entry.isIntersecting);
+        // Unobserve immediately so fast scrolling doesn't restart mid-flight reveals
+        observer.unobserve(target);
 
         // Directional offsets
         let fromX = 0;
-        if (target.dataset.revealFrom === 'left') fromX = -32;
-        else if (target.dataset.revealFrom === 'right') fromX = 32;
+        if (target.dataset.revealFrom === 'left') fromX = -28;
+        else if (target.dataset.revealFrom === 'right') fromX = 28;
 
-        const fromY = isScrollingDown ? 36 : -36;
-        const exitY = isScrollingDown ? -24 : 24;
+        const fromY = target.dataset.revealFrom === 'bottom' ? 28 : 22;
 
         animations.get(target)?.pause();
         animations.delete(target);
 
-        if (entry.isIntersecting) {
-          // Entering viewport: glide in with luxury fade
-          const animation = animate(target, {
-            opacity: [0, 1],
-            translateX: fromX !== 0 ? [fromX, 0] : 0,
-            translateY: [fromY, 0],
-            delay: Number.parseFloat(getComputedStyle(target).getPropertyValue('--reveal-delay')) || 0,
-            duration: 750,
-            ease: 'outCubic',
-          });
-          animations.set(target, animation);
-        } else {
-          // Exiting viewport: smoothly fade out so reverse scroll re-triggers cleanly
-          const animation = animate(target, {
-            opacity: [1, 0],
-            translateX: fromX !== 0 ? [0, fromX] : 0,
-            translateY: [0, exitY],
-            duration: 480,
-            ease: 'outCubic',
-          });
-          animations.set(target, animation);
-        }
+        // Temporarily promote to GPU layer only while actively animating in
+        target.style.willChange = 'opacity, transform';
+
+        const delayVal = Number.parseFloat(getComputedStyle(target).getPropertyValue('--reveal-delay')) || 0;
+
+        const animation = animate(target, {
+          opacity: [0, 1],
+          translateX: fromX !== 0 ? [fromX, 0] : 0,
+          translateY: [fromY, 0],
+          delay: delayVal,
+          duration: 520,
+          ease: 'outCubic',
+          onComplete: () => {
+            // Once revealed, clear transform and willChange so the element merges
+            // back into the static page raster without lingering composited layers or blur.
+            target.style.willChange = 'auto';
+            target.style.transform = '';
+            target.style.opacity = '';
+            target.classList.add('is-in-view');
+            animations.delete(target);
+          },
+        });
+        animations.set(target, animation);
       });
     }, {
-      threshold: 0.08,
-      rootMargin: '0px 0px -5% 0px',
+      threshold: 0.05,
+      rootMargin: '0px 0px 40px 0px',
     });
 
     const observedTargets = new WeakSet();
     const observeTargets = (node) => {
       if (!(node instanceof Element)) return;
 
-      if (node.matches('[data-scroll-reveal]') && !observedTargets.has(node)) {
+      if (
+        node.matches('[data-scroll-reveal]') &&
+        !observedTargets.has(node) &&
+        !node.classList.contains('is-in-view')
+      ) {
         observedTargets.add(node);
         observer.observe(node);
       }
 
       node.querySelectorAll('[data-scroll-reveal]').forEach((target) => {
-        if (observedTargets.has(target)) return;
+        if (observedTargets.has(target) || target.classList.contains('is-in-view')) return;
         observedTargets.add(target);
         observer.observe(target);
       });
@@ -105,10 +97,15 @@ function FullLayout() {
     mutationObserver.observe(root, { childList: true, subtree: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       mutationObserver.disconnect();
       observer.disconnect();
-      animations.forEach((animation) => animation.pause());
+      animations.forEach((animation, target) => {
+        animation.pause();
+        target.style.willChange = 'auto';
+        target.style.transform = '';
+        target.style.opacity = '';
+      });
+      animations.clear();
       delete root.dataset.scrollRevealEnabled;
     };
   }, [location.key]);

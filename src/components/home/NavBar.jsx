@@ -16,7 +16,7 @@ export default function Navbar({ onOpenEnroll }) {
     pathname === '/enroll' ||
     pathname === '/contact' ||
     pathname === '/portfolio' ||
-    pathname === '/services' ||
+    pathname.startsWith('/services') ||
     pathname === '/careers' ||
     pathname === '/about' ||
     pathname === '/pricing' ||
@@ -28,7 +28,10 @@ export default function Navbar({ onOpenEnroll }) {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 15);
+    const onScroll = () => {
+      const next = window.scrollY > 15;
+      setScrolled((prev) => (prev !== next ? next : prev));
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -88,11 +91,11 @@ export default function Navbar({ onOpenEnroll }) {
           - min-h scales: 3.75rem phone → 4rem tablet → 4.25rem desktop
         */}
         <div
-          className={`pointer-events-auto relative mx-auto flex min-h-[3.5rem] w-full max-w-[1240px] items-center justify-between gap-3 rounded-2xl px-4 py-1.5 transition-all duration-300 sm:min-h-[3.75rem] sm:rounded-full sm:px-6 sm:gap-4 xl:min-h-[4rem] xl:grid xl:grid-cols-[auto_1fr_auto] xl:px-7 xl:gap-6 2xl:max-w-[1320px] 2xl:px-8 ${
+          className={`pointer-events-auto relative mx-auto flex min-h-[3.5rem] w-full max-w-[1240px] items-center justify-between gap-3 rounded-2xl px-4 py-1.5 transition-[background-color,border-color,box-shadow] duration-300 sm:min-h-[3.75rem] sm:rounded-full sm:px-6 sm:gap-4 xl:min-h-[4rem] xl:grid xl:grid-cols-[auto_1fr_auto] xl:px-7 xl:gap-6 2xl:max-w-[1320px] 2xl:px-8 ${
             isLightNav ? 'text-[#062c23]' : 'text-white'
           } ${
             scrolled
-              ? 'border border-white/70 bg-white/90 shadow-lg shadow-emerald-950/10 backdrop-blur-xl'
+              ? 'border border-white/70 bg-white/92 shadow-md shadow-emerald-950/10 backdrop-blur-md'
               : 'border-transparent bg-transparent shadow-none backdrop-blur-none'
           }`}
         >

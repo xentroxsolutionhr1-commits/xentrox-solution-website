@@ -1124,7 +1124,7 @@ const clientTestimonials = [
   },
 ];
 
-function MagneticLink({ to, variant, children, onClick }) {
+function MagneticLink({ to, variant, children, onClick, className = '' }) {
   const handlePointerMove = (event) => {
     if (
       event.pointerType !== 'mouse' ||
@@ -1143,10 +1143,10 @@ function MagneticLink({ to, variant, children, onClick }) {
 
   const variantClasses = variant === 'primary'
     ? 'border border-emerald-950/20 bg-[#064B38] text-white shadow-md shadow-emerald-950/15 hover:bg-[#083e30] hover:shadow-lg'
-    : 'border border-emerald-900/20 bg-white/90 text-[#062c23] shadow-xs backdrop-blur-md hover:border-emerald-800/40 hover:bg-white';
+    : 'border border-emerald-900/20 bg-white/95 text-[#062c23] shadow-xs hover:border-emerald-800/40 hover:bg-white';
 
   const isHash = typeof to === 'string' && to.startsWith('#');
-  const commonClasses = `inline-flex min-h-[2.65rem] sm:min-h-[2.9rem] cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-2 text-[0.84rem] sm:text-[0.88rem] font-semibold no-underline transition-[transform,background-color,border-color,box-shadow,color] duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a3e635] sm:px-6 sm:py-2.5 ${variantClasses}`;
+  const commonClasses = `inline-flex min-h-[2.65rem] sm:min-h-[2.9rem] cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-2 text-[0.84rem] sm:text-[0.88rem] font-semibold no-underline transition-[transform,background-color,border-color,box-shadow,color] duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a3e635] sm:px-6 sm:py-2.5 ${variantClasses} ${className}`;
 
   if (isHash) {
     return (
@@ -1241,7 +1241,7 @@ function Dashboard() {
       {/* SECTION 1: HERO LANDING */}
       {/* ========================================================================= */}
       <section
-        className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex w-screen flex-col justify-between overflow-hidden bg-[#eef8f2] text-[#062c23] max-sm:-mt-20 max-sm:min-h-[490px] sm:min-h-[100svh] pt-24 pb-12 max-sm:pb-8 sm:pt-32 sm:pb-14 lg:pt-36 lg:pb-0"
+        className="relative isolate left-1/2 -ml-[50vw] -mt-24 flex w-screen flex-col justify-between overflow-hidden bg-[#eef8f2] text-[#062c23] max-sm:-mt-20 max-sm:min-h-0 pt-24 pb-12 max-sm:pb-12 sm:min-h-[100svh] sm:pt-32 sm:pb-14 lg:pt-36 lg:pb-0"
       >
         {/* Hero Background Image */}
         <div
@@ -1305,7 +1305,7 @@ function Dashboard() {
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute inset-x-0 -bottom-8 z-[2] h-20 opacity-80 blur-xl sm:-bottom-10 sm:h-28 sm:blur-2xl"
+          className="pointer-events-none absolute inset-x-0 -bottom-8 z-[2] h-20 opacity-80 sm:-bottom-10 sm:h-28"
           style={{
             background:
               'radial-gradient(ellipse 70% 100% at 48% 50%, rgba(142, 228, 170, 0.45) 0%, rgba(235, 245, 238, 0) 75%)',
@@ -1330,33 +1330,53 @@ function Dashboard() {
             </h1>
 
             {/* Action Buttons */}
-            <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-7">
-              <MagneticLink to="/enroll" variant="primary">
-                Get Started
-                <Icon name="arrowRight" size={15} />
-              </MagneticLink>
+            <div className="mt-6 flex w-full flex-wrap items-center justify-start gap-3 sm:mt-7">
+              <span className="hidden sm:inline-flex">
+                <MagneticLink to="/enroll" variant="primary">
+                  Get Started
+                  <Icon name="arrowRight" size={15} />
+                </MagneticLink>
+              </span>
               <MagneticLink to="/services" variant="secondary">
                 Our Services
                 <Icon name="arrowRight" size={15} />
               </MagneticLink>
             </div>
 
-            {/* Stats Counter Row (Blended directly on the page, no card container) */}
+            {/* Stats Counter Row (Clean 3-column horizontal layout on mobile, horizontal flex on desktop) */}
             <div
               ref={heroStatsRef}
-              className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4 sm:mt-9 sm:flex sm:flex-wrap sm:items-center sm:gap-7"
+              className="mt-5 grid grid-cols-3 gap-2 w-full max-sm:max-w-md max-sm:mx-auto sm:mt-9 sm:flex sm:flex-wrap sm:items-center sm:gap-7 sm:w-auto sm:max-w-none"
               role="group"
               aria-label="XentroX in numbers"
             >
               {heroStatistics.map(({ value, suffix, label }, idx) => (
-                <div key={label} className="flex items-center gap-5 sm:gap-7">
-                  <div className="text-left">
-                    <p className="m-0 text-2xl font-bold leading-none tracking-tight text-[#062c23] sm:text-[1.75rem]">
+                <div
+                  key={label}
+                  className="flex items-center justify-center sm:justify-start gap-0 sm:gap-7"
+                >
+                  <div className="text-center sm:text-left w-full sm:w-auto">
+                    <p className="m-0 text-[1.25rem] font-bold leading-none tracking-tight text-[#062c23] sm:text-[1.75rem]">
                       <span data-stat-count={value}>0</span>
                       <span className="text-[#16a34a]">{suffix}</span>
                     </p>
-                    <p className="mb-0 mt-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#062c23]/65 sm:text-[10px]">
-                      {label}
+                    <p className="mb-0 mt-1.5 text-[7.5px] font-bold uppercase tracking-[0.05em] text-[#062c23]/70 sm:text-[10px] sm:tracking-[0.14em]">
+                      {idx === 0 ? (
+                        <>
+                          <span className="block sm:inline">PROJECTS </span>
+                          <span className="block sm:inline">DELIVERED</span>
+                        </>
+                      ) : idx === 1 ? (
+                        <>
+                          <span className="block sm:inline">CLIENT </span>
+                          <span className="block sm:inline">SATISFACTION</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="block sm:inline">INDUSTRIES </span>
+                          <span className="block sm:inline">SERVED</span>
+                        </>
+                      )}
                     </p>
                   </div>
                   {idx < heroStatistics.length - 1 && (
@@ -1407,31 +1427,39 @@ function Dashboard() {
 
           {/* Soft-Focus Botanical Palm & Leaf Shadows (Top-Right & Right Edge) */}
           <svg
-            className="absolute -top-10 -right-8 h-[115%] w-[680px] text-[#5e7d68]/24 blur-[7px]"
+            className="pointer-events-none absolute -top-10 -right-8 h-[115%] w-[680px] text-[#5e7d68]/24"
             viewBox="0 0 700 700"
             fill="currentColor"
+            aria-hidden="true"
           >
-            {/* Main arching palm frond shadow */}
-            <path d="M710,40 C580,10 430,45 310,120 C410,95 530,85 680,105 Z" />
-            {/* Individual botanical leaflets */}
-            <ellipse cx="420" cy="42" rx="85" ry="11" transform="rotate(-24 420 42)" />
-            <ellipse cx="475" cy="54" rx="95" ry="12" transform="rotate(-18 475 54)" />
-            <ellipse cx="535" cy="70" rx="102" ry="13" transform="rotate(-12 535 70)" />
-            <ellipse cx="385" cy="96" rx="82" ry="10" transform="rotate(18 385 96)" />
-            <ellipse cx="445" cy="112" rx="98" ry="12" transform="rotate(22 445 112)" />
-            <ellipse cx="510" cy="128" rx="108" ry="13" transform="rotate(26 510 128)" />
-            <ellipse cx="575" cy="145" rx="110" ry="13" transform="rotate(30 575 145)" />
-            {/* Second lower right frond shadow */}
-            <path d="M720,210 C610,175 495,195 405,255 C485,235 590,235 705,260 Z" />
-            <ellipse cx="515" cy="198" rx="88" ry="11" transform="rotate(-16 515 198)" />
-            <ellipse cx="575" cy="212" rx="96" ry="12" transform="rotate(-10 575 212)" />
-            <ellipse cx="490" cy="252" rx="92" ry="11" transform="rotate(24 490 252)" />
-            <ellipse cx="555" cy="272" rx="104" ry="12" transform="rotate(28 555 272)" />
-            <ellipse cx="620" cy="294" rx="108" ry="13" transform="rotate(32 620 294)" />
-            {/* Soft vertical window mullion shadow */}
-            <rect x="335" y="0" width="24" height="700" fill="currentColor" fillOpacity="0.32" />
-            <rect x="520" y="0" width="28" height="700" fill="currentColor" fillOpacity="0.28" />
-            <rect x="335" y="340" width="380" height="18" fill="currentColor" fillOpacity="0.22" />
+            <defs>
+              <filter id="hero-leaf-blur" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3.5" />
+              </filter>
+            </defs>
+            <g filter="url(#hero-leaf-blur)">
+              {/* Main arching palm frond shadow */}
+              <path d="M710,40 C580,10 430,45 310,120 C410,95 530,85 680,105 Z" />
+              {/* Individual botanical leaflets */}
+              <ellipse cx="420" cy="42" rx="85" ry="11" transform="rotate(-24 420 42)" />
+              <ellipse cx="475" cy="54" rx="95" ry="12" transform="rotate(-18 475 54)" />
+              <ellipse cx="535" cy="70" rx="102" ry="13" transform="rotate(-12 535 70)" />
+              <ellipse cx="385" cy="96" rx="82" ry="10" transform="rotate(18 385 96)" />
+              <ellipse cx="445" cy="112" rx="98" ry="12" transform="rotate(22 445 112)" />
+              <ellipse cx="510" cy="128" rx="108" ry="13" transform="rotate(26 510 128)" />
+              <ellipse cx="575" cy="145" rx="110" ry="13" transform="rotate(30 575 145)" />
+              {/* Second lower right frond shadow */}
+              <path d="M720,210 C610,175 495,195 405,255 C485,235 590,235 705,260 Z" />
+              <ellipse cx="515" cy="198" rx="88" ry="11" transform="rotate(-16 515 198)" />
+              <ellipse cx="575" cy="212" rx="96" ry="12" transform="rotate(-10 575 212)" />
+              <ellipse cx="490" cy="252" rx="92" ry="11" transform="rotate(24 490 252)" />
+              <ellipse cx="555" cy="272" rx="104" ry="12" transform="rotate(28 555 272)" />
+              <ellipse cx="620" cy="294" rx="108" ry="13" transform="rotate(32 620 294)" />
+              {/* Soft vertical window mullion shadow */}
+              <rect x="335" y="0" width="24" height="700" fill="currentColor" fillOpacity="0.32" />
+              <rect x="520" y="0" width="28" height="700" fill="currentColor" fillOpacity="0.28" />
+              <rect x="335" y="340" width="380" height="18" fill="currentColor" fillOpacity="0.22" />
+            </g>
           </svg>
         </div>
 
@@ -1493,6 +1521,7 @@ function Dashboard() {
                     alt="Diverse XentroX team collaborating naturally in a sunlit studio"
                     className="block h-auto w-full max-w-[500px] object-cover mix-blend-multiply"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
@@ -1798,11 +1827,6 @@ function Dashboard() {
                               ))}
                             </div>
 
-                            {/* Description */}
-                            <p className="mt-3.5 text-xs leading-relaxed text-[#334155] sm:text-[13px]">
-                              {industry.description}
-                            </p>
-
                             {/* Industry-Specific Chart (Mobile/Tablet) */}
                             <IndustryChart industry={industry} idPrefix="mobile" />
                           </div>
@@ -1855,11 +1879,6 @@ function Dashboard() {
                   </div>
                 ))}
               </div>
-
-              {/* Description Paragraph */}
-              <p className="mt-5 text-xs leading-relaxed text-[#334155] sm:text-[13.5px]">
-                {activeIndustry.description}
-              </p>
 
               {/* Industry-Specific Chart (Desktop) */}
               <IndustryChart industry={activeIndustry} idPrefix="desktop" />
@@ -2061,7 +2080,11 @@ function Dashboard() {
       >
         {/* Soft Ambient Luminous Backdrop */}
         <div
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[38rem] rounded-full bg-[#7ed99a]/18 blur-[130px]"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[38rem] rounded-full"
+          style={{
+            background:
+              'radial-gradient(circle, rgba(126, 217, 154, 0.22) 0%, rgba(126, 217, 154, 0.12) 35%, transparent 70%)',
+          }}
           aria-hidden="true"
         />
 

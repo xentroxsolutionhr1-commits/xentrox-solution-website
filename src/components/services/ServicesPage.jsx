@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import './ServicesPage.css';
 
 const SvcIcon = ({ children }) => (
@@ -496,43 +496,67 @@ const serviceCategories = [
   },
 ];
 
-export default function ServicesPage() {
-  const { hash } = useLocation();
-  const [activeCategory, setActiveCategory] = useState('seo');
-  const [activeItemId, setActiveItemId] = useState('technical-seo');
+const categoryAliases = {
+  seo: 'seo',
+  content: 'seo',
+  'search-engine-optimization': 'seo',
+  smm: 'smm',
+  social: 'smm',
+  'social-media': 'smm',
+  branding: 'branding',
+  design: 'branding',
+  webdev: 'webdev',
+  web: 'webdev',
+  development: 'webdev',
+  'website-development': 'webdev',
+  appdev: 'appdev',
+  mobile: 'appdev',
+  app: 'appdev',
+  'mobile-app-development': 'appdev',
+  consulting: 'consulting',
+  growth: 'consulting',
+  'digital-consulting': 'consulting',
+};
 
-  // Sync with URL hash if navigated with #seo, #smm, #branding, #webdev, #appdev, #consulting
-  useEffect(() => {
-    if (hash) {
-      const cleanHash = hash.replace('#', '').toLowerCase();
-      if (cleanHash === 'seo' || cleanHash === 'content') {
-        setActiveCategory('seo');
-        setActiveItemId('technical-seo');
-      } else if (cleanHash === 'smm' || cleanHash === 'social') {
-        setActiveCategory('smm');
-        setActiveItemId('instagram-marketing');
-      } else if (cleanHash === 'branding' || cleanHash === 'design') {
-        setActiveCategory('branding');
-        setActiveItemId('logo-design');
-      } else if (cleanHash === 'webdev' || cleanHash === 'web' || cleanHash === 'development') {
-        setActiveCategory('webdev');
-        setActiveItemId('react-development');
-      } else if (cleanHash === 'appdev' || cleanHash === 'mobile' || cleanHash === 'app') {
-        setActiveCategory('appdev');
-        setActiveItemId('mobile-app-development');
-      } else if (cleanHash === 'consulting' || cleanHash === 'growth') {
-        setActiveCategory('consulting');
-        setActiveItemId('lead-generation');
-      }
-    }
-  }, [hash]);
+function resolveServiceCategory(slug) {
+  if (!slug) return null;
+  const normalized = slug.replace(/^#/, '').trim().toLowerCase();
+  return categoryAliases[normalized] || null;
+}
+
+export default function ServicesPage() {
+  const { category } = useParams();
+  const { key, hash, state } = useLocation();
+  const navigate = useNavigate();
+  const editorialRef = useRef(null);
+
+  const urlCategoryId = resolveServiceCategory(category) || resolveServiceCategory(hash);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(serviceCategories[0].id);
+  const activeCategory = urlCategoryId || selectedCategoryId;
 
   const currentCategory =
     serviceCategories.find((cat) => cat.id === activeCategory) || serviceCategories[0];
 
+  const [hoveredItemId, setHoveredItemId] = useState(currentCategory.defaultActiveItem);
+  const activeItemId = currentCategory.items.some((item) => item.id === hoveredItemId)
+    ? hoveredItemId
+    : currentCategory.defaultActiveItem;
+
+  // Smoothly bring the chosen service section into view when arriving from a footer/deep link
+  useEffect(() => {
+    if (!urlCategoryId || state?.preserveScroll) return undefined;
+
+    const timer = window.setTimeout(() => {
+      editorialRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
+
+    return () => window.clearTimeout(timer);
+  }, [urlCategoryId, key, state]);
+
   const handleSelectCategory = (cat) => {
-    setActiveCategory(cat.id);
-    setActiveItemId(cat.defaultActiveItem);
+    setSelectedCategoryId(cat.id);
+    setHoveredItemId(cat.defaultActiveItem);
+    navigate(`/services/${cat.id}`, { state: { preserveScroll: true } });
   };
 
   return (
@@ -584,6 +608,8 @@ export default function ServicesPage() {
       {/* 2. EDITORIAL INTERACTIVE SERVICES SECTION BELOW BANNER */}
       <section
         id={currentCategory.id}
+        ref={editorialRef}
+        style={{ scrollMarginTop: '5.5rem' }}
         className="services-editorial-section"
         aria-label={currentCategory.sectionTitle}
       >
@@ -594,18 +620,25 @@ export default function ServicesPage() {
           fill="currentColor"
           aria-hidden="true"
         >
-          <path d="M575,15 C445,35 335,88 250,165 C345,120 450,92 565,85 Z" />
-          <ellipse cx="355" cy="48" rx="76" ry="10" transform="rotate(-26 355 48)" />
-          <ellipse cx="412" cy="66" rx="84" ry="11" transform="rotate(-16 412 66)" />
-          <ellipse cx="320" cy="118" rx="80" ry="10" transform="rotate(-30 320 118)" />
-          <ellipse cx="378" cy="144" rx="90" ry="11.5" transform="rotate(-12 378 144)" />
-          <ellipse cx="440" cy="170" rx="94" ry="12" transform="rotate(10 440 170)" />
-          <ellipse cx="486" cy="202" rx="96" ry="12" transform="rotate(24 486 202)" />
-          <path d="M580,235 C475,265 390,325 328,408 C405,358 490,332 575,325 Z" />
-          <ellipse cx="420" cy="268" rx="82" ry="10.5" transform="rotate(-32 420 268)" />
-          <ellipse cx="385" cy="326" rx="86" ry="11" transform="rotate(-20 385 326)" />
-          <ellipse cx="445" cy="360" rx="92" ry="11.5" transform="rotate(-4 445 360)" />
-          <ellipse cx="485" cy="402" rx="96" ry="12" transform="rotate(18 485 402)" />
+          <defs>
+            <filter id="services-leaf-blur-tr" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3.5" />
+            </filter>
+          </defs>
+          <g filter="url(#services-leaf-blur-tr)">
+            <path d="M575,15 C445,35 335,88 250,165 C345,120 450,92 565,85 Z" />
+            <ellipse cx="355" cy="48" rx="76" ry="10" transform="rotate(-26 355 48)" />
+            <ellipse cx="412" cy="66" rx="84" ry="11" transform="rotate(-16 412 66)" />
+            <ellipse cx="320" cy="118" rx="80" ry="10" transform="rotate(-30 320 118)" />
+            <ellipse cx="378" cy="144" rx="90" ry="11.5" transform="rotate(-12 378 144)" />
+            <ellipse cx="440" cy="170" rx="94" ry="12" transform="rotate(10 440 170)" />
+            <ellipse cx="486" cy="202" rx="96" ry="12" transform="rotate(24 486 202)" />
+            <path d="M580,235 C475,265 390,325 328,408 C405,358 490,332 575,325 Z" />
+            <ellipse cx="420" cy="268" rx="82" ry="10.5" transform="rotate(-32 420 268)" />
+            <ellipse cx="385" cy="326" rx="86" ry="11" transform="rotate(-20 385 326)" />
+            <ellipse cx="445" cy="360" rx="92" ry="11.5" transform="rotate(-4 445 360)" />
+            <ellipse cx="485" cy="402" rx="96" ry="12" transform="rotate(18 485 402)" />
+          </g>
         </svg>
 
         <svg
@@ -614,15 +647,22 @@ export default function ServicesPage() {
           fill="currentColor"
           aria-hidden="true"
         >
-          <path d="M-25,110 C85,138 185,192 258,272 C168,225 72,198 -20,190 Z" />
-          <ellipse cx="138" cy="145" rx="74" ry="9.5" transform="rotate(26 138 145)" />
-          <ellipse cx="86" cy="168" rx="82" ry="10.5" transform="rotate(16 86 168)" />
-          <ellipse cx="168" cy="216" rx="78" ry="10" transform="rotate(30 168 216)" />
-          <ellipse cx="114" cy="244" rx="88" ry="11" transform="rotate(12 114 244)" />
-          <path d="M-30,305 C65,332 142,388 198,465 C124,420 48,395 -25,388 Z" />
-          <ellipse cx="92" cy="338" rx="76" ry="10" transform="rotate(32 92 338)" />
-          <ellipse cx="126" cy="392" rx="80" ry="10.5" transform="rotate(20 126 392)" />
-          <ellipse cx="72" cy="428" rx="86" ry="11" transform="rotate(4 72 428)" />
+          <defs>
+            <filter id="services-leaf-blur-bl" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3.5" />
+            </filter>
+          </defs>
+          <g filter="url(#services-leaf-blur-bl)">
+            <path d="M-25,110 C85,138 185,192 258,272 C168,225 72,198 -20,190 Z" />
+            <ellipse cx="138" cy="145" rx="74" ry="9.5" transform="rotate(26 138 145)" />
+            <ellipse cx="86" cy="168" rx="82" ry="10.5" transform="rotate(16 86 168)" />
+            <ellipse cx="168" cy="216" rx="78" ry="10" transform="rotate(30 168 216)" />
+            <ellipse cx="114" cy="244" rx="88" ry="11" transform="rotate(12 114 244)" />
+            <path d="M-30,305 C65,332 142,388 198,465 C124,420 48,395 -25,388 Z" />
+            <ellipse cx="92" cy="338" rx="76" ry="10" transform="rotate(32 92 338)" />
+            <ellipse cx="126" cy="392" rx="80" ry="10.5" transform="rotate(20 126 392)" />
+            <ellipse cx="72" cy="428" rx="86" ry="11" transform="rotate(4 72 428)" />
+          </g>
         </svg>
 
         <div className="services-container services-editorial-container">
@@ -688,23 +728,26 @@ export default function ServicesPage() {
                     <Link
                       key={item.id}
                       to={`/contact?service=${encodeURIComponent(item.contactService)}`}
-                      onMouseEnter={() => setActiveItemId(item.id)}
-                      onFocus={() => setActiveItemId(item.id)}
+                      onMouseEnter={() => setHoveredItemId(item.id)}
+                      onFocus={() => setHoveredItemId(item.id)}
                       className={`services-editorial-card ${
                         isItemActive ? 'is-active' : ''
                       }`}
                     >
-                      <div className="services-editorial-icon-box" aria-hidden="true">
-                        {item.icon}
-                      </div>
+                      <div className="services-editorial-card-header">
+                        <div className="services-editorial-icon-box" aria-hidden="true">
+                          {item.icon}
+                        </div>
 
-                      <h3 className="services-editorial-card-title">
-                        {item.titleLines.map((line) => (
-                          <span key={line} className="block">
-                            {line}
-                          </span>
-                        ))}
-                      </h3>
+                        <h3 className="services-editorial-card-title">
+                          {item.titleLines.map((line, lIdx) => (
+                            <span key={line} className="services-editorial-title-line">
+                              {line}
+                              {lIdx < item.titleLines.length - 1 ? ' ' : ''}
+                            </span>
+                          ))}
+                        </h3>
+                      </div>
 
                       <p className="services-editorial-card-desc">
                         {item.description}

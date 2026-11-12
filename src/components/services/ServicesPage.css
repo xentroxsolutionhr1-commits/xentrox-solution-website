@@ -257,7 +257,6 @@
   z-index: 0;
   pointer-events: none;
   color: rgba(84, 126, 98, 0.22);
-  filter: blur(7px);
 }
 
 .services-botanical-shadow--top-right {
@@ -490,6 +489,15 @@
     0 4px 14px -4px rgba(12, 40, 26, 0.06);
 }
 
+/* Card Header: Row 1 - Icon on LEFT, Heading on RIGHT, vertically center-aligned */
+.services-editorial-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 16px */
+  width: 100%;
+  margin-bottom: 0.85rem;
+}
+
 /* Soft Rounded-Square Icon Box at Top-Left */
 .services-editorial-icon-box {
   width: 40px;
@@ -500,7 +508,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.35rem;
+  flex-shrink: 0;
+  margin-bottom: 0;
   transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
 }
 
@@ -511,19 +520,90 @@
 }
 
 .services-editorial-card-title {
-  margin: 0 0 0.65rem;
-  font-size: clamp(1.1rem, 1.35vw, 1.24rem);
+  margin: 0;
+  font-size: clamp(1.05rem, 1.25vw, 1.22rem);
   font-weight: 750;
   line-height: 1.24;
   letter-spacing: -0.015em;
   color: #0D2318;
+  flex: 1;
+  min-width: 0;
+}
+
+.services-editorial-title-line {
+  display: inline;
 }
 
 .services-editorial-card-desc {
   margin: 0;
-  max-width: 245px;
+  max-width: 100%;
+  width: 100%;
   font-size: 0.83rem;
   line-height: 1.58;
   font-weight: 450;
   color: #293B32;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE: SERVICES DETAILS LAYOUT
+   Row 1: Icon (Left) + Heading (Right) vertically center-aligned
+   Row 2: Description (Full-Width) below Row 1
+   ========================================================================== */
+@media (max-width: 640px) {
+  .services-editorial-cards-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1.15rem;
+  }
+
+  .services-editorial-card {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.82);
+    border: 1.5px solid rgba(18, 51, 33, 0.12);
+    padding: 1.15rem 1.25rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px -4px rgba(12, 40, 26, 0.05);
+  }
+
+  /* Row 1: Service icon on LEFT, heading on RIGHT, vertically center-aligned */
+  .services-editorial-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .services-editorial-icon-box {
+    margin-bottom: 0;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  .services-editorial-card-title {
+    margin: 0;
+    font-size: clamp(1.02rem, 4vw, 1.18rem);
+    font-weight: 750;
+    line-height: 1.24;
+    letter-spacing: -0.015em;
+    color: #0D2318;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .services-editorial-title-line {
+    display: inline;
+  }
+
+  /* Row 2: Description below icon and heading, occupying full available width */
+  .services-editorial-card-desc {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+    font-size: 0.85rem;
+    line-height: 1.58;
+    font-weight: 450;
+    color: #293B32;
+  }
 }

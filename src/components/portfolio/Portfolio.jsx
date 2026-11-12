@@ -167,6 +167,8 @@ export default function Portfolio() {
               src="/portfolio-hero-friendly-robot.png"
               alt=""
               className="pj-hero-bg-img"
+              loading="eager"
+              decoding="async"
             />
           </div>
 
@@ -243,6 +245,7 @@ export default function Portfolio() {
                     alt={project.projectName}
                     className="pj-card-img"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
 

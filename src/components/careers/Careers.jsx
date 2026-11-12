@@ -124,6 +124,7 @@ export default function Careers() {
             alt="XentroX digital agency team collaborating around a desk in modern office"
             className="careers-hero-bg-photo"
             loading="eager"
+            decoding="async"
           />
           <div className="careers-hero-bg-gradient-overlay" />
         </div>

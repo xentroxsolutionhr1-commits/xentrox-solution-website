@@ -8,24 +8,24 @@ const quickLinks = [
   ['/services', 'Services'],
   ['/portfolio', 'Portfolio'],
   ['/pricing', 'Pricing'],
-  ['/blogs', 'Blogs'],
+  ['/blog', 'Blogs'],
   ['/careers', 'Careers'],
   ['/contact', 'Contact Us'],
 ];
 
 const serviceLinks = [
-  ['/services#seo', 'Search Engine Optimization'],
-  ['/services#smm', 'Social Media & Meta Ads'],
-  ['/services#branding', 'Branding & Graphic Design'],
-  ['/services#webdev', 'Website Development'],
-  ['/services#appdev', 'Mobile App Development'],
-  ['/services#consulting', 'Digital Consulting'],
+  ['/services/seo', 'Search Engine Optimization'],
+  ['/services/smm', 'Social Media & Meta Ads'],
+  ['/services/branding', 'Branding & Graphic Design'],
+  ['/services/webdev', 'Website Development'],
+  ['/services/appdev', 'Mobile App Development'],
+  ['/services/consulting', 'Digital Consulting'],
 ];
 
 const socialLinks = [
   {
     label: 'Facebook',
-    href: 'https://xentroxsolutions.com/',
+    href: null,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="size-4">
         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -34,7 +34,7 @@ const socialLinks = [
   },
   {
     label: 'Instagram',
-    href: 'https://xentroxsolutions.com/',
+    href: 'https://www.instagram.com/xentrox_solutions/',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="size-4">
         <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -45,7 +45,7 @@ const socialLinks = [
   },
   {
     label: 'LinkedIn',
-    href: 'https://xentroxsolutions.com/',
+    href: null,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="size-4">
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -56,7 +56,7 @@ const socialLinks = [
   },
   {
     label: 'X (Twitter)',
-    href: 'https://xentroxsolutions.com/',
+    href: null,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="size-3.5">
         <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
@@ -127,18 +127,28 @@ export default function Footer() {
 
             {/* Social Media Buttons */}
             <div className="flex items-center gap-2.5 pt-1">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="flex size-9.5 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-[#D1E2D9] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#84CC16] hover:bg-[#84CC16] hover:text-[#041B14]"
-                >
-                  {social.icon}
-                </a>
-              ))}
+              {socialLinks.map((social) =>
+                social.href ? (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex size-9.5 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-[#D1E2D9] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#84CC16] hover:bg-[#84CC16] hover:text-[#041B14]"
+                  >
+                    {social.icon}
+                  </a>
+                ) : (
+                  <span
+                    key={social.label}
+                    aria-hidden="true"
+                    className="flex size-9.5 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-[#D1E2D9]"
+                  >
+                    {social.icon}
+                  </span>
+                ),
+              )}
             </div>
           </div>
 

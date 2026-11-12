@@ -51,6 +51,7 @@ export default function About() {
             alt="Corporate builders and leaders collaborating across modern cityscape"
             className="about-hero-bg-photo"
             loading="eager"
+            decoding="async"
           />
           <div className="about-hero-bg-gradient-overlay" />
         </div>
@@ -244,6 +245,8 @@ export default function About() {
                   src="/about/india-locations-map.png"
                   alt="India map highlighting Marthandam and Trivandrum studios"
                   className="about-philosophy-map-img"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -369,6 +372,7 @@ export default function About() {
                     alt={founder.name}
                     className="about-founder-img"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="about-founder-details">

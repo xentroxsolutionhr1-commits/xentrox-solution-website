@@ -136,6 +136,7 @@ export default function Pricing() {
             alt="Business professionals analyzing financial growth charts and investments"
             className="pricing-hero-bg-photo"
             loading="eager"
+            decoding="async"
           />
           <div className="pricing-hero-bg-gradient-overlay" />
         </div>
