@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
 import { Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 import './Portfolio.css';
@@ -101,7 +102,7 @@ export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('all');
 
   useEffect(() => {
-    fetch('/api/portfolio')
+   fetch(`${API_BASE_URL}/api/portfolio`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch portfolio');
         return res.json();

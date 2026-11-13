@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
 import Icon from '../shared/Icon.jsx';
 import './Careers.css';
 
@@ -55,7 +56,7 @@ export default function Careers() {
   const [appSuccess, setAppSuccess] = useState(false);
 
   useEffect(() => {
-    fetch('/api/careers')
+    fetch(`${API_BASE_URL}/api/careers`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch careers');
         return res.json();
@@ -87,7 +88,7 @@ export default function Careers() {
     if (!applyingJob) return;
     setAppSubmitting(true);
     try {
-      await fetch('/api/enquiries', {
+    await fetch(`${API_BASE_URL}/api/enquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

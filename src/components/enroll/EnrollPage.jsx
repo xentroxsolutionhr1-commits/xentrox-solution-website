@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
 import { useSearchParams, Link } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 
@@ -55,7 +56,7 @@ export default function EnrollPage() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await fetch('/api/enquiries', {
+    await fetch(`${API_BASE_URL}/api/enquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

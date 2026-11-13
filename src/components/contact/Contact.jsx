@@ -1,4 +1,5 @@
 import { useState } from 'react';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
 import { useSearchParams } from 'react-router-dom';
 import Icon from '../shared/Icon.jsx';
 import './Contact.css';
@@ -121,7 +122,7 @@ export default function Contact() {
         ? `[Company: ${formData.company.trim()}] ${formData.message.trim()}`
         : formData.message.trim();
 
-      const response = await fetch('/api/enquiries', {
+      const response = await fetch(`${API_BASE_URL}/api/enquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

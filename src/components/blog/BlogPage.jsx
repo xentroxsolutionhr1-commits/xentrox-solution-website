@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
 import { X } from 'lucide-react';
 import './BlogPage.css';
 
@@ -81,7 +82,7 @@ export default function BlogPage() {
 
   // Attempt backend API fetch if available, fallback gracefully to curated default articles
   useEffect(() => {
-    fetch('/api/blogs')
+   fetch(`${API_BASE_URL}/api/blogs`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch blogs');
         return res.json();
@@ -136,7 +137,7 @@ export default function BlogPage() {
     if (newsletterEmail.trim()) {
       setSubscribed(true);
       try {
-        await fetch('/api/enquiries', {
+     await fetch(`${API_BASE_URL}/api/enquiries`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
