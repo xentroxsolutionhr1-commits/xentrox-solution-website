@@ -185,7 +185,7 @@ function AdminPage() {
           categoryId: formData.get('categoryId'),
         };
         const multipart = new FormData();
-        multipart.append('project', new Blob([JSON.stringify(projectData)], { type: 'application/json' }));
+        multipart.append('project', multipart.append('project', JSON.stringify(projectData));
         const image = formData.get('image');
         if (image instanceof File && image.size > 0) multipart.append('image', image);
         await adminRequest(`/api/portfolio${editing ? `/${id}` : ''}`, { token: session.token, method: editing ? 'PUT' : 'POST', body: multipart });
