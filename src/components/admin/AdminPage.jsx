@@ -184,10 +184,19 @@ function AdminPage() {
           projectTechStack: formData.getAll('projectTechStack'),
           categoryId: formData.get('categoryId'),
         };
-        const multipart = new FormData();
-        multipart.append('project', multipart.append('project', JSON.stringify(projectData));
-        const image = formData.get('image');
-        if (image instanceof File && image.size > 0) multipart.append('image', image);
+      const multipart = new FormData();
+multipart.append('projectName', projectData.projectName || '');
+multipart.append('projectDescription', projectData.projectDescription || '');
+multipart.append('categoryId', projectData.categoryId || '');
+
+projectData.projectTechStack.forEach((tech) => {
+  multipart.append('projectTechStack', tech);
+});
+
+const image = formData.get('image');
+if (image instanceof File && image.size > 0) {
+  multipart.append('image', image);
+}
         await adminRequest(`/api/portfolio${editing ? `/${id}` : ''}`, { token: session.token, method: editing ? 'PUT' : 'POST', body: multipart });
       } else if (modal.type === 'blog') {
         const multipart = new FormData();
