@@ -34,3 +34,4 @@ server/.env.*
 server/node_modules
 server/uploads/*
 !server/uploads/.gitkeep
+server/reset-admin-password.js
