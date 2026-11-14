@@ -45,12 +45,12 @@ router.delete(
 router.use((err, req, res, next) => {
   console.error('[Portfolio Upload Error]', err);
 
-  if (err instanceof multer.MulterError) {
-    return res.status(400).json({
-      error: `Multer error: ${err.message}`,
-      field: err.field || null,
-    });
-  }
+ if (err instanceof multer.MulterError) {
+  return res.status(400).json({
+    error: `Multer error: ${err.message} (field: ${err.field || 'unknown'})`,
+    field: err.field || null,
+  });
+}
 
   return res.status(400).json({
     error: err.message || 'Portfolio upload failed.',
