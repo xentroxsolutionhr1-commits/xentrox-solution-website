@@ -1,5 +1,20 @@
+const cloudinary = require('../config/cloudinary');
 const Blog = require('../models/Blog');
+const uploadToCloudinary = (file) =>
+  new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: 'xentrox/blog',
+        resource_type: 'image',
+      },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.secure_url);
+      }
+    );
 
+    stream.end(file.buffer);
+  });
 const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find({}).sort({ createdAt: -1 });
@@ -14,7 +29,7 @@ const createBlog = async (req, res) => {
     const { title, content, author, tags, published } = req.body;
     if (!title || !content || !author) return res.status(400).json({ error: 'Title, content, and author are required.' });
     const parsedTags = typeof tags === 'string' ? tags.split(',').map((t) => t.trim()).filter(Boolean) : tags || [];
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
+    const imageUrl = req.file ? await uploadToCloudinary(req.file) : '';
     const blog = await Blog.create({ title, content, author, tags: parsedTags, published: published !== 'false', imageUrl });
     res.status(201).json(blog);
   } catch (err) {
@@ -34,7 +49,7 @@ const updateBlog = async (req, res) => {
       blog.tags = typeof tags === 'string' ? tags.split(',').map((t) => t.trim()).filter(Boolean) : tags || [];
     }
     if (published !== undefined) blog.published = published !== 'false' && published !== false;
-    if (req.file) blog.imageUrl = `/uploads/${req.file.filename}`;
+   if (req.file) blog.imageUrl = await uploadToCloudinary(req.file);
     await blog.save();
     res.json(blog);
   } catch (err) {
