@@ -1511,15 +1511,25 @@ function Dashboard() {
                   className="relative overflow-hidden"
                   style={{
                     WebkitMaskImage:
-                      'radial-gradient(ellipse 88% 84% at 46% 52%, #000 58%, rgba(0,0,0,0.68) 76%, transparent 100%)',
+                      'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 4%, #000 12%, #000 88%, rgba(0,0,0,0.6) 96%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 4%, #000 12%, #000 88%, rgba(0,0,0,0.6) 96%, transparent 100%)',
                     maskImage:
-                      'radial-gradient(ellipse 88% 84% at 46% 52%, #000 58%, rgba(0,0,0,0.68) 76%, transparent 100%)',
+                      'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 4%, #000 12%, #000 88%, rgba(0,0,0,0.6) 96%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 4%, #000 12%, #000 88%, rgba(0,0,0,0.6) 96%, transparent 100%)',
+                    WebkitMaskComposite: 'source-in',
+                    maskComposite: 'intersect',
                   }}
                 >
                   <img
                     src="/why-xentrox-team.jpg"
-                    alt="Diverse XentroX team collaborating naturally in a sunlit studio"
-                    className="block h-auto w-full max-w-[500px] object-cover mix-blend-multiply"
+                    alt="XentroX team collaborating naturally around a laptop"
+                    className="block h-auto w-full max-w-[500px] object-cover"
+                    style={{
+                      WebkitMaskImage:
+                        'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 4%, #000 12%, #000 88%, rgba(0,0,0,0.6) 96%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 4%, #000 12%, #000 88%, rgba(0,0,0,0.6) 96%, transparent 100%)',
+                      maskImage:
+                        'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 4%, #000 12%, #000 88%, rgba(0,0,0,0.6) 96%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 4%, #000 12%, #000 88%, rgba(0,0,0,0.6) 96%, transparent 100%)',
+                      WebkitMaskComposite: 'source-in',
+                      maskComposite: 'intersect',
+                    }}
                     loading="lazy"
                     decoding="async"
                   />
@@ -1741,17 +1751,16 @@ function Dashboard() {
                       >
                         {/* Timeline Dot (Always centered vertically with the icon) */}
                         <span
-                          className={`pointer-events-none absolute top-1/2 left-[9px] z-10 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300 ${
-                            isActive
-                              ? 'size-3.5 border-2 border-white'
-                              : 'size-2 bg-[#cbd5e1] group-hover:bg-[#94a3b8]'
-                          }`}
+                          className={`pointer-events-none absolute top-1/2 left-[9px] z-10 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300 ${isActive
+                            ? 'size-3.5 border-2 border-white'
+                            : 'size-2 bg-[#cbd5e1] group-hover:bg-[#94a3b8]'
+                            }`}
                           style={
                             isActive
                               ? {
-                                  backgroundColor: industry.accentDark,
-                                  boxShadow: `0 0 0 4px ${industry.accentSoft}`,
-                                }
+                                backgroundColor: industry.accentDark,
+                                boxShadow: `0 0 0 4px ${industry.accentSoft}`,
+                              }
                               : undefined
                           }
                           aria-hidden="true"
@@ -1759,17 +1768,16 @@ function Dashboard() {
 
                         {/* Circular Icon Badge */}
                         <span
-                          className={`flex size-11 shrink-0 items-center justify-center rounded-full border transition-all duration-300 sm:size-12 ${
-                            isActive
-                              ? 'border-transparent text-white'
-                              : 'border-[#d8e3df] bg-[#edf3f0] text-[#0f172a] shadow-[0_2px_6px_rgba(15,23,42,0.06)] group-hover:border-[#94b8a8] group-hover:bg-white'
-                          }`}
+                          className={`flex size-11 shrink-0 items-center justify-center rounded-full border transition-all duration-300 sm:size-12 ${isActive
+                            ? 'border-transparent text-white'
+                            : 'border-[#d8e3df] bg-[#edf3f0] text-[#0f172a] shadow-[0_2px_6px_rgba(15,23,42,0.06)] group-hover:border-[#94b8a8] group-hover:bg-white'
+                            }`}
                           style={
                             isActive
                               ? {
-                                  backgroundColor: industry.accentDark,
-                                  boxShadow: `0 0 0 4px ${industry.accentSoft}, 0 6px 16px -3px rgba(15, 23, 42, 0.22)`,
-                                }
+                                backgroundColor: industry.accentDark,
+                                boxShadow: `0 0 0 4px ${industry.accentSoft}, 0 6px 16px -3px rgba(15, 23, 42, 0.22)`,
+                              }
                               : undefined
                           }
                         >
@@ -1778,11 +1786,10 @@ function Dashboard() {
 
                         {/* Industry Label */}
                         <span
-                          className={`text-[15px] sm:text-base transition-colors duration-200 ${
-                            isActive
-                              ? 'font-bold text-[#064B38]'
-                              : 'font-semibold text-[#1e293b] group-hover:text-[#064B38]'
-                          }`}
+                          className={`text-[15px] sm:text-base transition-colors duration-200 ${isActive
+                            ? 'font-bold text-[#064B38]'
+                            : 'font-semibold text-[#1e293b] group-hover:text-[#064B38]'
+                            }`}
                           style={isActive ? { color: industry.accentDark } : undefined}
                         >
                           {industry.title}
@@ -2057,11 +2064,10 @@ function Dashboard() {
                       aria-selected={isActive}
                       aria-label={`Show review ${idx + 1} by ${testimonial.name}`}
                       onClick={() => setActiveTestimonialIndex(idx)}
-                      className={`h-2.5 cursor-pointer rounded-full border-0 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16A36A] ${
-                        isActive
-                          ? 'w-8 bg-[#16A36A] shadow-[0_2px_8px_rgba(22,163,106,0.4)]'
-                          : 'w-2.5 bg-[#cbd5e1] hover:bg-[#94a3b8]'
-                      }`}
+                      className={`h-2.5 cursor-pointer rounded-full border-0 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16A36A] ${isActive
+                        ? 'w-8 bg-[#16A36A] shadow-[0_2px_8px_rgba(22,163,106,0.4)]'
+                        : 'w-2.5 bg-[#cbd5e1] hover:bg-[#94a3b8]'
+                        }`}
                     />
                   );
                 })}
