@@ -162,26 +162,24 @@ export default function Portfolio() {
     <div className="portfolio-page">
       {/* 1. HERO SECTION */}
       <section className="pj-hero-section" aria-label="Portfolio Introduction">
-        <div className="pj-container">
-          <div className="pj-hero-bg-layer" aria-hidden="true">
-            <img
-              src="/portfolio-hero-friendly-robot.png"
-              alt=""
-              className="pj-hero-bg-img"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
+        <div className="pj-hero-bg-layer" aria-hidden="true">
+          <img
+            src="/portfolio/portfolio-hero.jpg"
+            alt="XentroX engineering team collaborating with laptops"
+            className="pj-hero-bg-img"
+            loading="eager"
+            decoding="async"
+          />
+          <div className="pj-hero-gradient-overlay" />
+        </div>
 
+        <div className="pj-container">
           <div className="pj-hero-content" data-scroll-reveal>
             <div className="pj-hero-text">
-
               <h1 className="pj-hero-title">
                 <span className="pj-title-forest">Good work.</span>
                 <span className="pj-title-lime">Real-world impact.</span>
               </h1>
-
-
             </div>
           </div>
         </div>

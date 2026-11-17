@@ -84,31 +84,39 @@
 
 .pj-hero-bg-layer {
   position: absolute;
-  top: 50%;
-  right: calc(clamp(1rem, 3.5vw, 2.25rem) - (100vw - 100%) / 2);
-  height: auto;
-  left: 50%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 58%;
   z-index: 1;
   pointer-events: none;
-  transform: translateY(calc(-50% + 10px));
+  overflow: hidden;
 }
 
 .pj-hero-bg-img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  object-position: center right;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
   display: block;
-  opacity: 1;
-  mix-blend-mode: multiply;
   -webkit-mask-image:
-    linear-gradient(90deg, transparent 0%, #000 19%, #000 91%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
-  -webkit-mask-composite: source-in;
+    linear-gradient(to right, transparent 0%, transparent 6%, rgba(0,0,0,0.5) 22%, #000 42%, #000 95%, rgba(0,0,0,0.5) 100%),
+    linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%);
   mask-image:
-    linear-gradient(90deg, transparent 0%, #000 19%, #000 91%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
+    linear-gradient(to right, transparent 0%, transparent 6%, rgba(0,0,0,0.5) 22%, #000 42%, #000 95%, rgba(0,0,0,0.5) 100%),
+    linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
   mask-composite: intersect;
+}
+
+.pj-hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, #EAF8F0 0%, rgba(234, 248, 240, 0.85) 15%, rgba(245, 251, 247, 0.4) 35%, transparent 60%),
+    linear-gradient(to top, #F5FBF7 0%, rgba(245, 251, 247, 0.8) 12%, transparent 30%),
+    linear-gradient(to bottom, rgba(234, 248, 240, 0.6) 0%, transparent 20%);
+  pointer-events: none;
 }
 
 .pj-hero-content {
@@ -943,6 +951,10 @@
     grid-template-columns: 1.35fr 0.65fr;
   }
 
+  .pj-hero-bg-layer {
+    width: 68%;
+  }
+
   .pj-featured-card {
     grid-template-columns: 1fr;
   }
@@ -982,13 +994,15 @@
   }
 
   .pj-hero-bg-layer {
-    top: auto;
-    bottom: 0.5rem;
-    left: 20%;
-    right: -10%;
-    height: auto;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.35;
     transform: none;
-    opacity: 0.32;
+  }
+
+  .pj-hero-bg-img {
+    object-position: 70% center;
   }
 
   .pj-hero-text {
