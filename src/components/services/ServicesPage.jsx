@@ -569,6 +569,7 @@ export default function ServicesPage() {
               <div className="services-tag" data-scroll-reveal>
                 <span className="services-tag-dash" aria-hidden="true" />
                 <span>What We Offer</span>
+                <span className="services-tag-dash" aria-hidden="true" />
               </div>
 
               <h1 className="services-hero-title" data-scroll-reveal>
@@ -672,6 +673,7 @@ export default function ServicesPage() {
               <div className="services-editorial-eyebrow">
                 <span className="services-editorial-eyebrow-line" aria-hidden="true" />
                 <span>OUR SERVICES</span>
+                <span className="services-editorial-eyebrow-line" aria-hidden="true" />
               </div>
 
               <h2 className="services-editorial-heading">

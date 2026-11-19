@@ -1603,9 +1603,11 @@ function Dashboard() {
         <div className="relative z-10 mx-auto w-full max-w-[1280px]">
           {/* Section Heading */}
           <div className="mx-auto max-w-2xl text-center">
-            <p className="m-0 text-xs font-bold uppercase tracking-[0.2em] text-[#16A36A] sm:text-[13px]">
-              HOW WE WORK
-            </p>
+            <div className="flex items-center justify-center gap-2.5 text-xs font-bold uppercase tracking-[0.2em] text-[#16A36A] sm:text-[13px]">
+              <span className="h-0.5 w-6 rounded-full bg-[#16A36A]" aria-hidden="true" />
+              <span>HOW WE WORK</span>
+              <span className="h-0.5 w-6 rounded-full bg-[#16A36A]" aria-hidden="true" />
+            </div>
 
             <h2 className="mt-2.5 text-[clamp(2rem,3.3vw,2.75rem)] font-extrabold leading-[1.15] tracking-[-0.025em] text-[#0f172a]">
               <span>Our </span>

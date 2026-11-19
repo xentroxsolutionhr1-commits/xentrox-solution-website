@@ -145,10 +145,11 @@
 }
 
 .services-tag-dash {
-  width: 16px;
+  width: 20px;
   height: 2px;
   background-color: var(--svc-emerald);
   border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 .services-hero-title {
@@ -321,9 +322,11 @@
 }
 
 .services-editorial-eyebrow-line {
-  width: 15px;
-  height: 1.25px;
+  width: 20px;
+  height: 2px;
   background-color: #162E21;
+  border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 .services-editorial-heading {

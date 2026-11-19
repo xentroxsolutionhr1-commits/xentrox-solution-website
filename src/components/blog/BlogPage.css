@@ -161,10 +161,11 @@
 }
 
 .blog-tag-dash {
-  width: 16px;
+  width: 20px;
   height: 2px;
   background-color: var(--b-emerald);
   border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 .blog-hero-title {

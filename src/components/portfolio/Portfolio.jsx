@@ -201,6 +201,7 @@ export default function Portfolio() {
             <div className="pj-section-tag">
               <span className="pj-tag-dash" aria-hidden="true" />
               <span>THE PROJECT JOURNAL</span>
+              <span className="pj-tag-dash" aria-hidden="true" />
             </div>
             <h2>Selected Client Work</h2>
         

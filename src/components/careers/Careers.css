@@ -236,10 +236,11 @@
 }
 
 .careers-eyebrow-line {
-  width: 16px;
+  width: 20px;
   height: 2px;
   background-color: var(--c-forest-green);
-  border-radius: 2px;
+  border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 .careers-section-title,

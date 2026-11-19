@@ -177,6 +177,7 @@ export default function BlogPage() {
                 <div className="blog-tag" data-scroll-reveal>
                   <span className="blog-tag-dash" aria-hidden="true" />
                   <span>The XentroX Journal</span>
+                  <span className="blog-tag-dash" aria-hidden="true" />
                 </div>
 
                 <h1 className="blog-hero-title" data-scroll-reveal>

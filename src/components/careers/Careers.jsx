@@ -178,6 +178,7 @@ export default function Careers() {
             <div className="careers-section-eyebrow">
               <span className="careers-eyebrow-line" aria-hidden="true" />
               <span>EXPLORE OPPORTUNITIES</span>
+              <span className="careers-eyebrow-line" aria-hidden="true" />
             </div>
             <h2 className="careers-section-title">Current Open Positions</h2>
             <p className="careers-section-desc">

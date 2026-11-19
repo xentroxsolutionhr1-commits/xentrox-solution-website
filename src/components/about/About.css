@@ -892,6 +892,7 @@
 .about-leadership-pill {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   font-size: 0.76rem;
   font-weight: 800;
@@ -902,10 +903,11 @@
 }
 
 .about-pill-dash {
-  width: 16px;
+  width: 20px;
   height: 2px;
   background-color: var(--c-primary-green);
-  border-radius: 2px;
+  border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 .about-founders-grid {

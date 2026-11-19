@@ -547,10 +547,11 @@
 }
 
 .pj-tag-dash {
-  width: 14px;
+  width: 20px;
   height: 2px;
   background-color: var(--pj-forest);
-  border-radius: 2px;
+  border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 .pj-showcase-header h2 {

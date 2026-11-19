@@ -356,6 +356,7 @@ export default function About() {
             <div className="about-leadership-pill">
               <span className="about-pill-dash" aria-hidden="true" />
               <span>LEADERSHIP</span>
+              <span className="about-pill-dash" aria-hidden="true" />
             </div>
             <h2>Founders &amp; Leadership Team</h2>
             <p>
