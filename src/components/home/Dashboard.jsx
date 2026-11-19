@@ -1548,10 +1548,10 @@ function Dashboard() {
                 {whyXentroxFeatures.map((feature) => (
                   <div
                     key={feature.id}
-                    className="group relative flex flex-col items-start"
+                    className="why-xentrox-feature-item group relative flex flex-col items-start"
                   >
                     {/* Minimalist Sage Green Icon + Tiny Numeral Accent (01, 02, 03, 04) */}
-                    <div className="flex items-center gap-3">
+                    <div className="why-xentrox-feature-badge flex items-center gap-2.5 sm:gap-3">
                       <div className="text-[#5e7f69] transition-transform duration-300 group-hover:scale-105 group-hover:text-[#064B38]">
                         {feature.icon}
                       </div>
@@ -1561,13 +1561,13 @@ function Dashboard() {
                     </div>
 
                     {/* Bold Two-Line Dark Green/Charcoal Title */}
-                    <h3 className="mt-3.5 text-[clamp(1.3rem,1.85vw,1.6rem)] font-bold leading-[1.18] tracking-[-0.02em] text-[#0b221a]">
-                      <span className="block">{feature.titleLine1}</span>
-                      <span className="block">{feature.titleLine2}</span>
+                    <h3 className="why-xentrox-feature-title text-[clamp(1.15rem,4.2vw,1.35rem)] font-bold leading-tight tracking-[-0.02em] text-[#0b221a] sm:mt-3.5 sm:text-[clamp(1.3rem,1.85vw,1.6rem)] sm:leading-[1.18]">
+                      <span className="sm:block">{feature.titleLine1} </span>
+                      <span className="sm:block">{feature.titleLine2}</span>
                     </h3>
 
                     {/* Editorial Body Copy */}
-                    <p className="mt-2.5 max-w-full text-[13.5px] leading-[1.62] text-[#22312b] sm:mt-3 sm:max-w-[290px] sm:text-[14.5px]">
+                    <p className="why-xentrox-feature-desc mt-2.5 max-w-full text-[13.5px] leading-[1.62] text-[#22312b] sm:mt-3 sm:max-w-[290px] sm:text-[14.5px]">
                       {feature.description}
                     </p>
                   </div>

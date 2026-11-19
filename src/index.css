@@ -781,3 +781,47 @@ a {
     transform: none !important;
   }
 }
+
+/* ========================================================================= */
+/* WHY XENTROX FEATURES - MOBILE RESPONSIVE ALIGNMENT (max-width: 639px)    */
+/* Row 1: [Icon + Numeral Badge] [Feature Heading] vertically centered       */
+/* Row 2: [Description] aligned directly below the heading                  */
+/* ========================================================================= */
+@media (max-width: 639px) {
+  .why-xentrox-feature-item {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    align-items: center !important;
+    column-gap: 0.75rem !important;
+    row-gap: 0.35rem !important;
+  }
+
+  .why-xentrox-feature-badge {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .why-xentrox-feature-title {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    column-gap: 0.35rem !important;
+    align-items: center !important;
+    align-self: center !important;
+    min-width: 0 !important;
+  }
+
+  .why-xentrox-feature-desc {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    margin-top: 0 !important;
+    max-width: 100% !important;
+  }
+}
